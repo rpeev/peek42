@@ -1,2 +1,3 @@
-# konsole
+# Konsole
+
 Simple JavaScript browser console

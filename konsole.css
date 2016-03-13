@@ -1,0 +1,46 @@
+.konsole-container {
+  position: fixed;
+  z-index: 1000;
+  bottom: 0.5em;
+  box-shadow: 0 0 1em gray;
+  filter: opacity(90%);
+  -webkit-filter: opacity(90%);
+  padding: 0.2em;
+  border: 1px solid gray;
+  /*border-radius: 0.4em;*/
+  background: whitesmoke;
+  color: navy;
+  font-size: 120%;
+}
+
+.konsole-control {
+  margin: 0;
+  padding: 0 0.4em 0 0.4em;
+  color: blue;
+}
+
+.konsole-title {
+  color: navy;
+  font-weight: bold;
+}
+
+.konsole-toggle {
+  float: right;
+}
+
+.konsole-resize {
+  float: right;
+}
+
+.konsole-clear {
+  float: right;
+}
+
+.konsole-log {
+  clear: both;
+  overflow: scroll;
+  margin: 0.2em;
+  padding-top: 0.5em;
+  border-top: 1px solid gray;
+  background: white;
+}
