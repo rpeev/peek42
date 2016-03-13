@@ -20,12 +20,16 @@ html {
 
     <script>
 document.addEventListener('DOMContentLoaded', function () {
-  kpp(window);
+  kp(document.getElementById('about'));
+  kpp(window, 'the window object');
 });
     </script>
   </head>
 
   <body>
 <h1 id="about">Konsole</h1>
+
+<p>Click Konsole title to scroll log to the top. Click it again to scroll to the bottom. When in the middle, click it to scroll to the top.
+</p>
   </body>
 </html>
