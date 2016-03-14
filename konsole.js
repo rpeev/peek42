@@ -34,8 +34,9 @@ function Konsole() {
   var _resizeData = {
     initialHeight: 480,
     currentHeight: 480,
-    dragY: null,
-    dragDelta: 0
+    dragY: 0,
+    dragDelta: 0,
+    resizing: false
   };
 
   _container.setAttribute('class', 'konsole-container');
@@ -67,19 +68,30 @@ function Konsole() {
   _resize.innerHTML = 'Resize';
   // TODO: add pointing device support
   _resize.addEventListener('touchstart', function (ev) {
-    _resizeData.dragY = null;
+    _resizeData.dragY = ev.touches[0].clientY;
     _resizeData.dragDelta = 0;
+    _resizeData.resizing = true;
+
+    //kpp(_resizeData, 'start'); // mmm, tasty dogfood
   });
   _resize.addEventListener('touchmove', function (ev) {
-    if (_resizeData.dragY) {
-      _resizeData.dragDelta = _resizeData.dragY - ev.touches[0].clientY;
-      _resizeData.currentHeight += _resizeData.dragDelta;
-      _log.style.height = _resizeData.currentHeight + 'px';
+    if (!_resizeData.resizing) {
+      return;
     }
 
+    _resizeData.dragDelta = _resizeData.dragY - ev.touches[0].clientY;
+    _resizeData.currentHeight += _resizeData.dragDelta;
+    _log.style.height = _resizeData.currentHeight + 'px';
     _resizeData.dragY = ev.touches[0].clientY;
 
+    //kpp(_resizeData, 'move');
+
     ev.preventDefault();
+  });
+  _resize.addEventListener('touchend', function (ev) {
+    _resizeData.resizing = false;
+
+    //kpp(_resizeData, 'end');
   });
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
