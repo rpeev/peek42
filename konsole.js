@@ -38,6 +38,20 @@ function Konsole() {
     dragDelta: 0,
     resizing: false
   };
+  _resizeData.dragStart = function (ev, clientY) {
+    _resizeData.dragY = clientY;
+    _resizeData.dragDelta = 0;
+    _resizeData.resizing = true;
+  };
+  _resizeData.dragMove = function (ev, clientY) {
+    _resizeData.dragDelta = _resizeData.dragY - clientY;
+    _resizeData.currentHeight += _resizeData.dragDelta;
+    _log.style.height = _resizeData.currentHeight + 'px';
+    _resizeData.dragY = clientY;
+  };
+  _resizeData.dragEnd = function (ev, clientY) {
+    _resizeData.resizing = false;
+  };
 
   _container.setAttribute('class', 'konsole-container');
   _container.style.width = '97%';
@@ -67,60 +81,53 @@ function Konsole() {
   _resize.setAttribute('class', 'konsole-control konsole-resize');
   _resize.innerHTML = 'Resize';
   _resize.addEventListener('touchstart', function (ev) {
-    _resizeData.dragY = ev.touches[0].clientY;
-    _resizeData.dragDelta = 0;
-    _resizeData.resizing = true;
+    _resizeData.dragStart(ev, ev.changedTouches[0].clientY);
 
     kpp(_resizeData, 'touchstart');
+  });
+  _resize.addEventListener('mousedown', function (ev) {
+    _resizeData.dragStart(ev, ev.clientY);
+
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    kpp(_resizeData, 'mousedown');
   });
   _resize.addEventListener('touchmove', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.dragDelta = _resizeData.dragY - ev.touches[0].clientY;
-    _resizeData.currentHeight += _resizeData.dragDelta;
-    _log.style.height = _resizeData.currentHeight + 'px';
-    _resizeData.dragY = ev.touches[0].clientY;
-
-    kpp(_resizeData, 'touchmove');
+    _resizeData.dragMove(ev, ev.changedTouches[0].clientY);
 
     ev.preventDefault();
     ev.stopPropagation();
-  });
-  _resize.addEventListener('touchend', function (ev) {
-    _resizeData.resizing = false;
 
-    kpp(_resizeData, 'touchend');
-  });
-  _resize.addEventListener('mousedown', function (ev) {
-    _resizeData.dragY = ev.clientY;
-    _resizeData.dragDelta = 0;
-    _resizeData.resizing = true;
-
-    kpp(_resizeData, 'mousedown');
+    kpp(_resizeData, 'touchmove');
   });
   document.body.addEventListener('mousemove', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.dragDelta = _resizeData.dragY - ev.clientY;
-    _resizeData.currentHeight += _resizeData.dragDelta;
-    _log.style.height = _resizeData.currentHeight + 'px';
-    _resizeData.dragY = ev.clientY;
-
-    kpp(_resizeData, 'mousemove');
+    _resizeData.dragMove(ev, ev.clientY);
 
     ev.preventDefault();
     ev.stopPropagation();
+
+    kpp(_resizeData, 'mousemove');
+  });
+  _resize.addEventListener('touchend', function (ev) {
+    _resizeData.dragEnd(ev, ev.changedTouches[0].clientY);
+
+    kpp(_resizeData, 'touchend');
   });
   document.body.addEventListener('mouseup', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.resizing = false;
+    _resizeData.dragEnd(ev, ev.clientY);
 
     kpp(_resizeData, 'mouseup');
   });
