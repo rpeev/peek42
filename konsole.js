@@ -83,7 +83,7 @@ function Konsole() {
   _resize.addEventListener('touchstart', function (ev) {
     _resizeData.dragStart(ev, ev.changedTouches[0].clientY);
 
-    kpp(_resizeData, 'touchstart');
+    //kpp(_resizeData, 'touchstart');
   });
   _resize.addEventListener('mousedown', function (ev) {
     _resizeData.dragStart(ev, ev.clientY);
@@ -91,7 +91,7 @@ function Konsole() {
     ev.preventDefault();
     ev.stopPropagation();
 
-    kpp(_resizeData, 'mousedown');
+    //kpp(_resizeData, 'mousedown');
   });
   _resize.addEventListener('touchmove', function (ev) {
     if (!_resizeData.resizing) {
@@ -103,7 +103,7 @@ function Konsole() {
     ev.preventDefault();
     ev.stopPropagation();
 
-    kpp(_resizeData, 'touchmove');
+    //kpp(_resizeData, 'touchmove');
   });
   document.body.addEventListener('mousemove', function (ev) {
     if (!_resizeData.resizing) {
@@ -115,12 +115,12 @@ function Konsole() {
     ev.preventDefault();
     ev.stopPropagation();
 
-    kpp(_resizeData, 'mousemove');
+    //kpp(_resizeData, 'mousemove');
   });
   _resize.addEventListener('touchend', function (ev) {
     _resizeData.dragEnd(ev, ev.changedTouches[0].clientY);
 
-    kpp(_resizeData, 'touchend');
+    //kpp(_resizeData, 'touchend');
   });
   document.body.addEventListener('mouseup', function (ev) {
     if (!_resizeData.resizing) {
@@ -129,7 +129,7 @@ function Konsole() {
 
     _resizeData.dragEnd(ev, ev.clientY);
 
-    kpp(_resizeData, 'mouseup');
+    //kpp(_resizeData, 'mouseup');
   });
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
