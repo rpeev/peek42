@@ -19,6 +19,10 @@
   color: blue;
 }
 
+.konsole-control:hover {
+  cursor: pointer;
+}
+
 .konsole-title {
   color: navy;
   font-weight: bold;

@@ -45,7 +45,7 @@ function Konsole() {
   _title.setAttribute('class', 'konsole-control konsole-title');
   _title.innerHTML = 'Konsole';
   _title.addEventListener('click', function (ev) {
-    if (_log.scrollTop === 0) {
+    if (_log.scrollTop == 0) {
       // if at the top of log, scroll to the bottom
       _log.scrollTop = _log.scrollHeight;
     } else {
@@ -66,13 +66,12 @@ function Konsole() {
 
   _resize.setAttribute('class', 'konsole-control konsole-resize');
   _resize.innerHTML = 'Resize';
-  // TODO: add pointing device support
   _resize.addEventListener('touchstart', function (ev) {
     _resizeData.dragY = ev.touches[0].clientY;
     _resizeData.dragDelta = 0;
     _resizeData.resizing = true;
 
-    //kpp(_resizeData, 'start'); // mmm, tasty dogfood
+    kpp(_resizeData, 'touchstart');
   });
   _resize.addEventListener('touchmove', function (ev) {
     if (!_resizeData.resizing) {
@@ -84,14 +83,46 @@ function Konsole() {
     _log.style.height = _resizeData.currentHeight + 'px';
     _resizeData.dragY = ev.touches[0].clientY;
 
-    //kpp(_resizeData, 'move');
+    kpp(_resizeData, 'touchmove');
 
     ev.preventDefault();
+    ev.stopPropagation();
   });
   _resize.addEventListener('touchend', function (ev) {
     _resizeData.resizing = false;
 
-    //kpp(_resizeData, 'end');
+    kpp(_resizeData, 'touchend');
+  });
+  _resize.addEventListener('mousedown', function (ev) {
+    _resizeData.dragY = ev.clientY;
+    _resizeData.dragDelta = 0;
+    _resizeData.resizing = true;
+
+    kpp(_resizeData, 'mousedown');
+  });
+  document.body.addEventListener('mousemove', function (ev) {
+    if (!_resizeData.resizing) {
+      return;
+    }
+
+    _resizeData.dragDelta = _resizeData.dragY - ev.clientY;
+    _resizeData.currentHeight += _resizeData.dragDelta;
+    _log.style.height = _resizeData.currentHeight + 'px';
+    _resizeData.dragY = ev.clientY;
+
+    kpp(_resizeData, 'mousemove');
+
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  document.body.addEventListener('mouseup', function (ev) {
+    if (!_resizeData.resizing) {
+      return;
+    }
+
+    _resizeData.resizing = false;
+
+    kpp(_resizeData, 'mouseup');
   });
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
