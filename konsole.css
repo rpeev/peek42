@@ -3,11 +3,9 @@
   z-index: 1000;
   bottom: 0.5em;
   box-shadow: 0 0 1em gray;
-  filter: opacity(90%);
-  -webkit-filter: opacity(90%);
+  opacity: 0.9;
   padding: 0.2em;
   border: 1px solid gray;
-  /*border-radius: 0.4em;*/
   background: whitesmoke;
   color: navy;
   font-size: 120%;
