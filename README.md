@@ -4,6 +4,8 @@ Simple JavaScript browser console (suitable for touch-based devices like tablets
 
 ![Screenshot of Konsole on an iPad mini 3](./screenshot.png)
 
+[Live example](https://rpeev.github.io/konsole/)
+
 ## Install
 
 ### In a html page
