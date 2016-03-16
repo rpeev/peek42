@@ -1,24 +1,3 @@
-function pretty(obj) {
-  var objs = [], keys = [];
-
-  return JSON.stringify(obj, function (k, v) {
-    var seen;
-
-    if (v instanceof Object) {
-      if ( (seen = objs.indexOf(v)) == -1 ) {
-        objs.push(v);
-        keys.push(k || 'ROOT');
-
-        return v;
-      }
-
-      return v + ' (ref to ' + keys[seen] + ')';
-    }
-
-    return v;
-  }, 2);
-}
-
 function Konsole() {
   var _this = this;
 
@@ -60,10 +39,10 @@ function Konsole() {
   _title.innerHTML = 'Konsole';
   _title.addEventListener('click', function (ev) {
     if (_log.scrollTop == 0) {
-      // if at the top of log, scroll to the bottom
+      // if at the top of the log, scroll to the bottom
       _log.scrollTop = _log.scrollHeight;
     } else {
-      // when anywhere in log, scroll to the top
+      // when anywhere in the log, scroll to the top
       _log.scrollTop = 0;
     }
   });
@@ -200,11 +179,35 @@ function Konsole() {
     }
     _log.textContent += obj + '\n---\n';
 
-    // scroll to the bottom of log
+    // scroll to the bottom of the log
     _log.scrollTop = _log.scrollHeight;
 
     return _this;
   };
+
+  // start minimized
+  _this.minimize();
+}
+
+Konsole.pretty = function (obj) {
+  var objs = [], keys = [];
+
+  return JSON.stringify(obj, function (k, v) {
+    var seen;
+
+    if (v instanceof Object) {
+      if ( (seen = objs.indexOf(v)) == -1 ) {
+        objs.push(v);
+        keys.push(k || 'ROOT');
+
+        return v;
+      }
+
+      return v + ' (ref to ' + keys[seen] + ')';
+    }
+
+    return v;
+  }, 2);
 }
 
 var konsole;
@@ -212,8 +215,6 @@ var konsole;
 document.addEventListener('DOMContentLoaded', function () {
   if (!konsole) {
     konsole = new Konsole();
-    // konsole is created without anything being written to it, so minimize it
-    konsole.minimize();
   }
 });
 
@@ -239,14 +240,14 @@ function kp(obj, comment) {
 }
 
 function kpp(obj, comment) {
-  kp(pretty(obj), comment);
+  kp(Konsole.pretty(obj), comment);
 }
 
 window.addEventListener('error', function () {
   kpp(arguments);
 });
 
-function knoop() {
+Konsole.noop = function () {
   konsole = true; // prevent creation on DOM ready
   kpp = kp = function () {};
 }
