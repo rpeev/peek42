@@ -9,8 +9,9 @@ Simple JavaScript browser console (suitable for touch-based devices like tablets
 ### In a html page
 
 Reference **konsole.css** and **konsole.js** in the page head:  
-*&lt;link rel="stylesheet" href="path/to/konsole.css" /&gt;*  
-*&lt;script src="path/to/konsole.js"&gt;&lt;/script&gt;*
+
+    <link rel="stylesheet" href="path/to/konsole.css" />  
+    <script src="path/to/konsole.js"></script>
 
 ### Bookmarklet
 
@@ -22,7 +23,9 @@ TBD
 
 Konsole makes two global functions available - **kp***(obj[, comment])* (stands for **konsole print**) and **kpp***(obj[, comment])* (stands for **konsole pretty print**).
 
-Both functions accept javascript object to dump and optional comment. **kp** effectively uses object's *toString* method, while **kpp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) for representation. If provided, the comment is logged like single-line js comment, on a line before the object. Log entries are separated by a line containing three dashes.
+Both functions accept javascript object to dump and optional comment. **kp** effectively uses object's *toString* method, while **kpp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) for representation. If provided, the comment is logged like single-line js comment, on a line before the object. Log entries are separated by a line containing three dashes. Konsole listens for JavaScript errors and uses **kpp** to show them with the error message as a comment.
+
+**Konsole.noop()** can be called at the top of the script to replace **kp** and **kpp** with do-nothing functions.
 
 ### UI
 

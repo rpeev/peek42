@@ -10,9 +10,15 @@
     <script src="./konsole.js"></script>
 
     <script>
+//Konsole.noop();
+
+kpp(document.body, 'log call before DOM ready');
+
 document.addEventListener('DOMContentLoaded', function () {
   kp(document.getElementById('about'));
   kpp(window, 'the window object');
+
+  boom
 });
     </script>
   </head>
