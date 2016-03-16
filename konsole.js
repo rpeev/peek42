@@ -210,11 +210,14 @@ Konsole.pretty = function (obj) {
   }, 2);
 }
 
-var konsole;
+Konsole.noop = function () {
+  Konsole.defInst = {};
+  kpp = kp = function () {};
+}
 
 document.addEventListener('DOMContentLoaded', function () {
-  if (!konsole) {
-    konsole = new Konsole();
+  if (!Konsole.defInst) {
+    Konsole.defInst = new Konsole();
   }
 });
 
@@ -222,21 +225,21 @@ function kp(obj, comment) {
   if (document.readyState === 'loading') {
     // defer kp calls made before DOM ready
     document.addEventListener('DOMContentLoaded', function () {
-      kp(obj, 'log call was placed before DOM ready');
+      kp(obj, comment);
     });
 
     return;
   }
 
-  if (!konsole) {
-    konsole = new Konsole();
+  if (!Konsole.defInst) {
+    Konsole.defInst = new Konsole();
   }
 
-  if (konsole.minimized()) {
-    konsole.show();
+  if (Konsole.defInst.minimized()) {
+    Konsole.defInst.show();
   }
 
-  konsole.log(obj, comment);
+  Konsole.defInst.log(obj, comment);
 }
 
 function kpp(obj, comment) {
@@ -244,10 +247,5 @@ function kpp(obj, comment) {
 }
 
 window.addEventListener('error', function () {
-  kpp(arguments);
+  kpp(arguments, arguments[0].message);
 });
-
-Konsole.noop = function () {
-  konsole = true; // prevent creation on DOM ready
-  kpp = kp = function () {};
-}
