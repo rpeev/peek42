@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Konsole</title>
+
+    <link rel="stylesheet" href="./lib/konsole/konsole.css" />
+    <script src="./lib/konsole/konsole.js"></script>
+
+    <script>
+//Konsole.noop();
+
+kpp(document.body, 'log call before DOM ready');
+
+document.addEventListener('DOMContentLoaded', function () {
+  kp(document.getElementById('about'));
+  kpp(window, 'the window object');
+
+  boom
+});
+    </script>
+  </head>
+
+  <body>
+<h1 id="about">Konsole [<a href="./index.html">Index</a>]</h1>
+
+<p>Click Konsole title to scroll the log to the top. Click it again to scroll to the bottom. When in the middle of the log, click the title to scroll to the top.
+</p>
+  </body>
+</html>
