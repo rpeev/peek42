@@ -11,24 +11,38 @@ function Konsole() {
   var _minimized = false;
 
   var _resizeData = {
-    initialHeight: 480,
-    currentHeight: 480,
+    height: window.innerHeight / 3,
     dragY: 0,
     dragDelta: 0,
     resizing: false
   };
+
   _resizeData.dragStart = function (ev, clientY) {
     _resizeData.dragY = clientY;
     _resizeData.dragDelta = 0;
     _resizeData.resizing = true;
   };
   _resizeData.dragMove = function (ev, clientY) {
+    var maxHeight = window.innerHeight * 0.85,
+      minHeight = window.innerHeight * 0.05;
+
     _resizeData.dragDelta = _resizeData.dragY - clientY;
-    _resizeData.currentHeight += _resizeData.dragDelta;
-    _log.style.height = _resizeData.currentHeight + 'px';
+    _resizeData.height += _resizeData.dragDelta;
+
+    if (_resizeData.height > maxHeight || _resizeData.height < minHeight) {
+      _container.style.borderColor = 'red';
+    } else {
+      _container.style.borderColor = 'gray';
+    }
+
+    _resizeData.height = Math.min(_resizeData.height, maxHeight);
+    _resizeData.height = Math.max(_resizeData.height, minHeight);
+
+    _log.style.height = _resizeData.height + 'px';
     _resizeData.dragY = clientY;
   };
   _resizeData.dragEnd = function (ev, clientY) {
+    _container.style.borderColor = 'gray';
     _resizeData.resizing = false;
   };
 
@@ -118,7 +132,7 @@ function Konsole() {
   });
 
   _log.setAttribute('class', 'konsole-log');
-  _log.style.height = _resizeData.initialHeight + 'px';
+  _log.style.height = _resizeData.height + 'px';
 
   _container.appendChild(_title);
   _container.appendChild(_toggle);
