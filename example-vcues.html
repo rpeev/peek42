@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Konsole - visual cues</title>
+
+    <link rel="stylesheet" href="./lib/konsole/konsole.css" />
+    <script src="./lib/konsole/konsole.js"></script>
+
+    <script>
+//Konsole.noop();
+
+document.addEventListener('DOMContentLoaded', function () {
+  var rand = document.getElementById('rand'),
+    boom = document.getElementById('boom');
+
+  rand.addEventListener('click', function () {
+    kp(Math.random());
+  });
+
+  boom.addEventListener('click', function () {
+    bang
+  });
+});
+    </script>
+  </head>
+
+  <body>
+<h1 id="about">Konsole - visual cues [<a href="./index.html">Index</a>]</h1>
+
+<button id="rand">Rand</button>
+<button id="boom">Boom</button>
+
+<p>Click the buttons and Konsole Clear and observe the visual cues.
+</p>
+  </body>
+</html>
