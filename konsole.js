@@ -12,6 +12,7 @@ function Konsole() {
 
   var _resizeData = {
     height: window.innerHeight / 3,
+    ratio: 1/3,
     dragY: 0,
     dragDelta: 0,
     resizing: false
@@ -48,6 +49,7 @@ function Konsole() {
     _resizeData.dragY = clientY;
   };
   _resizeData.dragEnd = function () {
+    _resizeData.ratio = _resizeData.height / window.innerHeight;
     _resizeData.dragY = 0;
     _resizeData.dragDelta = 0;
     _resizeData.resizing = false;
@@ -125,6 +127,10 @@ function Konsole() {
     }
 
     _resizeData.dragEnd();
+  });
+  window.addEventListener('resize', function () {
+    _resizeData.height = window.innerHeight * _resizeData.ratio;
+    _log.style.height = _resizeData.height + 'px';
   });
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
