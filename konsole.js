@@ -17,12 +17,12 @@ function Konsole() {
     resizing: false
   };
 
-  _resizeData.dragStart = function (ev, clientY) {
+  _resizeData.dragStart = function (clientY) {
     _resizeData.dragY = clientY;
     _resizeData.dragDelta = 0;
     _resizeData.resizing = true;
   };
-  _resizeData.dragMove = function (ev, clientY) {
+  _resizeData.dragMove = function (clientY) {
     var maxHeight = window.innerHeight * 0.85,
       minHeight = window.innerHeight * 0.05;
 
@@ -30,19 +30,26 @@ function Konsole() {
     _resizeData.height += _resizeData.dragDelta;
 
     if (_resizeData.height > maxHeight || _resizeData.height < minHeight) {
-      _container.style.borderColor = 'red';
-    } else {
-      _container.style.borderColor = 'gray';
-    }
+      _resizeData.height = Math.min(_resizeData.height, maxHeight);
+      _resizeData.height = Math.max(_resizeData.height, minHeight);
+      _log.style.height = _resizeData.height + 'px';
 
-    _resizeData.height = Math.min(_resizeData.height, maxHeight);
-    _resizeData.height = Math.max(_resizeData.height, minHeight);
+      _container.style.borderColor = 'red';
+      setTimeout(function () {
+        _container.style.borderColor = 'gray';
+      }, 300);
+
+      _resizeData.dragEnd();
+
+      return;
+    }
 
     _log.style.height = _resizeData.height + 'px';
     _resizeData.dragY = clientY;
   };
-  _resizeData.dragEnd = function (ev, clientY) {
-    _container.style.borderColor = 'gray';
+  _resizeData.dragEnd = function () {
+    _resizeData.dragY = 0;
+    _resizeData.dragDelta = 0;
     _resizeData.resizing = false;
   };
 
@@ -74,55 +81,50 @@ function Konsole() {
   _resize.setAttribute('class', 'konsole-control konsole-resize');
   _resize.innerHTML = 'Resize';
   _resize.addEventListener('touchstart', function (ev) {
-    _resizeData.dragStart(ev, ev.changedTouches[0].clientY);
-
-    //kpp(_resizeData, 'touchstart');
-  });
-  _resize.addEventListener('mousedown', function (ev) {
-    _resizeData.dragStart(ev, ev.clientY);
+    _resizeData.dragStart(ev.touches[0].clientY);
 
     ev.preventDefault();
     ev.stopPropagation();
-
-    //kpp(_resizeData, 'mousedown');
   });
-  _resize.addEventListener('touchmove', function (ev) {
+  _resize.addEventListener('mousedown', function (ev) {
+    _resizeData.dragStart(ev.clientY);
+
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  document.body.addEventListener('touchmove', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.dragMove(ev, ev.changedTouches[0].clientY);
+    _resizeData.dragMove(ev.touches[0].clientY);
 
     ev.preventDefault();
     ev.stopPropagation();
-
-    //kpp(_resizeData, 'touchmove');
   });
   document.body.addEventListener('mousemove', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.dragMove(ev, ev.clientY);
+    _resizeData.dragMove(ev.clientY);
 
     ev.preventDefault();
     ev.stopPropagation();
-
-    //kpp(_resizeData, 'mousemove');
   });
-  _resize.addEventListener('touchend', function (ev) {
-    _resizeData.dragEnd(ev, ev.changedTouches[0].clientY);
+  document.body.addEventListener('touchend', function (ev) {
+    if (!_resizeData.resizing) {
+      return;
+    }
 
-    //kpp(_resizeData, 'touchend');
+    _resizeData.dragEnd();
   });
   document.body.addEventListener('mouseup', function (ev) {
     if (!_resizeData.resizing) {
       return;
     }
 
-    _resizeData.dragEnd(ev, ev.clientY);
-
-    //kpp(_resizeData, 'mouseup');
+    _resizeData.dragEnd();
   });
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
