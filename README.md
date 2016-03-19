@@ -27,7 +27,7 @@ TBD
 
 Konsole makes three global functions available - **kp***(obj[, comment])* (stands for **konsole print**), **kpp***(obj[, comment])* (stands for **konsole pretty print**) and **kpm***(obj[, comment])* (stands for **konsole print members**).
 
-All functions accept javascript object to dump and optional comment. **kp** effectively uses object's *toString* method, **kpp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) and **kpm** uses *Object.getOwnPropertyNames(object)*. If provided, the comment is logged like single-line js comment, on a line before the object. Log entries are separated by a line containing three dashes. Konsole listens for JavaScript errors and uses **kpp** to show them with the error message as a comment.
+All functions accept javascript object to dump and optional comment. **kp** effectively uses object's *toString* method, **kpp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) and **kpm** uses *Object.getOwnPropertyNames(object)*. The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. Konsole listens for JavaScript errors and uses **kpp** to show them with the error message as a comment.
 
 **Konsole.noop***()* can be called at the top of the script to replace **kp**, **kpp** and **kpm** with do-nothing functions.
 

@@ -1,5 +1,5 @@
 /*
-  Konsole v1.0.0
+  Konsole v1.0.1
 
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
