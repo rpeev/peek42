@@ -325,6 +325,17 @@ Konsole.pretty = function (obj) {
   }, 2);
 }
 
+Konsole.defCommentFor = function (obj) {
+  var s = obj.toString().replace(/\s+/g, ' '),
+    max = 42;
+
+  if (s.length > max) {
+    s = s.slice(0, max) + '...';
+  }
+
+  return s;
+};
+
 Konsole.noop = function () {
   Konsole.defInst = {};
   kpm = kpp = kp = function () {};
@@ -337,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function kp(obj, comment, err) {
-  comment = comment || '(value) ' + obj.toString().replace(/\s+/g, ' ');
+  comment = comment || '(value) ' + Konsole.defCommentFor(obj);
 
   if (document.readyState === 'loading') {
     // defer kp calls made before DOM ready
@@ -360,13 +371,13 @@ function kp(obj, comment, err) {
 }
 
 function kpp(obj, comment, err) {
-  comment = comment || '(pretty) ' + obj.toString().replace(/\s+/g, ' ');
+  comment = comment || '(pretty) ' + Konsole.defCommentFor(obj);
 
   kp(Konsole.pretty(obj), comment, err);
 }
 
 function kpm(obj, comment, err) {
-  comment = comment || '(members) ' + obj.toString().replace(/\s+/g, ' ');
+  comment = comment || '(members) ' + Konsole.defCommentFor(obj);
 
   kpp(Object.getOwnPropertyNames(obj), comment, err);
 }
