@@ -189,7 +189,7 @@ function Konsole() {
 
     if (ev.charCode == crCode || ev.charCode == lfCode) {
       js = _eval.value.slice(0);
-      src = _printFn + '(' + js + ', "' + js + ' (' + printFnMap[_printFn] + ')")';
+      src = _printFn + '(' + js + ', \'(' + printFnMap[_printFn] + ') ' + js + '\');';
 
       eval(src);
     }
@@ -269,10 +269,9 @@ function Konsole() {
   };
 
   _this.log = function (obj, comment, err) {
-    if (comment) {
-      _log.textContent += '// ' + comment + '\n';
-    }
-    _log.textContent += obj + '\n---\n';
+    comment = comment || '';
+
+    _log.textContent += '// ' + comment + '\n' + obj + '\n';
 
     // scroll to the bottom of the log
     _log.scrollTop = _log.scrollHeight;
@@ -338,6 +337,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function kp(obj, comment, err) {
+  comment = comment || '(value) ' + obj.toString().replace(/\s+/g, ' ');
+
   if (document.readyState === 'loading') {
     // defer kp calls made before DOM ready
     document.addEventListener('DOMContentLoaded', function () {
@@ -359,10 +360,14 @@ function kp(obj, comment, err) {
 }
 
 function kpp(obj, comment, err) {
+  comment = comment || '(pretty) ' + obj.toString().replace(/\s+/g, ' ');
+
   kp(Konsole.pretty(obj), comment, err);
 }
 
 function kpm(obj, comment, err) {
+  comment = comment || '(members) ' + obj.toString().replace(/\s+/g, ' ');
+
   kpp(Object.getOwnPropertyNames(obj), comment, err);
 }
 
