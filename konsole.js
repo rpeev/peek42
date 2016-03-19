@@ -291,6 +291,10 @@ function kpp(obj, comment, err) {
   kp(Konsole.pretty(obj), comment, err);
 }
 
+function kpm(obj, comment, err) {
+  kpp(Object.getOwnPropertyNames(obj), comment, err);
+}
+
 window.addEventListener('error', function () {
   kpp(arguments, arguments[0].message, true);
 });
