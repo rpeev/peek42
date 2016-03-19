@@ -257,7 +257,7 @@ Konsole.pretty = function (obj) {
 
 Konsole.noop = function () {
   Konsole.defInst = {};
-  kpp = kp = function () {};
+  kpm = kpp = kp = function () {};
 }
 
 document.addEventListener('DOMContentLoaded', function () {
