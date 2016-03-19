@@ -6,8 +6,13 @@ function Konsole() {
     _toggle = document.createElement('span'),
     _resize = document.createElement('span'),
     _clear = document.createElement('span'),
+    _kp = document.createElement('span'),
+    _kpp = document.createElement('span'),
+    _kpm = document.createElement('span'),
     _eval = document.createElement('input'),
     _log = document.createElement('pre');
+
+  var _printFn = 'kp';
 
   var _minimized = false;
 
@@ -140,18 +145,51 @@ function Konsole() {
     _this.clear();
   });
 
+  _kp.setAttribute('class', 'konsole-control konsole-pfn');
+  _kp.innerHTML = 'kp';
+  _kp.addEventListener('click', function (ev) {
+    _printFn = 'kp';
+    this.style.fontWeight = 'bold';
+    _kpp.style.fontWeight = 'inherit';
+    _kpm.style.fontWeight = 'inherit';
+    _eval.focus();
+  });
+
+  _kpp.setAttribute('class', 'konsole-control konsole-pfn');
+  _kpp.innerHTML = 'kpp';
+  _kpp.addEventListener('click', function (ev) {
+    _printFn = 'kpp';
+    _kp.style.fontWeight = 'inherit';
+    this.style.fontWeight = 'bold';
+    _kpm.style.fontWeight = 'inherit';
+    _eval.focus();
+  });
+
+  _kpm.setAttribute('class', 'konsole-control konsole-pfn');
+  _kpm.innerHTML = 'kpm';
+  _kpm.addEventListener('click', function (ev) {
+    _printFn = 'kpm';
+    _kp.style.fontWeight = 'inherit';
+    _kpp.style.fontWeight = 'inherit';
+    this.style.fontWeight = 'bold';
+    _eval.focus();
+  });
+
   _eval.setAttribute('class', 'konsole-control konsole-eval');
   _eval.placeholder = 'JS to evaluate';
   _eval.addEventListener('keypress', function (ev) {
     var crCode = '\r'.charCodeAt(0),
       lfCode = '\n'.charCodeAt(0),
-      js, src;
+      js, src,
+      printFnMap = {
+        kp: 'value',
+        kpp: 'pretty',
+        kpm: 'members'
+      };
 
     if (ev.charCode == crCode || ev.charCode == lfCode) {
       js = _eval.value.slice(0);
-      _eval.value = '';
-      _eval.blur();
-      src = 'kp(' + js + ', "' + js + '")';
+      src = _printFn + '(' + js + ', "' + js + ' (' + printFnMap[_printFn] + ')")';
 
       eval(src);
     }
@@ -165,6 +203,9 @@ function Konsole() {
   _container.appendChild(_resize);
   _container.appendChild(_clear);
   _container.appendChild(_eval);
+  _container.appendChild(_kp);
+  _container.appendChild(_kpp);
+  _container.appendChild(_kpm);
   _container.appendChild(_log);
 
   document.body.appendChild(_container);
@@ -189,6 +230,9 @@ function Konsole() {
     _toggle.innerHTML = 'Minimize';
     _resize.style.display = '';
     _clear.style.display = '';
+    _kp.style.display = '';
+    _kpp.style.display = '';
+    _kpm.style.display = '';
     _eval.style.display = '';
     _log.style.display = '';
 
@@ -202,6 +246,9 @@ function Konsole() {
     _toggle.innerHTML = 'Show';
     _resize.style.display = 'none';
     _clear.style.display = 'none';
+    _kp.style.display = 'none';
+    _kpp.style.display = 'none';
+    _kpm.style.display = 'none';
     _eval.style.display = 'none';
     _log.style.display = 'none';
 
@@ -250,6 +297,9 @@ function Konsole() {
 
     return _this;
   };
+
+  // print eval'ed objects as a string by default
+  _kp.click();
 
   // start minimized
   _this.minimize();

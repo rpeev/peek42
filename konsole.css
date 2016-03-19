@@ -39,10 +39,14 @@
   float: right;
 }
 
+.konsole-pfn {
+  float: right;
+}
+
 .konsole-eval {
   float: right;
   height: 1.7em;
-  width: 30%;
+  width: 25%;
   margin-top: 0.1em;
 }
 
