@@ -1,3 +1,9 @@
+/*
+  Konsole v1.0.0
+
+  Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
+*/
+
 .konsole-container {
   position: fixed;
   z-index: 1000;
@@ -37,6 +43,17 @@
 
 .konsole-clear {
   float: right;
+}
+
+.konsole-pfn {
+  float: right;
+}
+
+.konsole-eval {
+  float: right;
+  height: 1.7em;
+  width: 25%;
+  margin-top: 0.1em;
 }
 
 .konsole-log {
