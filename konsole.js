@@ -1,3 +1,9 @@
+/*
+  Konsole v1.0.0
+
+  Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
+*/
+
 function Konsole() {
   var _this = this;
 

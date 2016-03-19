@@ -42,4 +42,6 @@ Clicking the title (**Konsole**) works like this:
 
 Use **Resize** to resize *Konsole* and **Clear** to clear the log contents.
 
+Use the text box **JS to evaluate** to eval JavaScript code and the controls before it to select the output function (**kp** is the default).
+
 See **konsole.html** for an example.
