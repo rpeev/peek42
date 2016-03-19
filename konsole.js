@@ -6,6 +6,7 @@ function Konsole() {
     _toggle = document.createElement('span'),
     _resize = document.createElement('span'),
     _clear = document.createElement('span'),
+    _eval = document.createElement('input'),
     _log = document.createElement('pre');
 
   var _minimized = false;
@@ -139,6 +140,23 @@ function Konsole() {
     _this.clear();
   });
 
+  _eval.setAttribute('class', 'konsole-control konsole-eval');
+  _eval.placeholder = 'JS to evaluate';
+  _eval.addEventListener('keypress', function (ev) {
+    var crCode = '\r'.charCodeAt(0),
+      lfCode = '\n'.charCodeAt(0),
+      js, src;
+
+    if (ev.charCode == crCode || ev.charCode == lfCode) {
+      js = _eval.value.slice(0);
+      _eval.value = '';
+      _eval.blur();
+      src = 'kp(' + js + ', "' + js + '")';
+
+      eval(src);
+    }
+  });
+
   _log.setAttribute('class', 'konsole-log');
   _log.style.height = _resizeData.height + 'px';
 
@@ -146,6 +164,7 @@ function Konsole() {
   _container.appendChild(_toggle);
   _container.appendChild(_resize);
   _container.appendChild(_clear);
+  _container.appendChild(_eval);
   _container.appendChild(_log);
 
   document.body.appendChild(_container);
@@ -170,6 +189,7 @@ function Konsole() {
     _toggle.innerHTML = 'Minimize';
     _resize.style.display = '';
     _clear.style.display = '';
+    _eval.style.display = '';
     _log.style.display = '';
 
     _minimized = false;
@@ -182,6 +202,7 @@ function Konsole() {
     _toggle.innerHTML = 'Show';
     _resize.style.display = 'none';
     _clear.style.display = 'none';
+    _eval.style.display = 'none';
     _log.style.display = 'none';
 
     _minimized = true;

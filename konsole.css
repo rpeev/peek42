@@ -39,6 +39,13 @@
   float: right;
 }
 
+.konsole-eval {
+  float: right;
+  height: 1.7em;
+  width: 30%;
+  margin-top: 0.1em;
+}
+
 .konsole-log {
   clear: both;
   overflow: scroll;
