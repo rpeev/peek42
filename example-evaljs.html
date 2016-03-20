@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Konsole - eval JS</title>
+
+    <link rel="stylesheet" href="./lib/konsole/konsole.css" />
+    <script src="./lib/konsole/konsole.js"></script>
+
+    <script>
+//Konsole.noop();
+
+document.addEventListener('DOMContentLoaded', function () {
+  var konsole = Konsole.defInst,
+    kdom = konsole.dom();
+
+  konsole.show();
+  kdom.eval.value = 'document.location';
+});
+    </script>
+  </head>
+
+  <body>
+<h1 id="about">Konsole - eval JS [<a href="./index.html">Index</a>]</h1>
+
+<p>Click the input box (or kp, kpp or kpm). Press enter to evaluate the pre-filled expression. Switch between kp, kpp and kpm (followed by enter) to see different representations. Click Konsole title to alternate log position between beginning (bottom) and end (start). Click Clear to clear the log. The input box focus is preserved, so hitting enter evaluates the expression again.
+</p>
+  </body>
+</html>
