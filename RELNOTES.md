@@ -1,5 +1,11 @@
 # Release Notes
 
+## 1.0.5
+
+UI
+
+* when minimized, Konsole features checkbox **Shhhh!** that puts it in 'quiet' mode when on - when log write occurs, it only flashes but stays minimized
+
 ## 1.0.4
 
 UI
