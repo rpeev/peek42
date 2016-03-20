@@ -72,7 +72,7 @@ function Konsole() {
 
   _title.setAttribute('class', 'konsole-control konsole-title');
   _title.innerHTML = 'Konsole';
-  _title.addEventListener('click', function (ev) {
+  _title.addEventListener('mousedown', function (ev) {
     if (_log.scrollTop == 0) {
       // if at the top of the log, scroll to the bottom
       _log.scrollTop = _log.scrollHeight;
@@ -80,6 +80,9 @@ function Konsole() {
       // when anywhere in the log, scroll to the top
       _log.scrollTop = 0;
     }
+
+    ev.preventDefault();
+    ev.stopPropagation();
   });
 
   _toggle.setAttribute('class', 'konsole-control konsole-toggle');
@@ -147,38 +150,57 @@ function Konsole() {
 
   _clear.setAttribute('class', 'konsole-control konsole-clear');
   _clear.innerHTML = 'Clear';
-  _clear.addEventListener('click', function (ev) {
+  _clear.addEventListener('mousedown', function (ev) {
     _this.clear();
+
+    ev.preventDefault();
+    ev.stopPropagation();
   });
 
   _kp.setAttribute('class', 'konsole-control konsole-pfn');
   _kp.innerHTML = 'kp';
-  _kp.addEventListener('click', function (ev) {
+  _kp.style.fontWeight = 'bold';
+  _kp.addEventListener('mousedown', function (ev) {
     _printFn = 'kp';
-    this.style.fontWeight = 'bold';
+
+    _kp.style.fontWeight = 'bold';
     _kpp.style.fontWeight = 'inherit';
     _kpm.style.fontWeight = 'inherit';
+
     _eval.focus();
+
+    ev.preventDefault();
+    ev.stopPropagation();
   });
 
   _kpp.setAttribute('class', 'konsole-control konsole-pfn');
   _kpp.innerHTML = 'kpp';
-  _kpp.addEventListener('click', function (ev) {
+  _kpp.addEventListener('mousedown', function (ev) {
     _printFn = 'kpp';
+
     _kp.style.fontWeight = 'inherit';
-    this.style.fontWeight = 'bold';
+    _kpp.style.fontWeight = 'bold';
     _kpm.style.fontWeight = 'inherit';
+
     _eval.focus();
+
+    ev.preventDefault();
+    ev.stopPropagation();
   });
 
   _kpm.setAttribute('class', 'konsole-control konsole-pfn');
   _kpm.innerHTML = 'kpm';
-  _kpm.addEventListener('click', function (ev) {
+  _kpm.addEventListener('mousedown', function (ev) {
     _printFn = 'kpm';
+
     _kp.style.fontWeight = 'inherit';
     _kpp.style.fontWeight = 'inherit';
-    this.style.fontWeight = 'bold';
+    _kpm.style.fontWeight = 'bold';
+
     _eval.focus();
+
+    ev.preventDefault();
+    ev.stopPropagation();
   });
 
   _eval.setAttribute('class', 'konsole-control konsole-eval');
@@ -202,6 +224,7 @@ function Konsole() {
   });
 
   _log.setAttribute('class', 'konsole-log');
+  _log.innerHTML = '';
   _log.style.height = _resizeData.height + 'px';
 
   _container.appendChild(_title);
@@ -223,6 +246,10 @@ function Konsole() {
       toggle: _toggle,
       resize: _resize,
       clear: _clear,
+      kp: _kp,
+      kpp: _kpp,
+      kpm: _kpm,
+      eval: _eval,
       log: _log
     };
   }
@@ -277,10 +304,12 @@ function Konsole() {
   _this.log = function (obj, comment, err) {
     comment = comment || '';
 
-    _log.textContent += '// ' + comment + '\n' + obj + '\n';
+    _log.textContent = '// ' + comment + '\n' +
+      obj + '\n' +
+      _log.textContent;
 
-    // scroll to the bottom of the log
-    _log.scrollTop = _log.scrollHeight;
+    // scroll to the top of the log
+    _log.scrollTop = 0;
 
     if (err) {
       _container.style.boxShadow = '0 0 1em red';
@@ -302,9 +331,6 @@ function Konsole() {
 
     return _this;
   };
-
-  // print eval'ed objects as a string by default
-  _kp.click();
 
   // start minimized
   _this.minimize();
