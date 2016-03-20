@@ -33,7 +33,7 @@ All functions accept javascript object to dump and optional comment. **kp** effe
 
 ### UI
 
-If no log function has been called, *Konsole* is shown minimized. Click **Show** to show it. Whenever a log function is called, *Konsole* is shown and the log is scrolled to the bottom, so the latest logged object is visible. Click **Minimize** to minimize it. *Konsole* is slightly transparent in an effort to minimize the need to be minimized.
+If no log function has been called, *Konsole* is shown minimized. Click **Show** to show it. Whenever a log function is called, *Konsole* is shown and the log is scrolled to the top (entries are logged from oldest at the bottom to newest at the top), so the latest logged object is visible. Click **Minimize** to minimize it. *Konsole* is slightly transparent in an effort to minimize the need to be minimized.
 
 Clicking the title (**Konsole**) works like this:
 
