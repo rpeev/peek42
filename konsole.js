@@ -4,6 +4,10 @@
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
+(function () {
+
+var VERSION = '1.0.3';
+
 function Konsole() {
   var _this = this;
 
@@ -71,7 +75,7 @@ function Konsole() {
   _container.style.width = '97%';
 
   _title.setAttribute('class', 'konsole-control konsole-title');
-  _title.innerHTML = 'Konsole';
+  _title.innerHTML = 'Konsole (v' + VERSION + ')';
   _title.addEventListener('mousedown', function (ev) {
     if (_log.scrollTop == 0) {
       // if at the top of the log, scroll to the bottom
@@ -417,3 +421,11 @@ function kpm(obj, comment, err) {
 window.addEventListener('error', function () {
   kpp(arguments, arguments[0].message, true);
 });
+
+// exports
+window.Konsole = Konsole;
+window.kp = kp;
+window.kpp = kpp;
+window.kpm = kpm;
+
+})();
