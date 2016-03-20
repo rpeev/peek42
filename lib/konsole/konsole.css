@@ -1,5 +1,5 @@
 /*
-  Konsole v1.0.4
+  Konsole v1.0.5
 
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
@@ -35,6 +35,10 @@
   float: right;
 }
 
+.konsole-quietl {
+  float: right;
+}
+
 .konsole-resize {
   float: right;
 }
@@ -49,8 +53,8 @@
 
 .konsole-eval {
   float: right;
-  height: 1.7em;
   width: 25%;
+  height: 1.7em;
   margin-top: 0.1em;
 }
 
