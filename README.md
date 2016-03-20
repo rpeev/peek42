@@ -17,9 +17,9 @@ Reference **konsole.css** and **konsole.js** in the page head:
 <script src="path/to/konsole.js"></script>
 ```
 
-### Bookmarklet
+### Bookmarklet/Extensions
 
-TBD
+?
 
 ## Use
 
@@ -33,14 +33,14 @@ All functions accept javascript object to dump and optional comment. **kp** effe
 
 ### UI
 
-If no log function has been called, *Konsole* is shown minimized. Click **Show** to show it. Whenever a log function is called, *Konsole* is shown and the log is scrolled to the top (entries are logged from oldest at the bottom to newest at the top), so the latest logged object is visible. Click **Minimize** to minimize it. *Konsole* is slightly transparent in an effort to minimize the need to be minimized.
+If no log function has been called, *Konsole* is shown minimized. Click **Show** to show it. By default, whenever a log function is called, *Konsole* is shown and the log is scrolled to the top (entries are logged from oldest at the bottom to newest at the top), so that the latest logged object is visible. Click **Minimize** to minimize it. This can be changed by turning on the appropriately named checkbox **Shhhh!** (visible only when Konsole is minimized). In this 'quiet' mode, Konsole flashes on log write, but stays minimized. *Konsole* is slightly transparent in an effort to minimize the need to be minimized.
 
 Clicking the title (**Konsole**) works like this:
 
 - if *Konsole* is scrolled to the top, then it gets scrolled to the bottom and vica versa;
 - if *Konsole* is scrolled to the middle, then it gets scrolled to the top;
 
-Use **Resize** to resize *Konsole* and **Clear** to clear the log contents.
+Use **Resize** to resize *Konsole* (Konsole limits its max and min height and the border briefly flashes in red when reaching the limits) and **Clear** to clear the log contents.
 
 Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter) and the controls before it to select the output function (**kp** is the default).
 
