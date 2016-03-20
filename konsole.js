@@ -1,12 +1,12 @@
 /*
-  Konsole v1.0.3
+  Konsole v1.0.4
 
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
 (function () {
 
-var VERSION = '1.0.3';
+var VERSION = '1.0.4';
 
 function Konsole() {
   var _this = this;
