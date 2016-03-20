@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.3
+
+Fix example description
+
 ## 1.0.2
 
 UI usability improvements
