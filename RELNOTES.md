@@ -1,5 +1,15 @@
 # Release Notes
 
+## 1.0.4
+
+UI
+
+* display current Konsole version
+
+Code
+
+* wrap the code in an IIFE and list exports explicitly
+
 ## 1.0.3
 
 Fix example description
