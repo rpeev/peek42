@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.6
+
+Fix display of undefined/null values
+
 ## 1.0.5
 
 UI
