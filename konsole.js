@@ -1,5 +1,5 @@
 /*
-  Konsole v1.0.5
+  Konsole v1.0.6
 
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
@@ -379,7 +379,7 @@ Konsole.pretty = function (obj) {
 }
 
 Konsole.defCommentFor = function (obj) {
-  var s = obj.toString().replace(/\s+/g, ' '),
+  var s = (obj + '').replace(/\s+/g, ' '),
     max = 42;
 
   if (s.length > max) {
