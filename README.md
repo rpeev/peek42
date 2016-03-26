@@ -37,10 +37,10 @@ If no log function has been called, *Konsole* is shown minimized. Click **Show**
 
 Clicking the title (**Konsole**) works like this:
 
-- if *Konsole* is scrolled to the top, then it gets scrolled to the bottom and vica versa;
-- if *Konsole* is scrolled to the middle, then it gets scrolled to the top;
+* if *Konsole* is scrolled to the top, then it gets scrolled to the bottom and vica versa;
+* if *Konsole* is scrolled to the middle, then it gets scrolled to the top;
 
-Use **Resize** to resize *Konsole* (Konsole limits its max and min height and the border briefly flashes in red when reaching the limits) and **Clear** to clear the log contents.
+Use **Resize** to resize *Konsole* (Konsole limits its max and min height and the border briefly flashes in red upon reaching the limits) and **Clear** to clear the log contents.
 
 Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter) and the controls before it to select the output function (**kp** is the default).
 
