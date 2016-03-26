@@ -1,12 +1,12 @@
 /*
-  Konsole v1.0.6
+  Konsole v1.0.7
 
   Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
 (function () {
 
-var VERSION = '1.0.6';
+var VERSION = '1.0.7';
 
 function Konsole() {
   var _this = this;
@@ -227,7 +227,7 @@ function Konsole() {
       };
 
     if (ev.charCode == crCode || ev.charCode == lfCode) {
-      js = _eval.value.slice(0);
+      js = _eval.value.replace(/'/g, '"');
       src = _printFn + '(' + js + ', \'(' + printFnMap[_printFn] + ') ' + js + '\');';
 
       eval(src);

@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.7
+
+Allow single-quoted strings in the eval box
+
 ## 1.0.6
 
 Fix display of undefined/null values
