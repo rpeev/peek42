@@ -1,5 +1,5 @@
 javascript: (function () {
-  var HOST = 'https://cdn.rawgit.com/rpeev/konsole/v1.0.7/',
+  var HOST = 'https://cdn.rawgit.com/rpeev/konsole/v1.0.8/',
     head, link, script;
 
   if (!window.Konsole) {

@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.8
+
+Add bookmarklet script and instructions
+
 ## 1.0.7
 
 Allow single-quoted strings in the eval box
