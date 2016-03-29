@@ -10,12 +10,14 @@
   bottom: 0.5em;
   box-shadow: 0 0 1em gray;
   opacity: 0.9;
+  margin: 0.1em;
   padding: 0.2em;
   border: 1px solid gray;
   background: whitesmoke;
   color: navy;
   font-family: sans-serif;
-  font-size: 120%;
+  font-size: 1em;
+  text-align: left;
 }
 
 .konsole-control {
