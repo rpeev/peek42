@@ -1,5 +1,9 @@
 # Release Notes
 
+## 1.0.9
+
+Minor CSS and bookmarklet tweaks
+
 ## 1.0.8
 
 Add bookmarklet script and instructions

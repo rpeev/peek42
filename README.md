@@ -23,28 +23,24 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST = 'https://cdn.rawgit.com/rpeev/konsole/v1.0.8/',
-    head, link, script;
+  var HOST = 'https://cdn.rawgit.com/rpeev/konsole/v1.0.9/',
+    style, script;
 
-  if (!window.Konsole) {
-    head = document.getElementsByTagName('head')[0];
-    link = document.createElement('link');
+  if (!window.KonsoleBM) {
+    window.KonsoleBM = true;
+
+    style = document.createElement('style');
     script = document.createElement('script');
 
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', HOST + 'konsole.css');
+    style.innerHTML = '@import "' + HOST + 'konsole.css' + '"';
 
     script.setAttribute('src', HOST + 'konsole.js');
-    script.onload = go;
+    script.onload = function () {
+      kp(document.title, 'Hello');
+    };
 
-    head.appendChild(link);
-    head.appendChild(script);
-  } else {
-    go();
-  }
-
-  function go() {
-    kp(document.title, 'Hello');
+    document.body.appendChild(style);
+    document.body.appendChild(script);
   }
 })();
 ```
