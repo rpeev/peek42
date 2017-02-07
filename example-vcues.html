@@ -4,20 +4,20 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Konsole - visual cues and quiet mode</title>
+    <title>Peek42 - visual cues and quiet mode</title>
 
-    <link rel="stylesheet" href="./lib/konsole/konsole.css" />
-    <script src="./lib/konsole/konsole.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/rpeev/peek42/master/peek42.css" />
+    <script src="https://cdn.rawgit.com/rpeev/peek42/master/peek42.js"></script>
 
     <script>
-//Konsole.noop();
+//Peek42.noop();
 
 document.addEventListener('DOMContentLoaded', function () {
   var rand = document.getElementById('rand'),
     boom = document.getElementById('boom');
 
   rand.addEventListener('click', function () {
-    kp(Math.random());
+    p(Math.random());
   });
 
   boom.addEventListener('click', function () {
@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
   </head>
 
   <body>
-<h1 id="about">Konsole - visual cues and quiet mode [<a href="./index.html">Index</a>]</h1>
+<h1 id="about">Peek42 - visual cues and quiet mode [<a href="./index.html">Index</a>]</h1>
 
 <button id="rand">Rand</button>
 <button id="boom">Boom</button>
 
-<p>Click the buttons and Konsole Clear and observe the visual cues. Click the shiny <em>Shhhh!</em> checkbox (only visible when Konsole is minimized) and observe the difference.
+<p>Click the buttons and Peek42 Clear and observe the visual cues. Click the shiny <em>Shhhh!</em> checkbox (only visible when Peek42 is minimized) and observe the difference.
 </p>
   </body>
 </html>

@@ -4,19 +4,19 @@
   <head>
     <meta charset="utf-8" />
 
-    <title>Konsole - basic example</title>
+    <title>Peek42 - basic example</title>
 
-    <link rel="stylesheet" href="./lib/konsole/konsole.css" />
-    <script src="./lib/konsole/konsole.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/rpeev/peek42/master/peek42.css" />
+    <script src="https://cdn.rawgit.com/rpeev/peek42/master/peek42.js"></script>
 
     <script>
-//Konsole.noop();
+//Peek42.noop();
 
-kpp(document.body, 'log call before DOM ready');
+pp(document.body, 'log call before DOM ready');
 
 document.addEventListener('DOMContentLoaded', function () {
-  kp(document.getElementById('about'));
-  kpp(window, 'the window object');
+  p(document.getElementById('about'));
+  pp(window, 'the window object');
 
   boom
 });
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
   </head>
 
   <body>
-<h1 id="about">Konsole - basic example [<a href="./index.html">Index</a>]</h1>
+<h1 id="about">Peek42 - basic example [<a href="./index.html">Index</a>]</h1>
 
-<p>Click Konsole title to scroll the log to the bottom (the beginning). Click it again to scroll to the top (the end). When in the middle of the log, click the title to scroll to the top.
+<p>Click Peek42 title to scroll the log to the bottom (the beginning). Click it again to scroll to the top (the end). When in the middle of the log, click the title to scroll to the top.
 </p>
   </body>
 </html>
