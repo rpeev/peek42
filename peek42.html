@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Peek42</title>
+
+    <link rel="stylesheet" href="./peek42.css" />
+    <script src="./peek42.js"></script>
+
+    <script>
+//Peek42.noop();
+
+pp(document.body, 'log call before DOM ready');
+
+document.addEventListener('DOMContentLoaded', function () {
+  p(document.getElementById('about'));
+  pp(window, 'the window object');
+
+  boom
+});
+    </script>
+  </head>
+
+  <body>
+<h1 id="about">Peek42</h1>
+
+<p>Click Peek42 title to scroll the log to the bottom (the beginning). Click it again to scroll to the top (the end). When in the middle of the log, click the title to scroll to the top.
+</p>
+  </body>
+</html>

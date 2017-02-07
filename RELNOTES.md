@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.0.0
+
+Rename the library to peek42
+
 ## 1.0.9
 
 Minor CSS and bookmarklet tweaks

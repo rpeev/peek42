@@ -1,10 +1,10 @@
 /*
-  Konsole v1.0.9
+  Peek42 - lightweight browser console
 
-  Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
+  Copyright (c) 2017 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
-.konsole-container {
+.peek42-container {
   position: fixed;
   z-index: 1000;
   bottom: 0.5em;
@@ -20,47 +20,47 @@
   text-align: left;
 }
 
-.konsole-control {
+.peek42-control {
   margin: 0;
   padding: 0 0.4em 0 0.4em;
 }
 
-.konsole-control:hover {
+.peek42-control:hover {
   cursor: pointer;
 }
 
-.konsole-title {
+.peek42-title {
   font-weight: bold;
 }
 
-.konsole-toggle {
+.peek42-toggle {
   float: right;
 }
 
-.konsole-quietl {
+.peek42-quietl {
   float: right;
 }
 
-.konsole-resize {
+.peek42-resize {
   float: right;
 }
 
-.konsole-clear {
+.peek42-clear {
   float: right;
 }
 
-.konsole-pfn {
+.peek42-pfn {
   float: right;
 }
 
-.konsole-eval {
+.peek42-eval {
   float: right;
   width: 25%;
   height: 1.7em;
   margin-top: 0.1em;
 }
 
-.konsole-log {
+.peek42-log {
   clear: both;
   overflow: scroll;
   margin: 0.2em;

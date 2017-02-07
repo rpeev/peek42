@@ -1,14 +1,14 @@
 /*
-  Konsole v1.0.9
+  Peek42 - lightweight browser console
 
-  Copyright (c) 2016 Radoslav Peev <rpeev@ymail.com> (MIT License)
+  Copyright (c) 2017 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
 (function () {
 
-var VERSION = '1.0.9';
+var VERSION = '2.0.0';
 
-function Konsole() {
+function Peek42() {
   var _this = this;
 
   var _container = document.createElement('div'),
@@ -18,13 +18,13 @@ function Konsole() {
     _quietl = document.createElement('label'),
     _resize = document.createElement('span'),
     _clear = document.createElement('span'),
-    _kp = document.createElement('span'),
-    _kpp = document.createElement('span'),
-    _kpm = document.createElement('span'),
+    _p = document.createElement('span'),
+    _pp = document.createElement('span'),
+    _pm = document.createElement('span'),
     _eval = document.createElement('input'),
     _log = document.createElement('pre');
 
-  var _printFn = 'kp';
+  var _printFn = 'p';
 
   var _minimized = false;
 
@@ -73,11 +73,11 @@ function Konsole() {
     _resizeData.resizing = false;
   };
 
-  _container.setAttribute('class', 'konsole-container');
+  _container.setAttribute('class', 'peek42-container');
   _container.style.width = '97%';
 
-  _title.setAttribute('class', 'konsole-control konsole-title');
-  _title.innerHTML = 'Konsole (v' + VERSION + ')';
+  _title.setAttribute('class', 'peek42-control peek42-title');
+  _title.innerHTML = 'Peek42 (v' + VERSION + ')';
   _title.addEventListener('mousedown', function (ev) {
     if (_log.scrollTop == 0) {
       // if at the top of the log, scroll to the bottom
@@ -91,7 +91,7 @@ function Konsole() {
     ev.stopPropagation();
   });
 
-  _toggle.setAttribute('class', 'konsole-control konsole-toggle');
+  _toggle.setAttribute('class', 'peek42-control peek42-toggle');
   _toggle.innerHTML = 'Minimize';
   _toggle.addEventListener('click', function (ev) {
     if (_log.style.display === 'none') {
@@ -101,12 +101,12 @@ function Konsole() {
     }
   });
 
-  _quiet.setAttribute('class', 'konsole-control');
+  _quiet.setAttribute('class', 'peek42-control');
   _quiet.setAttribute('type', 'checkbox');
-  _quietl.setAttribute('class', 'konsole-control konsole-quietl');
+  _quietl.setAttribute('class', 'peek42-control peek42-quietl');
   _quietl.innerHTML = 'Shhhh!';
 
-  _resize.setAttribute('class', 'konsole-control konsole-resize');
+  _resize.setAttribute('class', 'peek42-control peek42-resize');
   _resize.innerHTML = 'Resize';
   _resize.addEventListener('touchstart', function (ev) {
     _resizeData.dragStart(ev.touches[0].clientY);
@@ -159,7 +159,7 @@ function Konsole() {
     _log.style.height = _resizeData.height + 'px';
   });
 
-  _clear.setAttribute('class', 'konsole-control konsole-clear');
+  _clear.setAttribute('class', 'peek42-control peek42-clear');
   _clear.innerHTML = 'Clear';
   _clear.addEventListener('mousedown', function (ev) {
     _this.clear();
@@ -168,30 +168,15 @@ function Konsole() {
     ev.stopPropagation();
   });
 
-  _kp.setAttribute('class', 'konsole-control konsole-pfn');
-  _kp.innerHTML = 'kp';
-  _kp.style.fontWeight = 'bold';
-  _kp.addEventListener('mousedown', function (ev) {
-    _printFn = 'kp';
+  _p.setAttribute('class', 'peek42-control peek42-pfn');
+  _p.innerHTML = 'p';
+  _p.style.fontWeight = 'bold';
+  _p.addEventListener('mousedown', function (ev) {
+    _printFn = 'p';
 
-    _kp.style.fontWeight = 'bold';
-    _kpp.style.fontWeight = 'inherit';
-    _kpm.style.fontWeight = 'inherit';
-
-    _eval.focus();
-
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-
-  _kpp.setAttribute('class', 'konsole-control konsole-pfn');
-  _kpp.innerHTML = 'kpp';
-  _kpp.addEventListener('mousedown', function (ev) {
-    _printFn = 'kpp';
-
-    _kp.style.fontWeight = 'inherit';
-    _kpp.style.fontWeight = 'bold';
-    _kpm.style.fontWeight = 'inherit';
+    _p.style.fontWeight = 'bold';
+    _pp.style.fontWeight = 'inherit';
+    _pm.style.fontWeight = 'inherit';
 
     _eval.focus();
 
@@ -199,14 +184,14 @@ function Konsole() {
     ev.stopPropagation();
   });
 
-  _kpm.setAttribute('class', 'konsole-control konsole-pfn');
-  _kpm.innerHTML = 'kpm';
-  _kpm.addEventListener('mousedown', function (ev) {
-    _printFn = 'kpm';
+  _pp.setAttribute('class', 'peek42-control peek42-pfn');
+  _pp.innerHTML = 'pp';
+  _pp.addEventListener('mousedown', function (ev) {
+    _printFn = 'pp';
 
-    _kp.style.fontWeight = 'inherit';
-    _kpp.style.fontWeight = 'inherit';
-    _kpm.style.fontWeight = 'bold';
+    _p.style.fontWeight = 'inherit';
+    _pp.style.fontWeight = 'bold';
+    _pm.style.fontWeight = 'inherit';
 
     _eval.focus();
 
@@ -214,16 +199,31 @@ function Konsole() {
     ev.stopPropagation();
   });
 
-  _eval.setAttribute('class', 'konsole-control konsole-eval');
+  _pm.setAttribute('class', 'peek42-control peek42-pfn');
+  _pm.innerHTML = 'pm';
+  _pm.addEventListener('mousedown', function (ev) {
+    _printFn = 'pm';
+
+    _p.style.fontWeight = 'inherit';
+    _pp.style.fontWeight = 'inherit';
+    _pm.style.fontWeight = 'bold';
+
+    _eval.focus();
+
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+
+  _eval.setAttribute('class', 'peek42-control peek42-eval');
   _eval.placeholder = 'JS to evaluate';
   _eval.addEventListener('keypress', function (ev) {
     var crCode = '\r'.charCodeAt(0),
       lfCode = '\n'.charCodeAt(0),
       js, src,
       printFnMap = {
-        kp: 'value',
-        kpp: 'pretty',
-        kpm: 'members'
+        p: 'value',
+        pp: 'pretty',
+        pm: 'members'
       };
 
     if (ev.charCode == crCode || ev.charCode == lfCode) {
@@ -234,7 +234,7 @@ function Konsole() {
     }
   });
 
-  _log.setAttribute('class', 'konsole-log');
+  _log.setAttribute('class', 'peek42-log');
   _log.innerHTML = '';
   _log.style.height = _resizeData.height + 'px';
 
@@ -247,9 +247,9 @@ function Konsole() {
   _container.appendChild(_resize);
   _container.appendChild(_clear);
   _container.appendChild(_eval);
-  _container.appendChild(_kp);
-  _container.appendChild(_kpp);
-  _container.appendChild(_kpm);
+  _container.appendChild(_p);
+  _container.appendChild(_pp);
+  _container.appendChild(_pm);
   _container.appendChild(_log);
 
   document.body.appendChild(_container);
@@ -263,9 +263,9 @@ function Konsole() {
       quietl: _quietl,
       resize: _resize,
       clear: _clear,
-      kp: _kp,
-      kpp: _kpp,
-      kpm: _kpm,
+      p: _p,
+      pp: _pp,
+      pm: _pm,
       eval: _eval,
       log: _log
     };
@@ -282,9 +282,9 @@ function Konsole() {
     _quietl.style.display = 'none';
     _resize.style.display = '';
     _clear.style.display = '';
-    _kp.style.display = '';
-    _kpp.style.display = '';
-    _kpm.style.display = '';
+    _p.style.display = '';
+    _pp.style.display = '';
+    _pm.style.display = '';
     _eval.style.display = '';
     _log.style.display = '';
 
@@ -300,9 +300,9 @@ function Konsole() {
     _quietl.style.display = '';
     _resize.style.display = 'none';
     _clear.style.display = 'none';
-    _kp.style.display = 'none';
-    _kpp.style.display = 'none';
-    _kpm.style.display = 'none';
+    _p.style.display = 'none';
+    _pp.style.display = 'none';
+    _pm.style.display = 'none';
     _eval.style.display = 'none';
     _log.style.display = 'none';
 
@@ -357,7 +357,7 @@ function Konsole() {
   _this.minimize();
 }
 
-Konsole.pretty = function (obj) {
+Peek42.pretty = function (obj) {
   var objs = [], keys = [];
 
   return JSON.stringify(obj, function (k, v) {
@@ -378,7 +378,7 @@ Konsole.pretty = function (obj) {
   }, 2);
 }
 
-Konsole.defCommentFor = function (obj) {
+Peek42.defCommentFor = function (obj) {
   var s = (obj + '').replace(/\s+/g, ' '),
     max = 42;
 
@@ -389,60 +389,60 @@ Konsole.defCommentFor = function (obj) {
   return s;
 };
 
-Konsole.noop = function () {
-  Konsole.defInst = {};
-  kpm = kpp = kp = function () {};
+Peek42.noop = function () {
+  Peek42.defInst = {};
+  pm = pp = p = function () {};
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  if (!Konsole.defInst) {
-    Konsole.defInst = new Konsole();
+  if (!Peek42.defInst) {
+    Peek42.defInst = new Peek42();
   }
 });
 
-function kp(obj, comment, err) {
-  comment = comment || '(value) ' + Konsole.defCommentFor(obj);
+function p(obj, comment, err) {
+  comment = comment || '(value) ' + Peek42.defCommentFor(obj);
 
   if (document.readyState === 'loading') {
-    // defer kp calls made before DOM ready
+    // defer p calls made before DOM ready
     document.addEventListener('DOMContentLoaded', function () {
-      kp(obj, comment, err);
+      p(obj, comment, err);
     });
 
     return;
   }
 
-  if (!Konsole.defInst) {
-    Konsole.defInst = new Konsole();
+  if (!Peek42.defInst) {
+    Peek42.defInst = new Peek42();
   }
 
-  if (Konsole.defInst.minimized() && !Konsole.defInst.dom().quiet.checked) {
-    Konsole.defInst.show();
+  if (Peek42.defInst.minimized() && !Peek42.defInst.dom().quiet.checked) {
+    Peek42.defInst.show();
   }
 
-  Konsole.defInst.log(obj, comment, err);
+  Peek42.defInst.log(obj, comment, err);
 }
 
-function kpp(obj, comment, err) {
-  comment = comment || '(pretty) ' + Konsole.defCommentFor(obj);
+function pp(obj, comment, err) {
+  comment = comment || '(pretty) ' + Peek42.defCommentFor(obj);
 
-  kp(Konsole.pretty(obj), comment, err);
+  p(Peek42.pretty(obj), comment, err);
 }
 
-function kpm(obj, comment, err) {
-  comment = comment || '(members) ' + Konsole.defCommentFor(obj);
+function pm(obj, comment, err) {
+  comment = comment || '(members) ' + Peek42.defCommentFor(obj);
 
-  kpp(Object.getOwnPropertyNames(obj), comment, err);
+  pp(Object.getOwnPropertyNames(obj), comment, err);
 }
 
 window.addEventListener('error', function () {
-  kpp(arguments, arguments[0].message, true);
+  pp(arguments, arguments[0].message, true);
 });
 
 // exports
-window.Konsole = Konsole;
-window.kp = kp;
-window.kpp = kpp;
-window.kpm = kpm;
+window.Peek42 = Peek42;
+window.p = p;
+window.pp = pp;
+window.pm = pm;
 
 })();
