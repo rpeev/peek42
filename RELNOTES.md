@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.1.0
+
+Post rename tweaks
+
 ## 2.0.0
 
 Rename the library to peek42
