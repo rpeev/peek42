@@ -1,5 +1,11 @@
 # Release Notes
 
+## 2.2.0
+
+- fix buggy **Peek42.noop***()*
+- **pm** sorts the list of object members
+- code tweaks
+
 ## 2.1.0
 
 Post rename tweaks

@@ -23,7 +23,7 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/master/',
+  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/v2.2.0/',
     style, script;
 
   if (!window.Peek42BM) {
@@ -51,9 +51,9 @@ javascript: (function () {
 
 Peek42 makes three global functions available - **p***(obj[, comment])* (stands for **print**), **pp***(obj[, comment])* (stands for **pretty print**) and **pm***(obj[, comment])* (stands for **print members**).
 
-All functions accept javascript object to dump and optional comment. **p** concatenates the object to an empty string, **pp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) and **pm** uses *Object.getOwnPropertyNames(object)*. The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. Peek42 listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
+All functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses *JSON.stringify* (with custom replacer function to avoid circular data exceptions) and **pm** uses *Object.getOwnPropertyNames(object)* (and sorts the list). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. Peek42 listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
 
-**Peek42.noop***()* can be called at the top of the script to replace **p**, **pp** and **pm** with do-nothing functions.
+**Peek42.noop***()* can be called at the top of the script to prevent the console creation and silence the output functions.
 
 ### UI
 
@@ -64,7 +64,7 @@ Clicking the title (**Peek42**) works like this:
 * if *Peek42* is scrolled to the top, then it gets scrolled to the bottom and vica versa;
 * if *Peek42* is scrolled to the middle, then it gets scrolled to the top;
 
-Use **Resize** to resize *Peek42* (Peek42 limits its max and min height and the border briefly flashes in red upon reaching the limits) and **Clear** to clear the log contents.
+Use **Resize** to resize *Peek42* (Peek42 limits its dimensions and the border briefly flashes in red upon reaching the limits) and **Clear** to clear the log contents.
 
 Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter) and the controls before it to select the output function (**p** is the default).
 

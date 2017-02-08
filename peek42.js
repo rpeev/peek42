@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '2.1.0';
+var VERSION = '2.2.0';
 
 function Peek42() {
   var _this = this;
@@ -41,6 +41,7 @@ function Peek42() {
     _resizeData.dragDelta = 0;
     _resizeData.resizing = true;
   };
+
   _resizeData.dragMove = function (clientY) {
     var maxHeight = window.innerHeight * 0.85,
       minHeight = window.innerHeight * 0.05;
@@ -66,6 +67,7 @@ function Peek42() {
     _log.style.height = _resizeData.height + 'px';
     _resizeData.dragY = clientY;
   };
+
   _resizeData.dragEnd = function () {
     _resizeData.ratio = _resizeData.height / window.innerHeight;
     _resizeData.dragY = 0;
@@ -120,6 +122,7 @@ function Peek42() {
     ev.preventDefault();
     ev.stopPropagation();
   });
+
   document.body.addEventListener('touchmove', function (ev) {
     if (!_resizeData.resizing) {
       return;
@@ -140,6 +143,7 @@ function Peek42() {
     ev.preventDefault();
     ev.stopPropagation();
   });
+
   document.body.addEventListener('touchend', function (ev) {
     if (!_resizeData.resizing) {
       return;
@@ -154,6 +158,7 @@ function Peek42() {
 
     _resizeData.dragEnd();
   });
+
   window.addEventListener('resize', function () {
     _resizeData.height = window.innerHeight * _resizeData.ratio;
     _log.style.height = _resizeData.height + 'px';
@@ -378,29 +383,32 @@ Peek42.pretty = function (obj) {
   }, 2);
 }
 
-Peek42.defCommentFor = function (obj) {
-  var s = (obj + '').replace(/\s+/g, ' '),
-    max = 42;
-
-  if (s.length > max) {
-    s = s.slice(0, max) + '...';
-  }
-
-  return s;
+Peek42.noop = function () {
+  Peek42._noop = true;
 };
 
-Peek42.noop = function () {
-  Peek42.defInst = {};
-  pm = pp = p = function () {};
-}
+Peek42.defCommentFor = function (obj) {
+  var str = (obj + '').replace(/\s+/g, ' '),
+    max = 42;
+
+  if (str.length > max) {
+    str = str.slice(0, max) + '...';
+  }
+
+  return str;
+};
 
 document.addEventListener('DOMContentLoaded', function () {
+  if (Peek42._noop) { return; }
+
   if (!Peek42.defInst) {
     Peek42.defInst = new Peek42();
   }
 });
 
 function p(obj, comment, err) {
+  if (Peek42._noop) { return; }
+
   comment = comment || '(value) ' + Peek42.defCommentFor(obj);
 
   if (document.readyState === 'loading') {
@@ -424,15 +432,19 @@ function p(obj, comment, err) {
 }
 
 function pp(obj, comment, err) {
+  if (Peek42._noop) { return; }
+
   comment = comment || '(pretty) ' + Peek42.defCommentFor(obj);
 
   p(Peek42.pretty(obj), comment, err);
 }
 
 function pm(obj, comment, err) {
+  if (Peek42._noop) { return; }
+
   comment = comment || '(members) ' + Peek42.defCommentFor(obj);
 
-  pp(Object.getOwnPropertyNames(obj), comment, err);
+  pp(Object.getOwnPropertyNames(obj).sort(), comment, err);
 }
 
 window.addEventListener('error', function () {
