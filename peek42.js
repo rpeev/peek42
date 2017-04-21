@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '2.2.0';
+var VERSION = '2.3.0';
 
 function Peek42() {
   var _this = this;
@@ -429,6 +429,24 @@ function p(obj, comment, err) {
   }
 
   Peek42.defInst.log(obj, comment, err);
+}
+
+if (window.apivis) {
+  p.type = function (obj, comment) {
+    p(apivis.typeStr(obj), comment || `(type) ${Peek42.defCommentFor(obj)}`);
+  };
+
+  p.props = function (obj, comment) {
+    p(apivis.propsStr(obj), comment || `(props) ${Peek42.defCommentFor(obj)}`);
+  };
+
+  p.protos = function (obj, comment) {
+    p(apivis.protosStr(obj), comment || `(protos) ${Peek42.defCommentFor(obj)}`);
+  };
+
+  p.api = function (obj, comment) {
+    p(apivis.apiStr(obj), comment || `(api) ${Peek42.defCommentFor(obj)}`);
+  };
 }
 
 function pp(obj, comment, err) {

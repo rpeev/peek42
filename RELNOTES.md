@@ -1,8 +1,12 @@
 # Release Notes
 
+## 2.3.0
+
+If [ApiVis](https://github.com/rpeev/apivis) is loaded, define `p.type(obj[, comment])`, `p.props(obj[, comment])`, `p.protos(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions
+
 ## 2.2.0
 
-- fix buggy **Peek42.noop***()*
+- fix buggy `Peek42.noop()`
 - **pm** sorts the list of object members
 - code tweaks
 
@@ -12,7 +16,7 @@ Post rename tweaks
 
 ## 2.0.0
 
-Rename the library to peek42
+Rename the library to **Peek42**
 
 ## 1.0.9
 
@@ -34,13 +38,13 @@ Fix display of undefined/null values
 
 UI
 
-* when minimized, Konsole features checkbox **Shhhh!** that puts it in 'quiet' mode when on - when log write occurs, it only flashes but stays minimized
+* when minimized, **Konsole** features checkbox **Shhhh!** that puts it in 'quiet' mode when on - when log write occurs, it only flashes but stays minimized
 
 ## 1.0.4
 
 UI
 
-* display current Konsole version
+* display current **Konsole** version
 
 Code
 
@@ -55,7 +59,7 @@ Fix example description
 UI usability improvements
 
 * entries are logged from oldest at the bottom, to newest at the top (was the opposite)
-* eval box focus is preserved while using the controls (except for Minimize)
+* eval box focus is preserved while using the controls (except for **Minimize**)
 
 ## 1.0.1
 
