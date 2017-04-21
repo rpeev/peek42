@@ -433,18 +433,26 @@ function p(obj, comment, err) {
 
 if (window.apivis) {
   p.type = function (obj, comment) {
+    if (Peek42._noop) { return; }
+
     p(apivis.typeStr(obj), comment || `(type) ${Peek42.defCommentFor(obj)}`);
   };
 
   p.props = function (obj, comment) {
+    if (Peek42._noop) { return; }
+
     p(apivis.propsStr(obj), comment || `(props) ${Peek42.defCommentFor(obj)}`);
   };
 
   p.protos = function (obj, comment) {
+    if (Peek42._noop) { return; }
+
     p(apivis.protosStr(obj), comment || `(protos) ${Peek42.defCommentFor(obj)}`);
   };
 
   p.api = function (obj, comment) {
+    if (Peek42._noop) { return; }
+
     p(apivis.apiStr(obj), comment || `(api) ${Peek42.defCommentFor(obj)}`);
   };
 }
