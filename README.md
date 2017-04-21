@@ -53,6 +53,8 @@ javascript: (function () {
 
 All functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions) and **pm** uses `Object.getOwnPropertyNames(object)` (and sorts the list). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
 
+If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.props(obj[, comment])`, `p.protos(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
+
 `Peek42.noop()` can be called at the top of the script to prevent the console creation and silence the output functions.
 
 ### UI
