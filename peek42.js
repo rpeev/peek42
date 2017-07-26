@@ -495,6 +495,42 @@ function pm(obj, comment, opts) {
   pp(Object.getOwnPropertyNames(obj).sort(), comment, opts);
 }
 
+window.console = window.console || {};
+
+Peek42._console = window.console;
+Peek42._consoleLog = window.console.log;
+Peek42._consoleInfo = window.console.info;
+Peek42._consoleWarn = window.console.warn;
+Peek42._consoleError = window.console.error;
+
+window.console.log = function () {
+  pp(Array.prototype.slice.call(arguments), 'console.log');
+  Peek42._consoleLog && Peek42._consoleLog.apply(Peek42._console, arguments);
+
+  return window.console;
+};
+
+window.console.info = function () {
+  pp(Array.prototype.slice.call(arguments), 'console.info');
+  Peek42._consoleInfo && Peek42._consoleInfo.apply(Peek42._console, arguments);
+
+  return window.console;
+};
+
+window.console.warn = function () {
+  pp(Array.prototype.slice.call(arguments), 'console.warn', {type: 'warn'});
+  Peek42._consoleWarn && Peek42._consoleWarn.apply(Peek42._console, arguments);
+
+  return window.console;
+};
+
+window.console.error = function () {
+  pp(Array.prototype.slice.call(arguments), 'console.error', {type: 'error'});
+  Peek42._consoleError && Peek42._consoleError.apply(Peek42._console, arguments);
+
+  return window.console;
+};
+
 window.addEventListener('error', function (ev) {
   pp(ev.error, ev.message, {type: 'error'});
 });
