@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '2.3.0';
+var VERSION = '2.3.1';
 
 function Peek42() {
   var _this = this;
@@ -473,8 +473,8 @@ function pm(obj, comment, err) {
   pp(Object.getOwnPropertyNames(obj).sort(), comment, err);
 }
 
-window.addEventListener('error', function () {
-  pp(arguments, arguments[0].message, true);
+window.addEventListener('error', function (ev) {
+  pp(ev.error, ev.message, true);
 });
 
 // exports

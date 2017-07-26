@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.3.1
+
+Tweak error reporting
+
 ## 2.3.0
 
 If [ApiVis](https://github.com/rpeev/apivis) is loaded, define `p.type(obj[, comment])`, `p.props(obj[, comment])`, `p.protos(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions

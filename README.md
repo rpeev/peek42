@@ -23,7 +23,7 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/v2.3.0/',
+  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/v2.3.1/',
     style, script;
 
   if (!window.Peek42BM) {
