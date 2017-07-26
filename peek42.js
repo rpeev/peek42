@@ -327,8 +327,10 @@ function Peek42() {
     return _this;
   };
 
-  _this.log = function (obj, comment, err) {
+  _this.log = function (obj, comment, opts) {
     comment = comment || '';
+    opts = opts || {};
+    opts.type = opts.type || 'info';
 
     _log.textContent = '// ' + comment + '\n' +
       obj + '\n' +
@@ -337,7 +339,9 @@ function Peek42() {
     // scroll to the top of the log
     _log.scrollTop = 0;
 
-    if (err) {
+    switch (opts.type) {
+    case 'err':
+    case 'error':
       _container.style.boxShadow = '0 0 1em red';
       setTimeout(function () {
         _container.style.boxShadow = '0 0 1em gray';
@@ -348,7 +352,25 @@ function Peek42() {
           }, 300);
         }, 200);
       }, 300);
-    } else {
+
+      break;
+    case 'warn':
+    case 'warning':
+      _container.style.boxShadow = '0 0 1em orange';
+      setTimeout(function () {
+        _container.style.boxShadow = '0 0 1em gray';
+        setTimeout(function () {
+          _container.style.boxShadow = '0 0 1em orange';
+          setTimeout(function () {
+            _container.style.boxShadow = '0 0 1em gray';
+          }, 300);
+        }, 200);
+      }, 300);
+
+      break;
+    case 'info':
+    case 'information':
+    default:
       _container.style.boxShadow = '0 0 1em green';
       setTimeout(function () {
         _container.style.boxShadow = '0 0 1em gray';
@@ -406,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-function p(obj, comment, err) {
+function p(obj, comment, opts) {
   if (Peek42._noop) { return; }
 
   comment = comment || '(value) ' + Peek42.defCommentFor(obj);
@@ -414,7 +436,7 @@ function p(obj, comment, err) {
   if (document.readyState === 'loading') {
     // defer p calls made before DOM ready
     document.addEventListener('DOMContentLoaded', function () {
-      p(obj, comment, err);
+      p(obj, comment, opts);
     });
 
     return;
@@ -428,7 +450,7 @@ function p(obj, comment, err) {
     Peek42.defInst.show();
   }
 
-  Peek42.defInst.log(obj, comment, err);
+  Peek42.defInst.log(obj, comment, opts);
 }
 
 if (window.apivis) {
@@ -457,24 +479,24 @@ if (window.apivis) {
   };
 }
 
-function pp(obj, comment, err) {
+function pp(obj, comment, opts) {
   if (Peek42._noop) { return; }
 
   comment = comment || '(pretty) ' + Peek42.defCommentFor(obj);
 
-  p(Peek42.pretty(obj), comment, err);
+  p(Peek42.pretty(obj), comment, opts);
 }
 
-function pm(obj, comment, err) {
+function pm(obj, comment, opts) {
   if (Peek42._noop) { return; }
 
   comment = comment || '(members) ' + Peek42.defCommentFor(obj);
 
-  pp(Object.getOwnPropertyNames(obj).sort(), comment, err);
+  pp(Object.getOwnPropertyNames(obj).sort(), comment, opts);
 }
 
 window.addEventListener('error', function (ev) {
-  pp(ev.error, ev.message, true);
+  pp(ev.error, ev.message, {type: 'error'});
 });
 
 // exports
