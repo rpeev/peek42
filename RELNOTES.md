@@ -1,5 +1,9 @@
 # Release Notes
 
+## 2.4.0
+
+Intercept native console logging function calls
+
 ## 2.3.1
 
 Tweak error reporting

@@ -1,5 +1,5 @@
 javascript: (function () {
-  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/v2.3.1/',
+  var HOST = 'https://cdn.rawgit.com/rpeev/peek42/v2.4.0/',
     style, script;
 
   if (!window.Peek42BM) {

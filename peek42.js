@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '2.3.1';
+var VERSION = '2.4.0';
 
 function Peek42() {
   var _this = this;
