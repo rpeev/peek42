@@ -498,38 +498,36 @@ function pm(obj, comment, opts) {
 window.console = window.console || {};
 
 Peek42._console = window.console;
-Peek42._consoleLog = window.console.log;
-Peek42._consoleInfo = window.console.info;
-Peek42._consoleWarn = window.console.warn;
-Peek42._consoleError = window.console.error;
+Peek42._consoleNativeLog = window.console.log;
+Peek42._consoleNativeInfo = window.console.info;
+Peek42._consoleNativeWarn = window.console.warn;
+Peek42._consoleNativeError = window.console.error;
 
-window.console.log = function () {
-  pp(Array.prototype.slice.call(arguments), 'console.log');
-  Peek42._consoleLog && Peek42._consoleLog.apply(Peek42._console, arguments);
+Peek42._instrumentConsoleNativeFn = function (name, fnNative) {
+  window.console[name] = function () {
+    var i, len, arg, fnP;
 
-  return window.console;
+    for (i = 0, len = arguments.length; i < len; i++) {
+      arg = arguments[i];
+      fnP = (typeof arg == 'function') ? p: pp;
+
+      fnP(arg, '(intercepted console.' + name + ') ' + Peek42.defCommentFor(arg));
+
+      try {
+        fnNative && fnNative.call(Peek42._console, arg);
+      } catch (err) {
+        pp(err, 'native console.' + name + ' chocked on ' + Peek42.defCommentFor(arg), {type: 'error'});
+      }
+    }
+
+    return window.console;
+  };
 };
 
-window.console.info = function () {
-  pp(Array.prototype.slice.call(arguments), 'console.info');
-  Peek42._consoleInfo && Peek42._consoleInfo.apply(Peek42._console, arguments);
-
-  return window.console;
-};
-
-window.console.warn = function () {
-  pp(Array.prototype.slice.call(arguments), 'console.warn', {type: 'warn'});
-  Peek42._consoleWarn && Peek42._consoleWarn.apply(Peek42._console, arguments);
-
-  return window.console;
-};
-
-window.console.error = function () {
-  pp(Array.prototype.slice.call(arguments), 'console.error', {type: 'error'});
-  Peek42._consoleError && Peek42._consoleError.apply(Peek42._console, arguments);
-
-  return window.console;
-};
+Peek42._instrumentConsoleNativeFn('log', Peek42._consoleNativeLog);
+Peek42._instrumentConsoleNativeFn('info', Peek42._consoleNativeInfo);
+Peek42._instrumentConsoleNativeFn('warn', Peek42._consoleNativeWarn);
+Peek42._instrumentConsoleNativeFn('error', Peek42._consoleNativeError);
 
 window.addEventListener('error', function (ev) {
   pp(ev.error, ev.message, {type: 'error'});
