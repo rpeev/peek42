@@ -6,8 +6,8 @@
 
     <title>Peek42 - basic example</title>
 
-    <link rel="stylesheet" href="https://cdn.rawgit.com/rpeev/peek42/v2.3.1/peek42.css" />
-    <script src="https://cdn.rawgit.com/rpeev/peek42/v2.3.1/peek42.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/rpeev/peek42/v2.4.0/peek42.css" />
+    <script src="https://cdn.rawgit.com/rpeev/peek42/v2.4.0/peek42.js"></script>
 
     <script>
 //Peek42.noop();
@@ -17,6 +17,8 @@ pp(document.body, 'log call before DOM ready');
 document.addEventListener('DOMContentLoaded', function () {
   p(document.getElementById('about'));
   pp(window, 'the window object');
+
+  console.warn('watch out!');
 
   boom
 });
