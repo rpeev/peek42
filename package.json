@@ -2,22 +2,22 @@
   "name": "peek42",
   "version": "2.4.0",
   "description": "Lightweight browser console",
-  "main": "peek42.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rpeev/peek42.git"
-  },
   "keywords": [
     "browser",
     "console"
   ],
-  "author": "Radoslav Peev",
-  "license": "MIT",
+  "homepage": "https://github.com/rpeev/peek42#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpeev/peek42.git"
+  },
   "bugs": {
     "url": "https://github.com/rpeev/peek42/issues"
   },
-  "homepage": "https://github.com/rpeev/peek42#readme"
+  "author": "Radoslav Peev <rpeev@ymail.com>",
+  "license": "MIT",
+  "main": "peek42.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
