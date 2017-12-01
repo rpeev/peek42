@@ -79,7 +79,7 @@ Clicking the title (**Peek42**) works like this:
 Use **Resize** to resize **Peek42** (**Peek42** limits its dimensions and the border briefly flashes upon reaching the limits) and **Clear** to clear the log contents.
 
 Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter).
-Print functions can be specified by prefixing the expression with one of v(alue) (the default), p(retty), m(embers), c(hain), a(pi).
+Print functions can be specified by prefixing the expression with one of v(alue) (the default), p(retty), m(embers), t(ype), c(hain), a(pi).
 Only v(alue) and p(retty) are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis).
 
 See **peek42.html** for an example.

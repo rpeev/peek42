@@ -199,7 +199,7 @@ function Peek42() {
         pair = printFnMap[fn];
         if (!pair) {
           p('Bad print spec: ' + fn +
-            '. Use blank or one of v(alue), p(retty), m(embers), c(hain), a(pi).',
+            '. Use blank or one of v(alue), p(retty), m(embers), t(ype), c(hain), a(pi).',
             input, {type: 'warn'});
           pair = ['p', 'value'];
         }
