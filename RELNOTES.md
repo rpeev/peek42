@@ -1,5 +1,10 @@
 # Release Notes
 
+## 3.0.0
+
+- new look
+- remove the UI for selecting the output function (now part of the eval JS box)
+
 ## 2.4.0
 
 Intercept native console logging function calls
