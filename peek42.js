@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '2.4.0';
+var VERSION = '3.0.0';
 
 function Peek42() {
   var _this = this;
@@ -18,19 +18,14 @@ function Peek42() {
     _quietl = document.createElement('label'),
     _resize = document.createElement('span'),
     _clear = document.createElement('span'),
-    _p = document.createElement('span'),
-    _pp = document.createElement('span'),
-    _pm = document.createElement('span'),
     _eval = document.createElement('input'),
     _log = document.createElement('pre');
-
-  var _printFn = 'p';
 
   var _minimized = false;
 
   var _resizeData = {
-    height: window.innerHeight / 3,
-    ratio: 1/3,
+    height: window.innerHeight * 0.42,
+    ratio: 0.42,
     dragY: 0,
     dragDelta: 0,
     resizing: false
@@ -54,9 +49,9 @@ function Peek42() {
       _resizeData.height = Math.max(_resizeData.height, minHeight);
       _log.style.height = _resizeData.height + 'px';
 
-      _container.style.borderColor = 'red';
+      _container.style.boxShadow = '0 0 2em #563d7c';
       setTimeout(function () {
-        _container.style.borderColor = 'gray';
+        _container.style.boxShadow = '0 0 1em #563d7c';
       }, 300);
 
       _resizeData.dragEnd();
@@ -76,10 +71,9 @@ function Peek42() {
   };
 
   _container.setAttribute('class', 'peek42-container');
-  _container.style.width = '97%';
 
   _title.setAttribute('class', 'peek42-control peek42-title');
-  _title.innerHTML = 'Peek42 (v' + VERSION + ')';
+  _title.innerHTML = 'Peek42';
   _title.addEventListener('mousedown', function (ev) {
     if (_log.scrollTop == 0) {
       // if at the top of the log, scroll to the bottom
@@ -106,7 +100,7 @@ function Peek42() {
   _quiet.setAttribute('class', 'peek42-control');
   _quiet.setAttribute('type', 'checkbox');
   _quietl.setAttribute('class', 'peek42-control peek42-quietl');
-  _quietl.innerHTML = 'Shhhh!';
+  _quietl.innerHTML = 'Quiet ';
 
   _resize.setAttribute('class', 'peek42-control peek42-resize');
   _resize.innerHTML = 'Resize';
@@ -173,69 +167,55 @@ function Peek42() {
     ev.stopPropagation();
   });
 
-  _p.setAttribute('class', 'peek42-control peek42-pfn');
-  _p.innerHTML = 'p';
-  _p.style.fontWeight = 'bold';
-  _p.addEventListener('mousedown', function (ev) {
-    _printFn = 'p';
-
-    _p.style.fontWeight = 'bold';
-    _pp.style.fontWeight = 'inherit';
-    _pm.style.fontWeight = 'inherit';
-
-    _eval.focus();
-
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-
-  _pp.setAttribute('class', 'peek42-control peek42-pfn');
-  _pp.innerHTML = 'pp';
-  _pp.addEventListener('mousedown', function (ev) {
-    _printFn = 'pp';
-
-    _p.style.fontWeight = 'inherit';
-    _pp.style.fontWeight = 'bold';
-    _pm.style.fontWeight = 'inherit';
-
-    _eval.focus();
-
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-
-  _pm.setAttribute('class', 'peek42-control peek42-pfn');
-  _pm.innerHTML = 'pm';
-  _pm.addEventListener('mousedown', function (ev) {
-    _printFn = 'pm';
-
-    _p.style.fontWeight = 'inherit';
-    _pp.style.fontWeight = 'inherit';
-    _pm.style.fontWeight = 'bold';
-
-    _eval.focus();
-
-    ev.preventDefault();
-    ev.stopPropagation();
-  });
-
+  _eval.setAttribute('autocorrect', 'off');
   _eval.setAttribute('class', 'peek42-control peek42-eval');
   _eval.placeholder = 'JS to evaluate';
   _eval.addEventListener('keypress', function (ev) {
     var crCode = '\r'.charCodeAt(0),
       lfCode = '\n'.charCodeAt(0),
-      js, src,
+      input, parts, pair, fn, desc, expr,
       printFnMap = {
-        p: 'value',
-        pp: 'pretty',
-        pm: 'members'
-      };
+        v: ['p', 'value'],
+        value: ['p', 'value'],
+        p: ['pp', 'pretty'],
+        pretty: ['pp', 'pretty'],
+        m: ['p.props', 'members'],
+        members: ['p.props', 'members'],
+        t: ['p.type', 'type'],
+        type: ['p.type', 'type'],
+        c: ['p.protos', 'protos'],
+        chain: ['p.protos', 'protos'],
+        a: ['p.api', 'api'],
+        api: ['p.api', 'api']
+      },
+      js;
 
     if (ev.charCode == crCode || ev.charCode == lfCode) {
-      js = _eval.value.replace(/'/g, '"');
-      src = _printFn + '(' + js + ', \'(' + printFnMap[_printFn] + ') ' + js + '\');';
+      input = _eval.value.replace(/'/g, '"');
+      parts = input.match(/^(\w+)\s+(.+)/);
 
-      eval(src);
+      if (parts) {
+        fn = parts[1];
+        pair = printFnMap[fn];
+        if (!pair) {
+          p('Bad print spec: ' + fn +
+            '. Use blank or one of v(alue), p(retty), m(embers), c(hain), a(pi).',
+            input, {type: 'warn'});
+          pair = ['p', 'value'];
+        }
+
+        fn = pair[0];
+        desc = pair[1];
+        expr = parts[2];
+      } else {
+        fn = 'p';
+        desc = 'value';
+        expr = input;
+      }
+
+      js = fn + '(' + expr + ', \'(' + desc + ') ' + expr + '\');';
+
+      eval(js);
     }
   });
 
@@ -244,17 +224,14 @@ function Peek42() {
   _log.style.height = _resizeData.height + 'px';
 
   _container.appendChild(_title);
+  _container.appendChild(_toggle);
   // labels that nest a checkbox don't need to establish id-for
   // relationship in order to work
   _quietl.appendChild(_quiet);
   _container.appendChild(_quietl);
-  _container.appendChild(_toggle);
   _container.appendChild(_resize);
   _container.appendChild(_clear);
   _container.appendChild(_eval);
-  _container.appendChild(_p);
-  _container.appendChild(_pp);
-  _container.appendChild(_pm);
   _container.appendChild(_log);
 
   document.body.appendChild(_container);
@@ -268,9 +245,6 @@ function Peek42() {
       quietl: _quietl,
       resize: _resize,
       clear: _clear,
-      p: _p,
-      pp: _pp,
-      pm: _pm,
       eval: _eval,
       log: _log
     };
@@ -281,15 +255,11 @@ function Peek42() {
   }
 
   _this.show = function () {
-    _container.style.width = '97%';
     _toggle.innerHTML = 'Minimize';
     _quiet.style.display = 'none';
     _quietl.style.display = 'none';
     _resize.style.display = '';
     _clear.style.display = '';
-    _p.style.display = '';
-    _pp.style.display = '';
-    _pm.style.display = '';
     _eval.style.display = '';
     _log.style.display = '';
 
@@ -299,15 +269,11 @@ function Peek42() {
   };
 
   _this.minimize = function () {
-    _container.style.width = 'inherit';
-    _toggle.innerHTML = 'Show';
+    _toggle.innerHTML = 'Restore';
     _quiet.style.display = '';
     _quietl.style.display = '';
     _resize.style.display = 'none';
     _clear.style.display = 'none';
-    _p.style.display = 'none';
-    _pp.style.display = 'none';
-    _pm.style.display = 'none';
     _eval.style.display = 'none';
     _log.style.display = 'none';
 
@@ -321,7 +287,7 @@ function Peek42() {
 
     _container.style.boxShadow = '0 0 1em blue';
     setTimeout(function () {
-      _container.style.boxShadow = '0 0 1em gray';
+      _container.style.boxShadow = '0 0 1em #563d7c';
     }, 300);
 
     return _this;
@@ -333,7 +299,9 @@ function Peek42() {
     opts.type = opts.type || 'info';
 
     _log.textContent = '// ' + comment + '\n' +
-      obj + '\n' +
+      ((typeof obj == 'symbol') ?
+        obj.toString() :
+        obj) + '\n' +
       _log.textContent;
 
     // scroll to the top of the log
@@ -344,11 +312,11 @@ function Peek42() {
     case 'error':
       _container.style.boxShadow = '0 0 1em red';
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em gray';
+        _container.style.boxShadow = '0 0 1em #563d7c';
         setTimeout(function () {
           _container.style.boxShadow = '0 0 1em red';
           setTimeout(function () {
-            _container.style.boxShadow = '0 0 1em gray';
+            _container.style.boxShadow = '0 0 1em #563d7c';
           }, 300);
         }, 200);
       }, 300);
@@ -358,11 +326,11 @@ function Peek42() {
     case 'warning':
       _container.style.boxShadow = '0 0 1em orange';
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em gray';
+        _container.style.boxShadow = '0 0 1em #563d7c';
         setTimeout(function () {
           _container.style.boxShadow = '0 0 1em orange';
           setTimeout(function () {
-            _container.style.boxShadow = '0 0 1em gray';
+            _container.style.boxShadow = '0 0 1em #563d7c';
           }, 300);
         }, 200);
       }, 300);
@@ -373,7 +341,7 @@ function Peek42() {
     default:
       _container.style.boxShadow = '0 0 1em green';
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em gray';
+        _container.style.boxShadow = '0 0 1em #563d7c';
       }, 400);
     }
 
@@ -410,7 +378,9 @@ Peek42.noop = function () {
 };
 
 Peek42.defCommentFor = function (obj) {
-  var str = (obj + '').replace(/\s+/g, ' '),
+  var str = ((typeof obj == 'symbol') ?
+    obj.toString() :
+    obj + '').replace(/\s+/g, ' '),
     max = 42;
 
   if (str.length > max) {
@@ -484,7 +454,7 @@ function pp(obj, comment, opts) {
 
   comment = comment || '(pretty) ' + Peek42.defCommentFor(obj);
 
-  p(Peek42.pretty(obj), comment, opts);
+  p((obj instanceof Object) ? Peek42.pretty(obj) : obj, comment, opts);
 }
 
 function pm(obj, comment, opts) {
@@ -530,7 +500,19 @@ Peek42._instrumentConsoleNativeFn('warn', Peek42._consoleNativeWarn);
 Peek42._instrumentConsoleNativeFn('error', Peek42._consoleNativeError);
 
 window.addEventListener('error', function (ev) {
-  pp(ev.error, ev.message, {type: 'error'});
+  let err = ev.error;
+
+  if (window.bundleError && err.sourceURL && err.sourceURL.endsWith('bundle.js')) {
+    pp(err, err.message + ' (retrieving source information...)', {type: 'error'});
+
+    bundleError.addSrcInfo(err).then(err1 => {
+      pp(err1.srcSnip, err1.message, {type: 'error'});
+    }).catch(err2 => {
+      pp(err2, err2.message, {type: 'error'});
+    });
+  } else {
+    pp(err, err.message, {type: 'error'});
+  }
 });
 
 // exports
