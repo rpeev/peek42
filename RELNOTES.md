@@ -1,5 +1,11 @@
 # Release Notes
 
+## 4.0.0
+
+- remove `pm` function (use p.members (requires [ApiVis](https://github.com/rpeev/apivis)) instead)
+- rename [ApiVis](https://github.com/rpeev/apivis) wrapper APIs to match the renamed library functions
+- include Monofur font
+
 ## 3.0.0
 
 - new look

@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '3.0.0';
+var VERSION = '4.0.0';
 
 function Peek42() {
   var _this = this;
@@ -179,12 +179,12 @@ function Peek42() {
         value: ['p', 'value'],
         p: ['pp', 'pretty'],
         pretty: ['pp', 'pretty'],
-        m: ['p.props', 'members'],
-        members: ['p.props', 'members'],
         t: ['p.type', 'type'],
         type: ['p.type', 'type'],
-        c: ['p.protos', 'protos'],
-        chain: ['p.protos', 'protos'],
+        m: ['p.members', 'members'],
+        members: ['p.members', 'members'],
+        c: ['p.chain', 'chain'],
+        chain: ['p.chain', 'chain'],
         a: ['p.api', 'api'],
         api: ['p.api', 'api']
       },
@@ -199,7 +199,7 @@ function Peek42() {
         pair = printFnMap[fn];
         if (!pair) {
           p('Bad print spec: ' + fn +
-            '. Use blank or one of v(alue), p(retty), m(embers), t(ype), c(hain), a(pi).',
+            '. Use blank or one of v(alue), p(retty), t(ype), m(embers), c(hain), a(pi).',
             input, {type: 'warn'});
           pair = ['p', 'value'];
         }
@@ -430,16 +430,16 @@ if (window.apivis) {
     p(apivis.typeStr(obj), comment || `(type) ${Peek42.defCommentFor(obj)}`);
   };
 
-  p.props = function (obj, comment) {
+  p.members = function (obj, comment) {
     if (Peek42._noop) { return; }
 
-    p(apivis.propsStr(obj), comment || `(props) ${Peek42.defCommentFor(obj)}`);
+    p(apivis.membersStr(obj), comment || `(members) ${Peek42.defCommentFor(obj)}`);
   };
 
-  p.protos = function (obj, comment) {
+  p.chain = function (obj, comment) {
     if (Peek42._noop) { return; }
 
-    p(apivis.protosStr(obj), comment || `(protos) ${Peek42.defCommentFor(obj)}`);
+    p(apivis.chainStr(obj), comment || `(chain) ${Peek42.defCommentFor(obj)}`);
   };
 
   p.api = function (obj, comment) {
@@ -455,14 +455,6 @@ function pp(obj, comment, opts) {
   comment = comment || '(pretty) ' + Peek42.defCommentFor(obj);
 
   p((obj instanceof Object) ? Peek42.pretty(obj) : obj, comment, opts);
-}
-
-function pm(obj, comment, opts) {
-  if (Peek42._noop) { return; }
-
-  comment = comment || '(members) ' + Peek42.defCommentFor(obj);
-
-  pp(Object.getOwnPropertyNames(obj).sort(), comment, opts);
 }
 
 window.console = window.console || {};
@@ -519,6 +511,5 @@ window.addEventListener('error', function (ev) {
 window.Peek42 = Peek42;
 window.p = p;
 window.pp = pp;
-window.pm = pm;
 
 })();

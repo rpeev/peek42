@@ -10,9 +10,10 @@ Lightweight browser console useful for quick prototyping on touch-based devices 
 
 ### In a html page
 
-Reference **peek42.css** [**apivis.js**](https://github.com/rpeev/apivis) (optional) and **peek42.js**:  
+Reference **monofur.css** (optional, counts on **monofur.woff** present alongside), **peek42.css**, [**apivis.js**](https://github.com/rpeev/apivis) (optional) and **peek42.js**:  
 
 ```html
+<link rel="stylesheet" href="path/to/monofur.css" /> <!-- optional -->
 <link rel="stylesheet" href="path/to/peek42.css" />
 <script src="path/to/apivis.js"></script> <!-- optional -->
 <script src="path/to/peek42.js"></script>
@@ -24,17 +25,19 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v1.3.0/',
-    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v3.0.0/',
-    cssPeek, jsApivis, jsPeek;
+  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v2.0.0/',
+    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.0.0/',
+    cssMonofur, cssPeek, jsApivis, jsPeek;
 
   if (!window.Peek42BM) {
     window.Peek42BM = true;
 
+    cssMonofur = document.createElement('style');
     cssPeek = document.createElement('style');
     jsApivis = document.createElement('script');
     jsPeek = document.createElement('script');
 
+    cssMonofur.innerHTML = '@import "' + HOST_PEEK + 'monofur.css' + '"';
     cssPeek.innerHTML = '@import "' + HOST_PEEK + 'peek42.css' + '"';
     jsApivis.setAttribute('src', HOST_APIVIS + 'apivis.js');
     jsPeek.setAttribute('src', HOST_PEEK + 'peek42.js');
@@ -47,6 +50,7 @@ javascript: (function () {
       document.body.appendChild(jsPeek);
     };
 
+    document.body.appendChild(cssMonofur);
     document.body.appendChild(cssPeek);
     document.body.appendChild(jsApivis);
   }
@@ -57,11 +61,11 @@ javascript: (function () {
 
 ### In the code
 
-**Peek42** makes three global functions available - `p(obj[, comment])` (stands for **print**), `pp(obj[, comment])` (stands for **pretty print**) and `pm(obj[, comment])` (stands for **print members**).
+**Peek42** makes two global functions available - `p(obj[, comment])` (stands for **print**) and `pp(obj[, comment])` (stands for **pretty print**).
 
-All functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions) and **pm** uses `Object.getOwnPropertyNames(object)` (and sorts the list). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
+The functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
 
-If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.props(obj[, comment])`, `p.protos(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
+If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.members(obj[, comment])`, `p.chain(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
 
 **Peek42** intercepts the native console logging function calls, so **console.log** calls (for example) will show up.
 
@@ -78,8 +82,6 @@ Clicking the title (**Peek42**) works like this:
 
 Use **Resize** to resize **Peek42** (**Peek42** limits its dimensions and the border briefly flashes upon reaching the limits) and **Clear** to clear the log contents.
 
-Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter).
-Print functions can be specified by prefixing the expression with one of v(alue) (the default), p(retty), m(embers), t(ype), c(hain), a(pi).
-Only v(alue) and p(retty) are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis).
+Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter). Print functions can be specified by prefixing the expression with one of `v(alue)` (the default), `p(retty)`, `t(ype)`, `m(embers)`, `c(hain)`, `a(pi)`. Only `v(alue)` and `p(retty)` are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis).
 
 See **peek42.html** for an example.
