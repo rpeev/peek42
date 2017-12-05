@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '4.0.0';
+var VERSION = '4.1.0';
 
 function Peek42() {
   var _this = this;
@@ -181,6 +181,8 @@ function Peek42() {
         pretty: ['pp', 'pretty'],
         t: ['p.type', 'type'],
         type: ['p.type', 'type'],
+        d: ['p.desc', 'desc'],
+        desc: ['p.desc', 'desc'],
         m: ['p.members', 'members'],
         members: ['p.members', 'members'],
         c: ['p.chain', 'chain'],
@@ -199,7 +201,7 @@ function Peek42() {
         pair = printFnMap[fn];
         if (!pair) {
           p('Bad print spec: ' + fn +
-            '. Use blank or one of v(alue), p(retty), t(ype), m(embers), c(hain), a(pi).',
+            '. Use blank or one of v(alue), p(retty), t(ype), d(esc), m(embers), c(hain), a(pi).',
             input, {type: 'warn'});
           pair = ['p', 'value'];
         }
@@ -428,6 +430,12 @@ if (window.apivis) {
     if (Peek42._noop) { return; }
 
     p(apivis.typeStr(obj), comment || `(type) ${Peek42.defCommentFor(obj)}`);
+  };
+
+  p.desc = function (obj, k, comment) {
+    if (Peek42._noop) { return; }
+
+    p(apivis.descStr(obj, k), comment || `(desc) ${apivis.typeStr(obj)}#${k.toString()}`);
   };
 
   p.members = function (obj, comment) {
