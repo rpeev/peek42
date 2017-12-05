@@ -25,8 +25,8 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v2.1.0/',
-    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.0.0/',
+  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v3.0.0/',
+    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.1.0/',
     cssMonofur, cssPeek, jsApivis, jsPeek;
 
   if (!window.Peek42BM) {
@@ -65,7 +65,7 @@ javascript: (function () {
 
 The functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
 
-If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.members(obj[, comment])`, `p.chain(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
+If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.desc(obj, k[, comment])`, `p.members(obj[, comment])`, `p.chain(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
 
 **Peek42** intercepts the native console logging function calls, so **console.log** calls (for example) will show up.
 
@@ -82,6 +82,6 @@ Clicking the title (**Peek42**) works like this:
 
 Use **Resize** to resize **Peek42** (**Peek42** limits its dimensions and the border briefly flashes upon reaching the limits) and **Clear** to clear the log contents.
 
-Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter). Print functions can be specified by prefixing the expression with one of `v(alue)` (the default), `p(retty)`, `t(ype)`, `m(embers)`, `c(hain)`, `a(pi)`. Only `v(alue)` and `p(retty)` are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis).
+Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter). Print functions can be specified by prefixing the expression with one of `v(alue)` (the default), `p(retty)`, `t(ype)`, `d(esc)` (requires two expressions separated by a comma), `m(embers)`, `c(hain)`, `a(pi)`. Only `v(alue)` and `p(retty)` are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis).
 
 See **peek42.html** for an example.

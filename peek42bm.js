@@ -1,6 +1,6 @@
 javascript: (function () {
-  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v2.1.0/',
-    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.0.0/',
+  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v3.0.0/',
+    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.1.0/',
     cssMonofur, cssPeek, jsApivis, jsPeek;
 
   if (!window.Peek42BM) {
