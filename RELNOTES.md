@@ -1,6 +1,6 @@
 # Release Notes
 
-##4.1.0
+## 4.1.0
 
 Integrate added [ApiVis](https://github.com/rpeev/apivis) function `descStr(obj, k)` (as `p.desc(obj, k[, comment])` in the code, `d(esc) expr1, expr2` in the JS eval box)
 
