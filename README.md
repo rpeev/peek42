@@ -44,7 +44,9 @@ javascript: (function () {
 
     jsApivis.onload = function () {
       jsPeek.onload = function () {
-        p(document.title, 'Hi');
+        p([].slice.call(document.scripts).
+          map(script => script.src).
+          join('\n'), 'Environment');
       };
 
       document.body.appendChild(jsPeek);
