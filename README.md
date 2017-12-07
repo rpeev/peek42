@@ -44,8 +44,12 @@ javascript: (function () {
 
     jsApivis.onload = function () {
       jsPeek.onload = function () {
+        let snip = (str, n) => str.trimLeft().
+          replace(/\s+/gm, ' ').
+          substr(0, n) + ((n < str.length) ? '...' : '');
+
         p([].slice.call(document.scripts).
-          map(script => script.src).
+          map(script => script.src || 'code: ' + snip(script.textContent, 101)).
           join('\n'), 'Environment');
       };
 
