@@ -25,8 +25,8 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 javascript: (function () {
-  var HOST_APIVIS = 'https://cdn.rawgit.com/rpeev/apivis/v3.0.0/',
-    HOST_PEEK = 'https://cdn.rawgit.com/rpeev/peek42/v4.1.0/',
+  var HOST_APIVIS = 'https://unpkg.com/apivis@latest/',
+    HOST_PEEK = 'https://unpkg.com/peek42@latest/',
     cssMonofur, cssPeek, jsApivis, jsPeek;
 
   if (!window.Peek42BM) {
