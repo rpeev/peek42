@@ -1,8 +1,9 @@
 {
   "name": "peek42",
   "version": "4.1.0",
-  "description": "Lightweight browser console",
+  "description": "Touch based browser console",
   "keywords": [
+    "touch",
     "browser",
     "console"
   ],

@@ -1,6 +1,6 @@
 # Peek42
 
-Lightweight browser console useful for quick prototyping on touch-based devices like tablets and smartphones
+Touch based browser console
 
 ![Screenshot](./screenshot.png)
 
