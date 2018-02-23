@@ -1,5 +1,5 @@
 /*
-  Peek42 - Lightweight browser console useful for quick prototyping on touch-based devices like tablets and smartphones
+  Peek42 - Touch based browser console
 
   Copyright (c) 2017 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
