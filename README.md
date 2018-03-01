@@ -69,7 +69,7 @@ javascript: (function () {
 
 **Peek42** makes two global functions available - `p(obj[, comment])` (stands for **print**) and `pp(obj[, comment])` (stands for **pretty print**).
 
-The functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors and uses **pp** to show them with the error message as a comment.
+The functions accept javascript object to dump and optional comment. **p** simply uses the object as part of string concatenation, **pp** uses `JSON.stringify` (with custom replacer function to avoid circular data exceptions). The comment is logged like a single-line js comment, on a line before the object. Default comment is generated if one is not provided. **Peek42** listens for JavaScript errors (including `unhandledrejection` of promises) and uses **pp** to show them with the error message as a comment.
 
 If [ApiVis](https://github.com/rpeev/apivis) is loaded, the `p.type(obj[, comment])`, `p.desc(obj, k[, comment])`, `p.members(obj[, comment])`, `p.chain(obj[, comment])` and `p.api(obj[, comment])` shorthands for the corresponding `apivis.xxxStr` functions are available.
 
