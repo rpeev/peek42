@@ -1,39 +1,94 @@
 <!DOCTYPE html>
 
-<html lang="en" style="font-family: Avenir, sans-serif;">
+<html lang="en" class="light sans-serif">
   <head>
     <meta charset="utf-8" />
 
-    <title>Peek42 - visual cues and quiet mode</title>
+    <title>Peek42 - visual cues, dark theme and quiet mode</title>
 
     <link rel="stylesheet" href="https://unpkg.com/peek42@latest/monofur.css" />
     <link rel="stylesheet" href="https://unpkg.com/peek42@latest/peek42.css" />
+    <link rel="stylesheet" id="peek42DarkCss" />
     <script src="https://unpkg.com/apivis@latest/apivis.js"></script>
     <script src="https://unpkg.com/peek42@latest/peek42.js"></script>
+
+    <style>
+.light {
+  background: #f5f5f5;
+  color: black;
+}
+
+.dark {
+  background: black;
+  color: #65b042;
+}
+
+.sans-serif {
+  font-family: Avenir, sans-serif;
+}
+    </style>
 
     <script>
 //Peek42.noop();
 
+function brokenPromise() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject(new Error('BANG')), 1000);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-  let rand = document.getElementById('rand'),
-    boom = document.getElementById('boom');
+  let peek42DarkCss = document.getElementById('peek42DarkCss'),
+    peek42DarkCssHref = 'https://unpkg.com/peek42@latest/peek42-dark.css',
+    rand = document.getElementById('rand'),
+    warn = document.getElementById('warn'),
+    boom = document.getElementById('boom'),
+    bang = document.getElementById('bang');
+
+  switchTheme.addEventListener('click', function () {
+    let html = document.documentElement,
+      pageClasses = html.classList;
+
+    if (pageClasses.contains('light')) {
+      pageClasses.remove('light');
+      pageClasses.add('dark');
+      peek42DarkCss.setAttribute('href', peek42DarkCssHref);
+      switchTheme.textContent = 'Light Theme';
+    } else {
+      pageClasses.remove('dark');
+      pageClasses.add('light');
+      peek42DarkCss.removeAttribute('href');
+      switchTheme.textContent = 'Dark Theme';
+    }
+  });
 
   rand.addEventListener('click', function () {
     p(Math.random());
   });
 
+  warn.addEventListener('click', function () {
+    p('Watch out!', '', {type: 'warn'});
+  });
+
   boom.addEventListener('click', function () {
-    bang
+    BOOM
+  });
+
+  bang.addEventListener('click', async function () {
+    await brokenPromise();
   });
 });
     </script>
   </head>
 
   <body>
-<h1 id="about">Peek42 - visual cues and quiet mode [<a href="./index.html">Index</a>]</h1>
+<h1 id="about">Peek42 - visual cues, dark theme and quiet mode [<a href="./index.html">Index</a>]</h1>
 
+<button id="switchTheme">Dark Theme</button>
 <button id="rand">Rand</button>
+<button id="warn">Warn</button>
 <button id="boom">Boom</button>
+<button id="bang">Bang (unhandled promise rejection)</button>
 
 <p>Click the buttons and Peek42 Clear and observe the visual cues. Click the <em>Quiet</em> checkbox (only visible when Peek42 is minimized) and observe the difference.
 </p>
