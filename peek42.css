@@ -23,6 +23,26 @@
   text-align: left;
 }
 
+.peek42-flash-size-limit {
+  border-color: red !important;
+}
+
+.peek42-flash-clear {
+  box-shadow: 0 0 1em blue !important;
+}
+
+.peek42-flash-error {
+  box-shadow: 0 0 1em red !important;
+}
+
+.peek42-flash-warning {
+  box-shadow: 0 0 1em orange !important;
+}
+
+.peek42-flash-information {
+  box-shadow: 0 0 1em green !important;
+}
+
 .peek42-control {
   margin: 0;
   padding: 0 0.4em 0 0.4em;

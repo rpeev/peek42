@@ -6,7 +6,7 @@
 
 (function () {
 
-var VERSION = '4.1.0';
+var VERSION = '4.2.0';
 
 function Peek42() {
   var _this = this;
@@ -49,9 +49,9 @@ function Peek42() {
       _resizeData.height = Math.max(_resizeData.height, minHeight);
       _log.style.height = _resizeData.height + 'px';
 
-      _container.style.boxShadow = '0 0 2em #563d7c';
+      _container.classList.add('peek42-flash-size-limit');
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em #563d7c';
+        _container.classList.remove('peek42-flash-size-limit');
       }, 300);
 
       _resizeData.dragEnd();
@@ -287,9 +287,9 @@ function Peek42() {
   _this.clear = function () {
     _log.textContent = '';
 
-    _container.style.boxShadow = '0 0 1em blue';
+    _container.classList.add('peek42-flash-clear');
     setTimeout(function () {
-      _container.style.boxShadow = '0 0 1em #563d7c';
+      _container.classList.remove('peek42-flash-clear');
     }, 300);
 
     return _this;
@@ -312,13 +312,13 @@ function Peek42() {
     switch (opts.type) {
     case 'err':
     case 'error':
-      _container.style.boxShadow = '0 0 1em red';
+      _container.classList.add('peek42-flash-error');
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em #563d7c';
+        _container.classList.remove('peek42-flash-error');
         setTimeout(function () {
-          _container.style.boxShadow = '0 0 1em red';
+          _container.classList.add('peek42-flash-error');
           setTimeout(function () {
-            _container.style.boxShadow = '0 0 1em #563d7c';
+            _container.classList.remove('peek42-flash-error');
           }, 300);
         }, 200);
       }, 300);
@@ -326,13 +326,13 @@ function Peek42() {
       break;
     case 'warn':
     case 'warning':
-      _container.style.boxShadow = '0 0 1em orange';
+      _container.classList.add('peek42-flash-warning');
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em #563d7c';
+        _container.classList.remove('peek42-flash-warning');
         setTimeout(function () {
-          _container.style.boxShadow = '0 0 1em orange';
+          _container.classList.add('peek42-flash-warning');
           setTimeout(function () {
-            _container.style.boxShadow = '0 0 1em #563d7c';
+            _container.classList.remove('peek42-flash-warning');
           }, 300);
         }, 200);
       }, 300);
@@ -341,9 +341,9 @@ function Peek42() {
     case 'info':
     case 'information':
     default:
-      _container.style.boxShadow = '0 0 1em green';
+      _container.classList.add('peek42-flash-information');
       setTimeout(function () {
-        _container.style.boxShadow = '0 0 1em #563d7c';
+        _container.classList.remove('peek42-flash-information');
       }, 400);
     }
 
@@ -499,20 +499,26 @@ Peek42._instrumentConsoleNativeFn('info', Peek42._consoleNativeInfo);
 Peek42._instrumentConsoleNativeFn('warn', Peek42._consoleNativeWarn);
 Peek42._instrumentConsoleNativeFn('error', Peek42._consoleNativeError);
 
-window.addEventListener('error', function (ev) {
-  let err = ev.error;
-
+function reportError(err, note = 'error') {
   if (window.bundleError && err.sourceURL && err.sourceURL.endsWith('bundle.js')) {
-    pp(err, err.message + ' (retrieving source information...)', {type: 'error'});
+    pp(err, `(${note}) ${err} (retrieving source information...)`, {type: 'error'});
 
     bundleError.addSrcInfo(err).then(err1 => {
-      pp(err1.srcSnip, err1.message, {type: 'error'});
+      pp(err1.srcSnip, `(${note}) ${err1}`, {type: 'error'});
     }).catch(err2 => {
-      pp(err2, err2.message, {type: 'error'});
+      pp(err2, `(${note}) ${err2}`, {type: 'error'});
     });
   } else {
-    pp(err, err.message, {type: 'error'});
+    pp(err, `(${note}) ${err}`, {type: 'error'});
   }
+}
+
+window.addEventListener('error', function (ev) {
+  reportError(ev.error);
+});
+
+window.addEventListener('unhandledrejection', function (ev) {
+  reportError(ev.reason, 'unhandledrejection');
 });
 
 // exports
