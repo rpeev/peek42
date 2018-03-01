@@ -3,6 +3,7 @@
 Touch based browser console
 
 ![Screenshot](./screenshot.png)
+![Screenshot](./screenshot1.png)
 
 ## [Demos](https://rpeev.github.io/peek42/)
 
