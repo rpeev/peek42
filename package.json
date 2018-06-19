@@ -7,6 +7,8 @@
     "browser",
     "console"
   ],
+  "author": "Radoslav Peev <rpeev@ymail.com>",
+  "license": "MIT",
   "homepage": "https://github.com/rpeev/peek42#readme",
   "repository": {
     "type": "git",
@@ -15,10 +17,10 @@
   "bugs": {
     "url": "https://github.com/rpeev/peek42/issues"
   },
-  "author": "Radoslav Peev <rpeev@ymail.com>",
-  "license": "MIT",
-  "main": "peek42.js",
+  "module": "./dist/peek42.es.js",
+  "main": "./dist/peek42.cjs.js",
+  "browser": "./dist/peek42.umd.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c"
   }
 }
