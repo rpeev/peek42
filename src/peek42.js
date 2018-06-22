@@ -12,4 +12,5 @@ function pp(arg) {
 }
 
 Object.assign(peek42, {p, pp});
+
 export default peek42;
