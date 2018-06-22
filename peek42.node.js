@@ -2,6 +2,7 @@
 'use strict';
 
 const apivis = require('apivis');
-const {p, pp} = require('peek42');
+const peek42 = require('peek42');
+const {p, pp} = peek42.use(apivis);
 
-pp(module);
+p.api(peek42);

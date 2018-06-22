@@ -14,10 +14,10 @@
     <script src="./peek42.js"></script>
 
     <script> 'use strict';
-const {p, pp} = peek42;
+const {p, pp} = peek42.use(apivis);
 
 document.addEventListener('DOMContentLoaded', () => {
-  pp(document.location);
+  p.api(peek42);
 });
     </script>
   </head>
