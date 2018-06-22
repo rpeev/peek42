@@ -522,8 +522,7 @@ window.addEventListener('unhandledrejection', function (ev) {
 });
 
 // exports
-window.Peek42 = Peek42;
-window.p = p;
-window.pp = pp;
+window.x = p;
+window.xx = pp;
 
 })();
