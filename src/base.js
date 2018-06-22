@@ -26,7 +26,7 @@ function pretty(arg) {
 }
 
 function _output(arg) {
-  console.log(`${arg}`);
+  console.log(String(arg));
 }
 
 const peek42 = {
