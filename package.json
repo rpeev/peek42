@@ -1,6 +1,6 @@
 {
   "name": "peek42",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "Touch based browser console",
   "keywords": [
     "touch",
@@ -17,10 +17,13 @@
   "bugs": {
     "url": "https://github.com/rpeev/peek42/issues"
   },
-  "module": "./dist/peek42.es.js",
   "main": "./dist/peek42.cjs.js",
   "browser": "./dist/peek42.umd.js",
+  "module": "./dist/peek42.es.js",
   "scripts": {
     "build": "rollup -c"
+  },
+  "devDependencies": {
+    "rollup-plugin-json": "^3.0.0"
   }
 }

@@ -8,18 +8,16 @@
 
     <link rel="stylesheet" href="./monofur.css" />
     <link rel="stylesheet" href="./peek42.css" />
-    <script src="https://unpkg.com/apivis@latest/apivis.js"></script>
+
+    <script src="https://unpkg.com/apivis@latest/dist/apivis.umd.js"></script>
+    <script src="./dist/peek42.umd.js"></script>
     <script src="./peek42.js"></script>
 
-    <script>
-//Peek42.noop();
+    <script> 'use strict';
+const {p, pp} = peek42;
 
-pp(document.body, 'log call before DOM ready');
-
-document.addEventListener('DOMContentLoaded', function () {
-  pp(document.location, 'document.location');
-  console.warn('watch out!');
-  boom
+document.addEventListener('DOMContentLoaded', () => {
+  pp(document.location);
 });
     </script>
   </head>

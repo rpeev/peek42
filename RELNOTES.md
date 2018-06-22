@@ -1,5 +1,9 @@
 # Release Notes
 
+### 5.0.0
+
+- TODO
+
 ## 4.2.0
 
 - add `unhandledrejection` handler
