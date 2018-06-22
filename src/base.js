@@ -3,6 +3,10 @@ import {
   version as LIB_VERSION
 } from '../package.json';
 
+function _output(arg) {
+  console.log(String(arg));
+}
+
 function pretty(arg) {
   let objs = [];
   let keys = [];
@@ -25,8 +29,18 @@ function pretty(arg) {
   }, 2);
 }
 
-function _output(arg) {
-  console.log(String(arg));
+// TODO: Only works with apivis for now, develop general plugin model
+function use(lib) {
+  const {typeStr, descStr, membersStr, chainStr, apiStr} = lib;
+  const {p} = peek42;
+
+  p.type = (arg) => p(typeStr(arg));
+  p.desc = (arg, k) => p(descStr(arg, k));
+  p.members = (arg) => p(membersStr(arg));
+  p.chain = (arg) => p(chainStr(arg));
+  p.api = (arg) => p(apiStr(arg));
+
+  return peek42;
 }
 
 const peek42 = {
@@ -34,12 +48,14 @@ const peek42 = {
     return LIB_NAME;
   },
   version: LIB_VERSION,
+  _output,
   pretty,
-  _output
+  use
 };
 
 export {
+  _output,
   pretty,
-  _output
+  use
 };
 export default peek42;
