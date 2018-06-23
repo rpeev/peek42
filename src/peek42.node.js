@@ -1,6 +1,6 @@
 import peek42, {
-  pretty,
-  _output
+  _output,
+  pretty
 } from './base';
 
 function p(arg) {
