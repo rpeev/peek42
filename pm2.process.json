@@ -1,0 +1,5 @@
+{
+  "name": "peek42",
+  "script": "rollup",
+  "args": "--config --watch"
+}

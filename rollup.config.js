@@ -10,30 +10,42 @@ const config = [{
   input: './src/peek42.node.js',
   output: {
     format: 'cjs',
-    file: pkg.main
+    file: pkg.main,
+    sourcemap: true
   },
   plugins: [
     pluginJson
-  ]
+  ],
+  watch: {
+    include: 'src/**'
+  }
 }, {
   input: './src/peek42.js',
   output: {
     format: 'umd',
     file: pkg.browser,
-    name: pkg.name
+    name: pkg.name,
+    sourcemap: true
   },
   plugins: [
     pluginJson
-  ]
+  ],
+  watch: {
+    include: 'src/**'
+  }
 }, {
   input: './src/peek42.es.js',
   output: {
     format: 'es',
-    file: pkg.module
+    file: pkg.module,
+    sourcemap: true
   },
   plugins: [
     pluginJson
-  ]
+  ],
+  watch: {
+    include: 'src/**'
+  }
 }];
 
 export default config;
