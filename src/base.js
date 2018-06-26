@@ -3,8 +3,33 @@ import {
   version as LIB_VERSION
 } from '../package.json';
 
-function _output(arg) {
-  console.log(String(arg));
+function _comment(comment, arg, note) {
+  // No comment
+  if (comment === null) {
+    return null;
+  // Generate comment
+  } else if (comment === undefined || comment === '') {
+    let str = String(arg).replace(/\s+/gm, ' ');
+    let max = 69;
+
+    if (str.length > max) {
+      str = `${str.substr(0, max)}...`;
+    }
+
+    return (note === undefined) ?
+      str :
+      `(${note}) ${str}`;
+  }
+
+  return String(comment);
+}
+
+function _output(arg, comment) {
+  let str = (comment === null) ?
+    String(arg) :
+    `// ${comment}\n${String(arg)}`;
+
+  peek42._log(str);
 }
 
 function pretty(arg) {
@@ -29,16 +54,18 @@ function pretty(arg) {
   }, 2);
 }
 
-// TODO: Only works with apivis for now, develop general plugin model
-function use(lib) {
-  const {typeStr, descStr, membersStr, chainStr, apiStr} = lib;
-  const {p} = peek42;
+function p(arg, comment) {
+  _output(arg, _comment(comment, arg, 'value'));
+}
 
-  p.type = (arg) => p(typeStr(arg));
-  p.desc = (arg, k) => p(descStr(arg, k));
-  p.members = (arg) => p(membersStr(arg));
-  p.chain = (arg) => p(chainStr(arg));
-  p.api = (arg) => p(apiStr(arg));
+function pp(arg, comment) {
+  _output(pretty(arg), _comment(comment, arg, 'pretty'));
+}
+
+function use(lib) {
+  Object.assign(peek42.p,
+    lib.peek42(_output, _comment)
+  );
 
   return peek42;
 }
@@ -48,14 +75,10 @@ const peek42 = {
     return LIB_NAME;
   },
   version: LIB_VERSION,
-  _output,
   pretty,
+  p,
+  pp,
   use
 };
 
-export {
-  _output,
-  pretty,
-  use
-};
 export default peek42;

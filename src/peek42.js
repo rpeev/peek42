@@ -1,16 +1,11 @@
-import peek42, {
-  _output,
-  pretty
-} from './base';
+import peek42 from './base';
 
-function p(arg) {
-  _output(arg);
+function _log(str) {
+  console.log(str);
 }
 
-function pp(arg) {
-  p(pretty(arg));
-}
-
-Object.assign(peek42, {p, pp});
+Object.assign(peek42, {
+  _log
+});
 
 export default peek42;
