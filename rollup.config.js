@@ -1,9 +1,20 @@
+import html from 'rollup-plugin-html';
 import json from 'rollup-plugin-json';
+import babel from 'rollup-plugin-babel';
 
 import pkg from './package.json';
 
+const pluginHtml = html({
+  
+});
 const pluginJson = json({
   preferConst: true
+});
+const pluginBabel = babel({
+  exclude: 'node_modules/**',
+  plugins: [
+    'transform-class-properties'
+  ]
 });
 
 const config = [{
@@ -14,7 +25,8 @@ const config = [{
     sourcemap: true
   },
   plugins: [
-    pluginJson
+    pluginJson,
+    pluginBabel
   ],
   watch: {
     include: 'src/**'
@@ -28,7 +40,9 @@ const config = [{
     sourcemap: true
   },
   plugins: [
-    pluginJson
+    pluginHtml,
+    pluginJson,
+    pluginBabel
   ],
   watch: {
     include: 'src/**'
@@ -41,7 +55,9 @@ const config = [{
     sourcemap: true
   },
   plugins: [
-    pluginJson
+    pluginHtml,
+    pluginJson,
+    pluginBabel
   ],
   watch: {
     include: 'src/**'
