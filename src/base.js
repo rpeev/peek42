@@ -43,11 +43,17 @@ function pretty(arg) {
 }
 
 function p(arg, comment) {
-  peek42._output(arg, _comment(comment, arg, 'value'));
+  peek42._output(
+    arg,
+    _comment(comment, arg, 'value')
+  );
 }
 
 function pp(arg, comment) {
-  peek42._output(pretty(arg), _comment(comment, arg, 'pretty'));
+  peek42._output(
+    (arg instanceof Object) ? pretty(arg) : arg,
+    _comment(comment, arg, 'pretty')
+  );
 }
 
 function use(lib) {
