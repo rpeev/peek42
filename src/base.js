@@ -3,33 +3,21 @@ import {
   version as LIB_VERSION
 } from '../package.json';
 
-function _comment(comment, arg, note) {
-  // No comment
-  if (comment === null) {
-    return null;
-  // Generate comment
-  } else if (comment === undefined || comment === '') {
-    let str = String(arg).replace(/\s+/gm, ' ');
-    let max = 69;
-
-    if (str.length > max) {
-      str = `${str.substr(0, max)}...`;
-    }
-
-    return (note === undefined) ?
-      str :
-      `(${note}) ${str}`;
+function _comment(comment, genBase, genNote) {
+  if (comment !== undefined && comment !== '') {
+    return comment;
   }
 
-  return String(comment);
-}
+  let str = String(genBase).replace(/\s+/gm, ' ');
+  let max = 69;
 
-function _output(arg, comment) {
-  let str = (comment === null) ?
-    String(arg) :
-    `// ${comment}\n${String(arg)}`;
+  if (str.length > max) {
+    str = `${str.substr(0, max)}...`;
+  }
 
-  peek42._log(str);
+  return (genNote === undefined) ?
+    str :
+    `(${genNote}) ${str}`;
 }
 
 function pretty(arg) {
@@ -55,16 +43,16 @@ function pretty(arg) {
 }
 
 function p(arg, comment) {
-  _output(arg, _comment(comment, arg, 'value'));
+  peek42._output(arg, _comment(comment, arg, 'value'));
 }
 
 function pp(arg, comment) {
-  _output(pretty(arg), _comment(comment, arg, 'pretty'));
+  peek42._output(pretty(arg), _comment(comment, arg, 'pretty'));
 }
 
 function use(lib) {
   Object.assign(peek42.p,
-    lib.peek42(_output, _comment)
+    lib.peek42(peek42._output, _comment)
   );
 
   return peek42;
