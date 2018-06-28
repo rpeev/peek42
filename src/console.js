@@ -2,21 +2,30 @@ import consoleHtml from './console.html';
 
 class Console {
   static _html = consoleHtml;
+  static _instance;
 
-  static createContainer() {
+  static get instance() {
     return new Promise((resolve, reject) => {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-          resolve(document.createElement('div'));
+          resolve(this._instance = this._instance || new this());
         });
       } else {
-        resolve(document.createElement('div'));
+        resolve(this._instance = this._instance || new this());
       }
     });
   }
 
-  constructor(container) {
-    this._container = container;
+  constructor() {
+    if (document.readyState === 'loading') {
+      throw new Error(`Cannot create ${this} before DOM ready`);
+    }
+
+    if (document.querySelector('.peek42-container')) {
+      throw new Error(`${this} already created`);
+    }
+
+    this._container = document.createElement('div');
     this._container.setAttribute('class', 'peek42-container');
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
@@ -34,7 +43,7 @@ class Console {
     let str = (comment === null) ?
       String(arg) :
       `// ${String(comment)}\n${String(arg)}`;
-    
+
     this._log.textContent = `${str}\n${content}`;
     this._log.scrollTop = 0;
   }
