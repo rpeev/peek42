@@ -70,7 +70,7 @@ function Peek42() {
     _resizeData.resizing = false;
   };
 
-  _container.setAttribute('class', 'peek42-container');
+  _container.setAttribute('class', 'old-peek42-container');
 
   _title.setAttribute('class', 'peek42-control peek42-title');
   _title.innerHTML = 'Peek42';

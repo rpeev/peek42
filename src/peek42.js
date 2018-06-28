@@ -9,9 +9,12 @@ function _output(arg, comment) {
   console.log(str);
 }
 
+Console.createContainer().then(container => {
+  peek42._console = new Console(container);
+});
+
 Object.assign(peek42, {
-  _output,
-  Console
+  _output
 });
 
 export default peek42;
