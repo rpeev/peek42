@@ -17,15 +17,26 @@ class Console {
 
   constructor(container) {
     this._container = container;
+    this._container.setAttribute('class', 'peek42-container');
+    this._container.innerHTML = new.target._html;
+    document.body.appendChild(this._container);
 
-    container.setAttribute('class', 'peek42-container');
-    container.innerHTML = new.target._html;
-
-    document.body.appendChild(container);
+    this._log = this._container.querySelector('.peek42-log');
+    this._log.style.height = `${window.innerHeight * 0.42}px`;
   }
 
   get [Symbol.toStringTag]() {
     return 'peek42.Console';
+  }
+
+  output(arg, comment) {
+    let content = this._log.textContent;
+    let str = (comment === null) ?
+      String(arg) :
+      `// ${String(comment)}\n${String(arg)}`;
+    
+    this._log.textContent = `${str}\n${content}`;
+    this._log.scrollTop = 0;
   }
 }
 

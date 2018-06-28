@@ -4,7 +4,7 @@
   Copyright (c) 2017 Radoslav Peev <rpeev@ymail.com> (MIT License)
 */
 
-.old-peek42-container {
+.peek42-container {
   position: fixed;
   z-index: 500;
   right: 0.5ex;
@@ -46,6 +46,7 @@
 .peek42-control {
   margin: 0;
   padding: 0 0.4em 0 0.4em;
+  font-size: smaller;
 }
 
 .peek42-control:hover {
@@ -57,23 +58,22 @@
 }
 
 .peek42-toggle {
-  float: right;
+
 }
 
 .peek42-quietl {
-  float: right;
+
 }
 
 .peek42-resize {
-  float: right;
+
 }
 
 .peek42-clear {
-  float: right;
+
 }
 
 .peek42-eval {
-  float: right;
   width: 42%;
   border: 1px solid #563d7c;
   font-family: Monofur, monospace;
@@ -82,7 +82,6 @@
 }
 
 .peek42-log {
-  clear: both;
   overflow: scroll;
   margin: 0.2em;
   padding-top: 0.5em;

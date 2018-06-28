@@ -2,11 +2,15 @@ import peek42 from './base';
 import Console from './console';
 
 function _output(arg, comment) {
-  let str = (comment === null) ?
-    String(arg) :
-    `// ${String(comment)}\n${String(arg)}`;
+  let console = peek42._console;
 
-  console.log(str);
+  if (console === undefined) {
+    document.addEventListener('DOMContentLoaded', () => {
+      _output(arg, comment);
+    });
+  } else {
+    console.output(arg, comment);
+  }
 }
 
 Console.createContainer().then(container => {
