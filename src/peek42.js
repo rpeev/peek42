@@ -1,5 +1,5 @@
 import peek42 from './base';
-import Console from './console';
+import Console from './console/console';
 
 function _output(arg, comment) {
   Console.instance.then(_console => {
