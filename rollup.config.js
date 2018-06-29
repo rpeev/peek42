@@ -1,4 +1,5 @@
 import html from 'rollup-plugin-html';
+import sass from 'rollup-plugin-sass';
 import json from 'rollup-plugin-json';
 import babel from 'rollup-plugin-babel';
 
@@ -6,6 +7,9 @@ import pkg from './package.json';
 
 const pluginHtml = html({
   
+});
+const pluginSass = sass({
+  output: `dist/${pkg.name}.css`
 });
 const pluginJson = json({
   preferConst: true
@@ -41,6 +45,7 @@ const config = [{
   },
   plugins: [
     pluginHtml,
+    pluginSass,
     pluginJson,
     pluginBabel
   ],
@@ -56,6 +61,7 @@ const config = [{
   },
   plugins: [
     pluginHtml,
+    pluginSass,
     pluginJson,
     pluginBabel
   ],
