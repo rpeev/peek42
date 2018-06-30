@@ -18,11 +18,11 @@ class Console {
 
   constructor() {
     if (document.readyState === 'loading') {
-      throw new Error(`Cannot create ${this} before DOM ready`);
+      throw new Error(`Cannot create ${new.target.name} before DOM ready`);
     }
 
     if (document.querySelector('.peek42-container')) {
-      throw new Error(`${this} already created`);
+      throw new Error(`${new.target.name} already created`);
     }
 
     this._container = document.createElement('div');
@@ -32,10 +32,6 @@ class Console {
 
     this._log = this._container.querySelector('.peek42-log');
     this._log.style.height = `${window.innerHeight * 0.42}px`;
-  }
-
-  get [Symbol.toStringTag]() {
-    return 'peek42.Console';
   }
 
   output(arg, comment) {
