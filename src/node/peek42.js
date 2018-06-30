@@ -1,4 +1,4 @@
-import peek42 from './base';
+import peek42 from '../universal/base';
 
 function _output(arg, comment) {
   let str = (comment === null) ?

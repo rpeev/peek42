@@ -1,4 +1,4 @@
-import peek42 from './peek42.js';
+import peek42 from './browser/peek42.js';
 
 const {p, pp} = peek42;
 

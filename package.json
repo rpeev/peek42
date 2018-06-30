@@ -17,9 +17,10 @@
   "bugs": {
     "url": "https://github.com/rpeev/peek42/issues"
   },
-  "main": "./dist/peek42.cjs.js",
-  "browser": "./dist/peek42.umd.js",
-  "module": "./dist/peek42.es.js",
+  "main": "./dist/peek42.node.js",
+  "browser": "./dist/peek42.browser.js",
+  "main_module": "./dist/peek42.node.mjs",
+  "module": "./dist/peek42.browser.mjs",
   "scripts": {
     "build": "rollup -c"
   },

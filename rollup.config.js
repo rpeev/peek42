@@ -22,7 +22,7 @@ const pluginBabel = babel({
 });
 
 const config = [{
-  input: './src/peek42.node.js',
+  input: './src/index.node.js',
   output: {
     format: 'cjs',
     file: pkg.main,
@@ -36,7 +36,7 @@ const config = [{
     include: 'src/**'
   }
 }, {
-  input: './src/peek42.js',
+  input: './src/index.browser.js',
   output: {
     format: 'umd',
     file: pkg.browser,
@@ -53,7 +53,21 @@ const config = [{
     include: 'src/**'
   }
 }, {
-  input: './src/peek42.es.js',
+  input: './src/index.node.mjs',
+  output: {
+    format: 'es',
+    file: pkg.main_module,
+    sourcemap: true
+  },
+  plugins: [
+    pluginJson,
+    pluginBabel
+  ],
+  watch: {
+    include: 'src/**'
+  }
+}, {
+  input: './src/index.browser.mjs',
   output: {
     format: 'es',
     file: pkg.module,
