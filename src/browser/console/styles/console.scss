@@ -14,7 +14,7 @@
   opacity: 0.85;
   background: map-get($theme-colors, 'background');
   color: map-get($theme-colors, 'primary');
-  font-family: map-get($theme-fonts, 'primary'), Verdana, sans-serif;
+  font-family: map-get($theme-fonts, 'primary'), sans-serif;
   font-size: 22px;
   text-align: left;
 }
@@ -60,7 +60,7 @@
 .peek42-eval {
   width: 42%;
   border: 1px solid map-get($theme-colors, 'primary');
-  font-family: map-get($theme-fonts, 'secondary'), Menlo, monospace;
+  font-family: map-get($theme-fonts, 'secondary'), monospace;
   font-size: 18px;
   line-height: 25px;
 }
@@ -91,7 +91,7 @@
   padding-top: 0.5em;
   background: map-get($theme-colors, 'background');
   color: map-get($theme-colors, 'secondary');
-  font-family: map-get($theme-fonts, 'secondary'), Menlo, monospace;
+  font-family: map-get($theme-fonts, 'secondary'), monospace;
   font-size: 20px;
   line-height: 1em;
 }
