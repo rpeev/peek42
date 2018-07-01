@@ -1,3 +1,4 @@
+import copy from 'rollup-plugin-copy';
 import html from 'rollup-plugin-html';
 import sass from 'rollup-plugin-sass';
 import json from 'rollup-plugin-json';
@@ -5,6 +6,9 @@ import babel from 'rollup-plugin-babel';
 
 import pkg from './package.json';
 
+const pluginCopy = copy({
+  'src/browser/assets/monofur.woff': 'dist/monofur.woff'
+});
 const pluginHtml = html({
   
 });
@@ -44,6 +48,7 @@ const config = [{
     sourcemap: true
   },
   plugins: [
+    pluginCopy,
     pluginHtml,
     pluginSass,
     pluginJson,
@@ -74,6 +79,7 @@ const config = [{
     sourcemap: true
   },
   plugins: [
+    pluginCopy,
     pluginHtml,
     pluginSass,
     pluginJson,
