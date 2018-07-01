@@ -1,0 +1,97 @@
+@import '../../styles/config';
+
+.peek42-console {
+  position: fixed;
+  z-index: 500;
+  right: 0.5ex;
+  bottom: 0.5ex;
+  left: 0.5ex;
+  margin: 0;
+  padding: 0.2em;
+  border: 1px solid map-get($theme-colors, 'primary');
+  border-radius: 0.5ex;
+  box-shadow: 0 0 1em map-get($theme-colors, 'primary');
+  opacity: 0.85;
+  background: map-get($theme-colors, 'background');
+  color: map-get($theme-colors, 'primary');
+  font-family: map-get($theme-fonts, 'primary'), Verdana, sans-serif;
+  font-size: 22px;
+  text-align: left;
+}
+
+.peek42-flash-size-limit {
+  border-color: map-get($theme-colors, 'error') !important;
+}
+
+.peek42-flash-notice {
+  box-shadow: 0 0 1em map-get($theme-colors, 'notice') !important;
+}
+
+.peek42-flash-success {
+  box-shadow: 0 0 1em map-get($theme-colors, 'success') !important;
+}
+
+.peek42-flash-warning {
+  box-shadow: 0 0 1em map-get($theme-colors, 'warning') !important;
+}
+
+.peek42-flash-error {
+  box-shadow: 0 0 1em map-get($theme-colors, 'error') !important;
+}
+
+.peek42-bar {
+
+}
+
+.peek42-control {
+  margin: 0;
+  padding: 0 0.4em 0 0.4em;
+  font-size: smaller;
+}
+
+.peek42-control:hover {
+  cursor: pointer;
+}
+
+.peek42-title {
+  font-weight: bold;
+}
+
+.peek42-eval {
+  width: 42%;
+  border: 1px solid map-get($theme-colors, 'primary');
+  font-family: map-get($theme-fonts, 'secondary'), Menlo, monospace;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.peek42-quietl {
+
+}
+
+.peek42-quiet {
+
+}
+
+.peek42-clear {
+
+}
+
+.peek42-resize {
+
+}
+
+.peek42-toggle {
+
+}
+
+.peek42-log {
+  overflow: scroll;
+  margin: 0.2em;
+  padding-top: 0.5em;
+  background: map-get($theme-colors, 'background');
+  color: map-get($theme-colors, 'secondary');
+  font-family: map-get($theme-fonts, 'secondary'), Menlo, monospace;
+  font-size: 20px;
+  line-height: 1em;
+}

@@ -1,4 +1,5 @@
-import consoleHtml from './console.html';
+import consoleHtml from './views/console.html';
+import './styles/console.scss';
 
 class Console {
   static _html = consoleHtml;
@@ -21,12 +22,12 @@ class Console {
       throw new Error(`Cannot create ${new.target.name} before DOM ready`);
     }
 
-    if (document.querySelector('.peek42-container')) {
+    if (document.querySelector('.peek42-console')) {
       throw new Error(`${new.target.name} already created`);
     }
 
     this._container = document.createElement('div');
-    this._container.setAttribute('class', 'peek42-container');
+    this._container.setAttribute('class', 'peek42-console');
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
 

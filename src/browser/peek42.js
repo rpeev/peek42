@@ -1,7 +1,6 @@
 import peek42 from '../universal/base';
+import './styles/base.scss';
 import Console from './console/console';
-
-import './peek42.scss';
 
 function _output(arg, comment) {
   Console.instance.then(_console => {
