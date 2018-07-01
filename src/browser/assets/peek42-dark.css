@@ -1,10 +1,4 @@
-/*
-  Peek42 - Touch based browser console
-
-  Copyright (c) 2018 Radoslav Peev <rpeev@ymail.com> (MIT License)
-*/
-
-.peek42-container {
+.peek42-console {
   border-color: #65b042;
   box-shadow: 0 0 1em black;
   background: black;

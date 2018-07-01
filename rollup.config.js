@@ -7,7 +7,8 @@ import babel from 'rollup-plugin-babel';
 import pkg from './package.json';
 
 const pluginCopy = copy({
-  'src/browser/assets/monofur.woff': 'dist/monofur.woff'
+  'src/browser/assets/monofur.woff': 'dist/monofur.woff',
+  'src/browser/assets/peek42-dark.css': 'dist/peek42-dark.css'
 });
 const pluginHtml = html({
   
