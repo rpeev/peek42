@@ -36,7 +36,7 @@ class Console {
 
     this._title = this._container.querySelector('.peek42-title');
     this._title.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'rewind')
+      ev => this._onEvent(ev, 'toggleLogPos')
     );
 
     this._eval = this._container.querySelector('.peek42-eval');
@@ -70,14 +70,26 @@ class Console {
     this[methName]();
   }
 
-  rewind() {
-    this._log.scrollTop = (this._log.scrollTop == 0) ?
-      // If at the top of the log, scroll to the bottom
-      this._log.scrollTop = this._log.scrollHeight :
-      // When anywhere in the log, scroll to the top
-      this._log.scrollTop = 0;
+  get logIsAtTop() {
+    return this._log.scrollTop === 0;
+  }
+
+  logPosTop() {
+    this._log.scrollTop = 0;
 
     return this;
+  }
+
+  logPosBottom() {
+    this._log.scrollTop = this._log.scrollHeight;
+
+    return this;
+  }
+
+  toggleLogPos() {
+    return (this.logIsAtTop) ?
+      this.logPosBottom() :
+      this.logPosTop();
   }
 
   clear() {
