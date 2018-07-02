@@ -41,4 +41,14 @@ const flash = {
   flashOutput
 };
 
+export {
+  flash1,
+  flash2,
+  flashSizeLimit,
+  flashNotice,
+  flashSuccess,
+  flashWarning,
+  flashError,
+  flashOutput
+};
 export default flash;

@@ -1,6 +1,10 @@
 import consoleHtml from './views/console.html';
 import './styles/console.scss';
-import flash from './flash';
+import {
+  flashSizeLimit,
+  flashNotice,
+  flashOutput
+} from './flash';
 
 class Console {
   static _html = consoleHtml;
@@ -94,7 +98,7 @@ class Console {
 
   clear() {
     this._log.textContent = '';
-    flash.flashNotice(this._container);
+    flashNotice(this._container);
 
     return this;
   }
@@ -159,7 +163,7 @@ class Console {
 
     this._log.textContent = `${str}\n${content}`;
     this._log.scrollTop = 0;
-    flash.flashOutput(this._container, opts.level);
+    flashOutput(this._container, opts.level);
   }
 }
 
