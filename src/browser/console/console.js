@@ -27,6 +27,8 @@ class Console {
       throw new Error(`${new.target.name} already created`);
     }
 
+    this._isMinimized = false;
+
     this._container = document.createElement('div');
     this._container.setAttribute('class', 'peek42-console');
     this._container.innerHTML = new.target._html;
@@ -34,14 +36,31 @@ class Console {
 
     this._title = this._container.querySelector('.peek42-title');
     this._title.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'rewind'));
+      ev => this._onEvent(ev, 'rewind')
+    );
+
+    this._eval = this._container.querySelector('.peek42-eval');
 
     this._clear = this._container.querySelector('.peek42-clear');
     this._clear.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'clear'));
+      ev => this._onEvent(ev, 'clear')
+    );
+
+    this._resize = this._container.querySelector('.peek42-resize');
+
+    this._quietl = this._container.querySelector('.peek42-quietl');
+
+    this._quiet = this._container.querySelector('.peek42-quiet');
+
+    this._toggle = this._container.querySelector('.peek42-toggle');
+    this._toggle.addEventListener('mousedown',
+      ev => this._onEvent(ev, 'toggleDisplay')
+    );
 
     this._log = this._container.querySelector('.peek42-log');
     this._log.style.height = `${window.innerHeight * 0.42}px`;
+
+    this.minimize();
   }
 
   _onEvent(ev, methName) {
@@ -68,11 +87,61 @@ class Console {
     return this;
   }
 
+  get isQuiet() {
+    return this._quiet.checked;
+  }
+
+  get isMinimized() {
+    return this._isMinimized;
+  }
+
+  minimize() {
+    this._isMinimized = true;
+
+    this._eval.style.display = 'none';
+
+    this._clear.style.display = 'none';
+    this._resize.style.display = 'none';
+    this._quietl.style.display = '';
+    this._quiet.style.display = '';
+    this._toggle.innerHTML = 'Restore';
+
+    this._log.style.display = 'none';
+
+    return this;
+  }
+
+  show() {
+    this._isMinimized = false;
+
+    this._eval.style.display = '';
+
+    this._clear.style.display = '';
+    this._resize.style.display = '';
+    this._quietl.style.display = 'none';
+    this._quiet.style.display = 'none';
+    this._toggle.innerHTML = 'Minimize';
+
+    this._log.style.display = '';
+
+    return this;
+  }
+
+  toggleDisplay() {
+    return (this.isMinimized) ?
+      this.show() :
+      this.minimize();
+  }
+
   output(arg, comment) {
     let content = this._log.textContent;
     let str = (comment === null) ?
       String(arg) :
       `// ${String(comment)}\n${String(arg)}`;
+
+    if (this.isMinimized && !this.isQuiet) {
+      this.show();
+    }
 
     this._log.textContent = `${str}\n${content}`;
     flash.flashSuccess(this._container);
