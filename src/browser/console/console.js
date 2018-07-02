@@ -78,29 +78,21 @@ class Console {
     return this._log.scrollTop === 0;
   }
 
-  logPosTop() {
-    this._log.scrollTop = 0;
-
-    return this;
+  toggleLogPos() {
+    (this.logIsAtTop) ? this.logPosBottom() : this.logPosTop();
   }
 
   logPosBottom() {
     this._log.scrollTop = this._log.scrollHeight;
-
-    return this;
   }
 
-  toggleLogPos() {
-    return (this.logIsAtTop) ?
-      this.logPosBottom() :
-      this.logPosTop();
+  logPosTop() {
+    this._log.scrollTop = 0;
   }
 
   clear() {
     this._log.textContent = '';
     flashNotice(this._container);
-
-    return this;
   }
 
   get isQuiet() {
@@ -111,20 +103,8 @@ class Console {
     return this._isMinimized;
   }
 
-  minimize() {
-    this._isMinimized = true;
-
-    this._eval.style.display = 'none';
-
-    this._clear.style.display = 'none';
-    this._resize.style.display = 'none';
-    this._quietl.style.display = '';
-    this._quiet.style.display = '';
-    this._toggle.innerHTML = 'Restore';
-
-    this._log.style.display = 'none';
-
-    return this;
+  toggleDisplay() {
+    (this.isMinimized) ? this.show() : this.minimize();
   }
 
   show() {
@@ -139,14 +119,20 @@ class Console {
     this._toggle.innerHTML = 'Minimize';
 
     this._log.style.display = '';
-
-    return this;
   }
 
-  toggleDisplay() {
-    return (this.isMinimized) ?
-      this.show() :
-      this.minimize();
+  minimize() {
+    this._isMinimized = true;
+
+    this._eval.style.display = 'none';
+
+    this._clear.style.display = 'none';
+    this._resize.style.display = 'none';
+    this._quietl.style.display = '';
+    this._quiet.style.display = '';
+    this._toggle.innerHTML = 'Restore';
+
+    this._log.style.display = 'none';
   }
 
   output(arg, comment, opts = {
