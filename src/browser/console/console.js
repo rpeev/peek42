@@ -1,5 +1,6 @@
 import consoleHtml from './views/console.html';
 import './styles/console.scss';
+import flash from './flash';
 
 class Console {
   static _html = consoleHtml;
@@ -31,8 +32,25 @@ class Console {
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
 
+    this._clear = this._container.querySelector('.peek42-clear');
+    this._clear.addEventListener('mousedown', ev => this._onClear(ev));
+
     this._log = this._container.querySelector('.peek42-log');
     this._log.style.height = `${window.innerHeight * 0.42}px`;
+  }
+
+  _onClear(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    this.clear();
+  }
+
+  clear() {
+    this._log.textContent = '';
+    flash.flashNotice(this._container);
+
+    return this;
   }
 
   output(arg, comment) {
@@ -42,6 +60,7 @@ class Console {
       `// ${String(comment)}\n${String(arg)}`;
 
     this._log.textContent = `${str}\n${content}`;
+    flash.flashSuccess(this._container);
     this._log.scrollTop = 0;
   }
 }
