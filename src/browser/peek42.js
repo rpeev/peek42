@@ -2,9 +2,9 @@ import peek42 from '../universal/base';
 import './styles/base.scss';
 import Console from './console/console';
 
-function _output(arg, comment) {
+function _output(arg, comment, opts) {
   Console.instance.then(_console => {
-    _console.output(arg, comment);
+    _console.output(arg, comment, opts);
   });
 }
 

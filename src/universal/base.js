@@ -3,21 +3,21 @@ import {
   version as LIB_VERSION
 } from '../../package.json';
 
-function _comment(comment, genBase, genNote) {
+function _comment(comment, arg, note) {
   if (comment !== undefined && comment !== '') {
     return comment;
   }
 
-  let str = String(genBase).replace(/\s+/gm, ' ');
+  let str = String(arg).replace(/\s+/gm, ' ');
   let max = 69;
 
   if (str.length > max) {
     str = `${str.substr(0, max)}...`;
   }
 
-  return (genNote === undefined) ?
+  return (note === undefined) ?
     str :
-    `(${genNote}) ${str}`;
+    `(${note}) ${str}`;
 }
 
 function pretty(arg) {
@@ -42,23 +42,25 @@ function pretty(arg) {
   }, 2);
 }
 
-function p(arg, comment) {
+function p(arg, comment, opts) {
   peek42._output(
     arg,
-    _comment(comment, arg, 'value')
+    _comment(comment, arg, 'value'),
+    opts
   );
 }
 
-function pp(arg, comment) {
+function pp(arg, comment, opts) {
   peek42._output(
     (arg instanceof Object) ? pretty(arg) : arg,
-    _comment(comment, arg, 'pretty')
+    _comment(comment, arg, 'pretty'),
+    opts
   );
 }
 
 function use(lib) {
-  Object.assign(peek42.p,
-    lib.peek42(peek42._output, _comment)
+  Object.assign(p,
+    lib.peek42(p, _comment)
   );
 
   return peek42;

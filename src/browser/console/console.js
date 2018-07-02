@@ -145,7 +145,9 @@ class Console {
       this.minimize();
   }
 
-  output(arg, comment) {
+  output(arg, comment, opts = {
+    level: 'log'
+  }) {
     let content = this._log.textContent;
     let str = (comment === null) ?
       String(arg) :
@@ -156,8 +158,8 @@ class Console {
     }
 
     this._log.textContent = `${str}\n${content}`;
-    flash.flashSuccess(this._container);
     this._log.scrollTop = 0;
+    flash.flashOutput(this._container, opts.level);
   }
 }
 
