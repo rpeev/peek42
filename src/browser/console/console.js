@@ -8,7 +8,7 @@ import {
 
 class Console {
   static _html = consoleHtml;
-  static _instance;
+  static _instance = null;
 
   static get instance() {
     return new Promise((resolve, reject) => {
