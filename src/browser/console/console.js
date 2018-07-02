@@ -32,18 +32,33 @@ class Console {
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
 
+    this._title = this._container.querySelector('.peek42-title');
+    this._title.addEventListener('mousedown',
+      ev => this._onEvent(ev, 'rewind'));
+
     this._clear = this._container.querySelector('.peek42-clear');
-    this._clear.addEventListener('mousedown', ev => this._onClear(ev));
+    this._clear.addEventListener('mousedown',
+      ev => this._onEvent(ev, 'clear'));
 
     this._log = this._container.querySelector('.peek42-log');
     this._log.style.height = `${window.innerHeight * 0.42}px`;
   }
 
-  _onClear(ev) {
+  _onEvent(ev, methName) {
     ev.preventDefault();
     ev.stopPropagation();
 
-    this.clear();
+    this[methName]();
+  }
+
+  rewind() {
+    this._log.scrollTop = (this._log.scrollTop == 0) ?
+      // If at the top of the log, scroll to the bottom
+      this._log.scrollTop = this._log.scrollHeight :
+      // When anywhere in the log, scroll to the top
+      this._log.scrollTop = 0;
+
+    return this;
   }
 
   clear() {
