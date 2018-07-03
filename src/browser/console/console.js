@@ -1,5 +1,6 @@
 import consoleHtml from './views/console.html';
 import './styles/console.scss';
+import Resizer from './resize';
 import {
   flashSizeLimit,
   flashNotice,
@@ -31,47 +32,102 @@ class Console {
       throw new Error(`${new.target.name} already created`);
     }
 
-    this._isMinimized = false;
-
     this._container = document.createElement('div');
     this._container.setAttribute('class', 'peek42-console');
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
 
-    this._title = this._container.querySelector('.peek42-title');
-    this._title.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'toggleLogPos')
-    );
+    [
+      'title',
+      'eval',
+      'clear', 'resize', 'quietl', 'quiet', 'toggle',
+      'log'
+    ].forEach(ctrl => {
+      this[`_${ctrl}`] = this._container.querySelector(`.peek42-${ctrl}`);
+    });
 
-    this._eval = this._container.querySelector('.peek42-eval');
+    this._resizer = new Resizer(this._container, this._log);
+    this._isMinimized = false;
 
-    this._clear = this._container.querySelector('.peek42-clear');
-    this._clear.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'clear')
-    );
+    this._title.addEventListener('touchstart', ev => {
+      this._onTitleClick(ev);
+    });
 
-    this._resize = this._container.querySelector('.peek42-resize');
+    this._clear.addEventListener('touchstart', ev => {
+      this._onClearClick(ev);
+    });
 
-    this._quietl = this._container.querySelector('.peek42-quietl');
+    this._resize.addEventListener('touchstart', ev => {
+      this._onResizeTouchStart(ev);
+    });
+    document.body.addEventListener('touchmove', ev => {
+      this._onBodyTouchMove(ev);
+    });
+    document.body.addEventListener('touchend', ev => {
+      this._onBodyTouchEnd(ev);
+    });
 
-    this._quiet = this._container.querySelector('.peek42-quiet');
+    this._quietl.addEventListener('touchstart', ev => {
+      this._onQuietClick(ev);
+    });
 
-    this._toggle = this._container.querySelector('.peek42-toggle');
-    this._toggle.addEventListener('mousedown',
-      ev => this._onEvent(ev, 'toggleDisplay')
-    );
+    this._toggle.addEventListener('touchstart', ev => {
+      this._onToggleClick(ev);
+    });
 
-    this._log = this._container.querySelector('.peek42-log');
-    this._log.style.height = `${window.innerHeight * 0.42}px`;
+    this._log.style.height = `${this._resizer.height}px`;
 
     this.minimize();
   }
 
-  _onEvent(ev, methName) {
+  _onTitleClick(ev) {
     ev.preventDefault();
     ev.stopPropagation();
 
-    this[methName]();
+    this.toggleLogPos();
+  }
+
+  _onClearClick(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    this.clear();
+  }
+
+  _onResizeTouchStart(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    this._resizer.resizeStart(ev.touches[0].clientY);
+  }
+
+  _onBodyTouchMove(ev) {
+    if (this._resizer.isResizing) {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      this._resizer.resize(ev.touches[0].clientY);
+    }
+  }
+
+  _onBodyTouchEnd(ev) {
+    if (this._resizer.isResizing) {
+      this._resizer.resizeEnd();
+    }
+  }
+
+  _onQuietClick(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    this.toggleQuiet();
+  }
+
+  _onToggleClick(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    this.toggleDisplay();
   }
 
   get logIsAtTop() {
@@ -97,6 +153,18 @@ class Console {
 
   get isQuiet() {
     return this._quiet.checked;
+  }
+
+  toggleQuiet() {
+    this._quiet.checked = !this._quiet.checked;
+  }
+
+  quiet() {
+    this._quiet.checked = true;
+  }
+
+  unquiet() {
+    this._quiet.checked = false;
   }
 
   get isMinimized() {
