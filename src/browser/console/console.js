@@ -10,6 +10,22 @@ import {
 class Console {
   static _html = consoleHtml;
   static _instance = null;
+  static _printFnMap = {
+    v: ['peek42.p', 'value'],
+    value: ['peek42.p', 'value'],
+    p: ['peek42.pp', 'pretty'],
+    pretty: ['peek42.pp', 'pretty'],
+    t: ['peek42.p.type', 'type'],
+    type: ['peek42.p.type', 'type'],
+    d: ['peek42.p.desc', 'desc'],
+    desc: ['peek42.p.desc', 'desc'],
+    m: ['peek42.p.members', 'members'],
+    members: ['peek42.p.members', 'members'],
+    c: ['peek42.p.chain', 'chain'],
+    chain: ['peek42.p.chain', 'chain'],
+    a: ['peek42.p.api', 'api'],
+    api: ['peek42.p.api', 'api']
+  };
 
   static get instance() {
     return new Promise((resolve, reject) => {
@@ -53,6 +69,10 @@ class Console {
       this._onTitleClick(ev);
     });
 
+    this._eval.addEventListener('keypress', ev => {
+      this._onEvalKeyPress(ev);
+    });
+
     this._clear.addEventListener('touchstart', ev => {
       this._onClearClick(ev);
     });
@@ -88,6 +108,15 @@ class Console {
     ev.stopPropagation();
 
     this.toggleLogPos();
+  }
+
+  _onEvalKeyPress(ev) {
+    let crCode = '\r'.charCodeAt(0);
+    let lfCode = '\n'.charCodeAt(0);
+
+    if (ev.charCode === crCode || ev.charCode === lfCode) {
+      this.evalJS();
+    }
   }
 
   _onClearClick(ev) {
@@ -152,6 +181,46 @@ class Console {
 
   logPosTop() {
     this._log.scrollTop = 0;
+  }
+
+  get jsToEval() {
+    return this._eval.value;
+  }
+
+  set jsToEval(v) {
+    this._eval.value = v;
+  }
+
+  evalJS() {
+    let val = this._eval.value;
+
+    if (val.match(/^\s*$/gm)) {
+      return;
+    }
+
+    let str = val.replace(/'/gm, '"');
+    let keys = Object.keys(this.constructor._printFnMap);
+    let pattern = `^(${keys.join('|')})\\s+(.+)`;
+    let parts = str.match(new RegExp(pattern));
+    let dummy, k, expr, fn, note, js;
+
+    if (parts) {
+      [dummy, k, expr] = parts;
+      [fn, note] = this.constructor._printFnMap[k];
+    } else {
+      expr = str;
+      [fn, note] = this.constructor._printFnMap['v'];
+    }
+
+    js = `${fn}(${expr}, '(${note}) ${expr}');`;
+
+    try {
+      eval(js);
+    } catch (err) {
+      err.evalInput = js;
+
+      throw err;
+    }
   }
 
   clear() {
