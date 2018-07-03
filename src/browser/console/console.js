@@ -232,7 +232,7 @@ class Console {
     js = `${fn}(${expr}, '(${note}) ${expr}');`;
 
     try {
-      eval(js);
+      (new Function(js))();
     } catch (err) {
       err.evalInput = js;
 
