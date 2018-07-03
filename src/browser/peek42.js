@@ -3,14 +3,14 @@ import './styles/base.scss';
 import Console from './console/console';
 
 function _output(arg, comment, opts) {
-  Console.instance.then(_console => {
-    _console.output(arg, comment, opts);
+  Console.instance.then(console => {
+    console._output(arg, comment, opts);
   });
 }
 
-Console.instance.then(_console => {
+Console.instance.then(console => {
   Object.assign(peek42, {
-    _console
+    console
   });
 });
 

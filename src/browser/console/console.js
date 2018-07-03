@@ -103,6 +103,23 @@ class Console {
     this.minimize();
   }
 
+  _output(arg, comment, opts = {
+    level: 'log'
+  }) {
+    let content = this._log.textContent;
+    let str = (comment === null) ?
+      String(arg) :
+      `// ${String(comment)}\n${String(arg)}`;
+
+    if (this.isMinimized && !this.isQuiet) {
+      this.show();
+    }
+
+    this._log.textContent = `${str}\n${content}`;
+    this._log.scrollTop = 0;
+    flashOutput(this._container, opts.level);
+  }
+
   _onTitleClick(ev) {
     ev.preventDefault();
     ev.stopPropagation();
@@ -274,23 +291,6 @@ class Console {
     this._log.style.display = 'none';
 
     this._isMinimized = true;
-  }
-
-  output(arg, comment, opts = {
-    level: 'log'
-  }) {
-    let content = this._log.textContent;
-    let str = (comment === null) ?
-      String(arg) :
-      `// ${String(comment)}\n${String(arg)}`;
-
-    if (this.isMinimized && !this.isQuiet) {
-      this.show();
-    }
-
-    this._log.textContent = `${str}\n${content}`;
-    this._log.scrollTop = 0;
-    flashOutput(this._container, opts.level);
   }
 }
 
