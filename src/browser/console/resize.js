@@ -17,8 +17,16 @@ class Resizer {
     this._isResizing = false;
   }
 
+  get ratio() {
+    return this._ratio;
+  }
+
   get height() {
     return this._height;
+  }
+
+  set height(v) {
+    this._height = v;
   }
 
   get isResizing() {

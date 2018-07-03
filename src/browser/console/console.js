@@ -66,6 +66,9 @@ class Console {
     document.body.addEventListener('touchend', ev => {
       this._onBodyTouchEnd(ev);
     });
+    window.addEventListener('resize', ev => {
+      this._onWindowResize(ev);
+    });
 
     this._quietl.addEventListener('touchstart', ev => {
       this._onQuietClick(ev);
@@ -114,6 +117,11 @@ class Console {
     if (this._resizer.isResizing) {
       this._resizer.resizeEnd();
     }
+  }
+
+  _onWindowResize(ev) {
+    this._resizer.height = window.innerHeight * this._resizer.ratio;
+    this._log.style.height = `${this._resizer.height}px`;
   }
 
   _onQuietClick(ev) {
