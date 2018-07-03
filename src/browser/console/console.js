@@ -176,31 +176,27 @@ class Console {
   }
 
   show() {
-    this._isMinimized = false;
-
     this._eval.style.display = '';
-
     this._clear.style.display = '';
     this._resize.style.display = '';
     this._quietl.style.display = 'none';
     this._quiet.style.display = 'none';
     this._toggle.innerHTML = 'Minimize';
-
     this._log.style.display = '';
+
+    this._isMinimized = false;
   }
 
   minimize() {
-    this._isMinimized = true;
-
     this._eval.style.display = 'none';
-
     this._clear.style.display = 'none';
     this._resize.style.display = 'none';
     this._quietl.style.display = '';
     this._quiet.style.display = '';
     this._toggle.innerHTML = 'Restore';
-
     this._log.style.display = 'none';
+
+    this._isMinimized = true;
   }
 
   output(arg, comment, opts = {
