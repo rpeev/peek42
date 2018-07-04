@@ -12,6 +12,10 @@ function _output(arg, comment, opts) {
     peek42.console._output(arg, comment, opts);
   } else {
     Console.instance.then(console => {
+      Object.assign(peek42, {
+        console
+      });
+
       console._output(arg, comment, opts);
     });
   }
