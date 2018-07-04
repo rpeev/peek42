@@ -1,3 +1,4 @@
+import {_string} from '../../universal/base';
 import consoleHtml from './views/console.html';
 import './styles/console.scss';
 import Resizer from './resize';
@@ -107,8 +108,8 @@ class Console {
   }) {
     let content = this._log.textContent;
     let str = (comment === null) ?
-      String(arg) :
-      `// ${String(comment)}\n${String(arg)}`;
+      _string(arg) :
+      `// ${String(comment)}\n${_string(arg)}`;
 
     if (this.isMinimized && !this.isQuiet) {
       this.show();

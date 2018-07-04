@@ -3,12 +3,24 @@ import {
   version as LIB_VERSION
 } from '../../package.json';
 
+function _isBareObject(arg) {
+  return typeof arg === 'object' &&
+    arg !== null &&
+    arg.__proto__ === undefined;
+}
+
+function _string(arg) {
+  return (_isBareObject(arg)) ?
+    '[object BareObject]' :
+    String(arg);
+}
+
 function _comment(comment, arg, note) {
   if (comment !== undefined && comment !== '') {
     return comment;
   }
 
-  let str = String(arg).replace(/\s+/gm, ' ');
+  let str = _string(arg).replace(/\s+/gm, ' ');
   let max = 69;
 
   if (str.length > max) {
@@ -18,6 +30,11 @@ function _comment(comment, arg, note) {
   return (note === undefined) ?
     str :
     `(${note}) ${str}`;
+}
+
+function _prettyMakesSense(arg) {
+  return (arg instanceof Object && !(arg instanceof Function)) ||
+    _isBareObject(arg);
 }
 
 function pretty(arg) {
@@ -52,7 +69,7 @@ function p(arg, comment, opts) {
 
 function pp(arg, comment, opts) {
   peek42._output(
-    (arg instanceof Object) ? pretty(arg) : arg,
+    (_prettyMakesSense(arg)) ? pretty(arg) : arg,
     _comment(comment, arg, 'pretty'),
     opts
   );
@@ -71,6 +88,7 @@ const peek42 = {
     return LIB_NAME;
   },
   version: LIB_VERSION,
+  _string,
   _comment,
   pretty,
   p,
@@ -78,5 +96,5 @@ const peek42 = {
   use
 };
 
-export {_comment, pretty, p, pp, use};
+export {_string, _comment, pretty, p, pp, use};
 export default peek42;

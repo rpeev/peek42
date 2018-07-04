@@ -1,11 +1,11 @@
-import peek42 from '../universal/base';
+import peek42, {_string} from '../universal/base';
 
 function _output(arg, comment, opts = {
   level: 'log'
 }) {
   let str = (comment === null) ?
-    String(arg) :
-    `// ${String(comment)}\n${String(arg)}`;
+    _string(arg) :
+    `// ${String(comment)}\n${_string(arg)}`;
 
   console[opts.level](str);
 }

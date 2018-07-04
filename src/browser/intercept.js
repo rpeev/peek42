@@ -1,4 +1,4 @@
-import {_comment, p, pp} from '../universal/base';
+import {_string, _comment, p, pp} from '../universal/base';
 
 window.console = window.console || {};
 
@@ -7,7 +7,7 @@ function _interceptNativeConsoleFn(name) {
   const {map} = Array.prototype;
 
   window.console[name] = function () {
-    let str = map.call(arguments, arg => String(arg)).join(' ');
+    let str = map.call(arguments, arg => _string(arg)).join(' ');
 
     p(str,
       _comment('', '', `intercepted console.${name}`),
