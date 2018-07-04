@@ -5,9 +5,16 @@ import _interceptNativeConsoleFn from './intercept';
 import _reportError from './error';
 
 function _output(arg, comment, opts) {
-  Console.instance.then(console => {
-    console._output(arg, comment, opts);
-  });
+  // Allow peek42.console.content to be used without
+  // Console.instance.then wait (or the setTimeout 0 trick)
+  // after console has been created
+  if (peek42.console) {
+    peek42.console._output(arg, comment, opts);
+  } else {
+    Console.instance.then(console => {
+      console._output(arg, comment, opts);
+    });
+  }
 }
 
 Console.instance.then(console => {
@@ -17,7 +24,8 @@ Console.instance.then(console => {
 });
 
 Object.assign(peek42, {
-  _output
+  _output,
+  Console
 });
 
 _interceptNativeConsoleFn('log');

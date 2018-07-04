@@ -292,6 +292,10 @@ class Console {
 
     this._isMinimized = true;
   }
+
+  get content() {
+    return this._log.textContent;
+  }
 }
 
 export default Console;
