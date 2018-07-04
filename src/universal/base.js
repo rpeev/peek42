@@ -71,10 +71,12 @@ const peek42 = {
     return LIB_NAME;
   },
   version: LIB_VERSION,
+  _comment,
   pretty,
   p,
   pp,
   use
 };
 
+export {_comment, pretty, p, pp, use};
 export default peek42;

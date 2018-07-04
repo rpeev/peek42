@@ -2,7 +2,6 @@ import consoleHtml from './views/console.html';
 import './styles/console.scss';
 import Resizer from './resize';
 import {
-  flashSizeLimit,
   flashNotice,
   flashOutput
 } from './flash';

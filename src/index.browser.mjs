@@ -1,5 +1,5 @@
+import {pretty, p, pp, use} from './universal/base';
 import peek42 from './browser/peek42';
-  const {p, pp} = peek42;
 
-export {p, pp};
+export {pretty, p, pp, use};
 export default peek42;
