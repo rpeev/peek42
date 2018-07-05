@@ -271,7 +271,6 @@ class Console {
 
   show() {
     this._eval.style.display = '';
-    this._clear.style.display = '';
     this._resize.style.display = '';
     this._quietl.style.display = 'none';
     this._quiet.style.display = 'none';
@@ -283,7 +282,6 @@ class Console {
 
   minimize() {
     this._eval.style.display = 'none';
-    this._clear.style.display = 'none';
     this._resize.style.display = 'none';
     this._quietl.style.display = '';
     this._quiet.style.display = '';
