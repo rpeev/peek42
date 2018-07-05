@@ -7,7 +7,7 @@
   bottom: 0.5ex;
   left: 0.5ex;
   margin: 0;
-  padding: 0.2em;
+  padding: 0.1em;
   border: 1px solid map-get($theme-colors, 'primary');
   border-radius: 0.5ex;
   box-shadow: 0 0 1em map-get($theme-colors, 'primary');
@@ -40,13 +40,18 @@
 }
 
 .peek42-bar {
-
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+  padding: 0 0.15em 0 0.15em;
 }
 
 .peek42-control {
   margin: 0;
-  padding: 0 0.4em 0 0.4em;
-  font-size: smaller;
+  padding: 0 0.25em 0 0.25em;
+  font-size: 107%;
 }
 
 .peek42-control:hover {
@@ -54,12 +59,13 @@
 }
 
 .peek42-title {
+  margin-right: auto;
   font-weight: bold;
 }
 
 .peek42-eval {
-  width: 42%;
-  border: 1px solid map-get($theme-colors, 'primary');
+  flex: 1;
+  margin: 0 0.3em 0 0.3em;
   font-family: map-get($theme-fonts, 'secondary'), monospace;
   font-size: 18px;
   line-height: 25px;
@@ -87,8 +93,8 @@
 
 .peek42-log {
   overflow: scroll;
-  margin: 0.2em;
-  padding-top: 0.5em;
+  margin: 0.1em 0.2em 0.2em 0.2em;
+  padding: 0;
   background: map-get($theme-colors, 'background');
   color: map-get($theme-colors, 'secondary');
   font-family: map-get($theme-fonts, 'secondary'), monospace;
