@@ -8,7 +8,8 @@ import pkg from './package.json';
 
 const pluginCopy = copy({
   'src/browser/assets/monofur.woff': 'dist/monofur.woff',
-  'src/browser/assets/peek42-dark.css': 'dist/peek42-dark.css'
+  'src/browser/console/styles/peek42-dark.css': 'dist/peek42-dark.css',
+  'src/browser/peek42.bookmarklet.unpkg.js': 'dist/peek42.bookmarklet.unpkg.js'
 });
 const pluginHtml = html({
   
