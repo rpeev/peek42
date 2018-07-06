@@ -13,13 +13,13 @@
     <script src="https://unpkg.com/apivis@latest/dist/apivis.browser.js"></script>
     <script src="../dist/peek42.browser.js"></script>
 
-    <script> 'use strict';
+    <script>(() => { 'use strict';
 const {p, pp} = peek42.use(apivis);
 
 document.addEventListener('DOMContentLoaded', () => {
   p.api(peek42);
 });
-    </script>
+    })();</script>
   </head>
 
   <body>
