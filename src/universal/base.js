@@ -3,24 +3,24 @@ import {
   version as LIB_VERSION
 } from '../../package.json';
 
-function _isBasicObject(arg) {
-  return typeof arg === 'object' &&
-    arg !== null &&
-    arg.__proto__ === undefined;
+function _isBasicObject(val) {
+  return typeof val === 'object' &&
+    val !== null &&
+    val.__proto__ === undefined;
 }
 
-function _string(arg) {
-  return (_isBasicObject(arg)) ?
+function _string(val) {
+  return (_isBasicObject(val)) ?
     '[object BasicObject]' :
-    String(arg);
+    String(val);
 }
 
-function _comment(comment, arg, note) {
+function _comment(comment, val, note = undefined) {
   if (comment !== undefined && comment !== '') {
     return comment;
   }
 
-  let str = _string(arg).replace(/\s+/gm, ' ');
+  let str = _string(val).replace(/\s+/gm, ' ');
   let max = 69;
 
   if (str.length > max) {
@@ -32,16 +32,16 @@ function _comment(comment, arg, note) {
     `(${note}) ${str}`;
 }
 
-function _prettyMakesSense(arg) {
-  return (arg instanceof Object && !(arg instanceof Function)) ||
-    _isBasicObject(arg);
+function _prettyMakesSense(val) {
+  return (val instanceof Object && !(val instanceof Function)) ||
+    _isBasicObject(val);
 }
 
-function pretty(arg) {
+function pretty(val) {
   let objs = [];
   let keys = [];
 
-  return JSON.stringify(arg, (k, v) => {
+  return JSON.stringify(val, (k, v) => {
     if (v instanceof Object) {
       let seen = objs.indexOf(v);
 
@@ -59,18 +59,18 @@ function pretty(arg) {
   }, 2);
 }
 
-function p(arg, comment, opts) {
+function p(val, comment = undefined, opts = undefined) {
   peek42._output(
-    arg,
-    _comment(comment, arg, 'value'),
+    val,
+    _comment(comment, val, 'value'),
     opts
   );
 }
 
-function pp(arg, comment, opts) {
+function pp(val, comment = undefined, opts = undefined) {
   peek42._output(
-    (_prettyMakesSense(arg)) ? pretty(arg) : arg,
-    _comment(comment, arg, 'pretty'),
+    (_prettyMakesSense(val)) ? pretty(val) : val,
+    _comment(comment, val, 'pretty'),
     opts
   );
 }

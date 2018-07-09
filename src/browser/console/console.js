@@ -103,13 +103,13 @@ class Console {
     this.minimize();
   }
 
-  _output(arg, comment, opts = {
+  _output(val, comment, opts = {
     level: 'log'
   }) {
-    let content = this._log.textContent;
     let str = (comment === null) ?
-      _string(arg) :
-      `// ${String(comment)}\n${_string(arg)}`;
+      _string(val) :
+      `// ${String(comment)}\n${_string(val)}`;
+    let content = this._log.textContent;
 
     if (this.isMinimized && !this.isQuiet) {
       this.show();
@@ -117,7 +117,7 @@ class Console {
 
     this._log.textContent = `${str}\n${content}`;
     this._log.scrollTop = 0;
-    flashOutput(this._container, opts.level);
+    flashOutput(this._container, opts.level || 'log');
   }
 
   _onTitleClick(ev) {

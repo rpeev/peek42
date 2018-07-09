@@ -1,13 +1,13 @@
 import peek42, {_string} from '../universal/base';
 
-function _output(arg, comment, opts = {
+function _output(val, comment, opts = {
   level: 'log'
 }) {
   let str = (comment === null) ?
-    _string(arg) :
-    `// ${String(comment)}\n${_string(arg)}`;
+    _string(val) :
+    `// ${String(comment)}\n${_string(val)}`;
 
-  console[opts.level](str);
+  console[opts.level || 'log'](str);
 }
 
 Object.assign(peek42, {
