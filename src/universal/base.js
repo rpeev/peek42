@@ -3,15 +3,15 @@ import {
   version as LIB_VERSION
 } from '../../package.json';
 
-function _isBareObject(arg) {
+function _isBasicObject(arg) {
   return typeof arg === 'object' &&
     arg !== null &&
     arg.__proto__ === undefined;
 }
 
 function _string(arg) {
-  return (_isBareObject(arg)) ?
-    '[object BareObject]' :
+  return (_isBasicObject(arg)) ?
+    '[object BasicObject]' :
     String(arg);
 }
 
@@ -34,7 +34,7 @@ function _comment(comment, arg, note) {
 
 function _prettyMakesSense(arg) {
   return (arg instanceof Object && !(arg instanceof Function)) ||
-    _isBareObject(arg);
+    _isBasicObject(arg);
 }
 
 function pretty(arg) {
