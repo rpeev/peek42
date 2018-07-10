@@ -4,21 +4,21 @@ import Console from './console/console';
 import _interceptNativeConsoleFn from './intercept';
 import _reportError from './error';
 
-function _output(arg, comment, opts) {
+function _output(...args) {
   // Allow peek42.console.content to be used without
   // Console.instance.then wait (or the setTimeout 0 trick)
-  // after console has been created
+  // after console has been created and assigned
   if (peek42.console) {
-    peek42.console._output(arg, comment, opts);
-  } else {
-    Console.instance.then(console => {
-      Object.assign(peek42, {
-        console
-      });
-
-      console._output(arg, comment, opts);
-    });
+    return peek42.console._output(...args);
   }
+
+  Console.instance.then(console => {
+    Object.assign(peek42, {
+      console
+    });
+
+    console._output(...args);
+  });
 }
 
 Console.instance.then(console => {
