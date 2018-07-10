@@ -1,9 +1,9 @@
 javascript: (() => { 'use strict';
   let id = 'PEEK42_BOOKMARKLET';
   let version = '2.0.0-unpkg';
-  let apivisBase = 'https://unpkg.com/apivis/dist/';
+  let apivisBase = 'https://unpkg.com/apivis@latest/dist/';
     let apivisScriptPath = 'apivis.browser.js';
-  let peek42Base = 'https://unpkg.com/peek42/dist/';
+  let peek42Base = 'https://unpkg.com/peek42@latest/dist/';
     let peek42StylePath = 'peek42.css';
     let peek42ScriptPath = 'peek42.browser.js';
 
