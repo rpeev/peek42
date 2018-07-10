@@ -23,7 +23,9 @@ const pluginJson = json({
 const pluginBabel = babel({
   exclude: 'node_modules/**',
   plugins: [
-    'transform-class-properties'
+    'external-helpers',
+    'transform-class-properties',
+    'transform-object-rest-spread'
   ]
 });
 

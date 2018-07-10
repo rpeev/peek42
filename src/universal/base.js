@@ -32,6 +32,10 @@ function _comment(comment, val, note = undefined) {
     `(${note}) ${str}`;
 }
 
+const _outputOptsDefaults = {
+  level: 'log'
+};
+
 function _prettyMakesSense(val) {
   return (val instanceof Object && !(val instanceof Function)) ||
     _isBasicObject(val);
@@ -88,13 +92,11 @@ const peek42 = {
     return LIB_NAME;
   },
   version: LIB_VERSION,
-  _string,
-  _comment,
   pretty,
   p,
   pp,
   use
 };
 
-export {_string, _comment, pretty, p, pp, use};
+export {_string, _comment, _outputOptsDefaults, pretty, p, pp, use};
 export default peek42;

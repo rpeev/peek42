@@ -1,4 +1,4 @@
-import {_string} from '../../universal/base';
+import {_string, _outputOptsDefaults} from '../../universal/base';
 import consoleHtml from './views/console.html';
 import './styles/console.scss';
 import Resizer from './resize';
@@ -103,9 +103,9 @@ class Console {
     this.minimize();
   }
 
-  _output(val, comment, opts = {
-    level: 'log'
-  }) {
+  _output(val, comment, opts = {}) {
+    opts = {..._outputOptsDefaults, ...opts};
+
     let str = (comment === null) ?
       _string(val) :
       `// ${String(comment)}\n${_string(val)}`;
@@ -117,7 +117,7 @@ class Console {
 
     this._log.textContent = `${str}\n${content}`;
     this._log.scrollTop = 0;
-    flashOutput(this._container, opts.level || 'log');
+    flashOutput(this._container, opts.level);
   }
 
   _onTitleClick(ev) {

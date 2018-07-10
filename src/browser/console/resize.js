@@ -8,13 +8,13 @@ class Resizer {
   };
 
   constructor(container, log, opts = {}) {
-    let _opts = Object.assign({}, new.target._constructorOptsDefaults, opts);
+    opts = {...new.target._constructorOptsDefaults, ...opts};
 
     this._container = container;
     this._log = log;
-    this._ratio = _opts.ratio;
-    this._minRatio = _opts.minRatio;
-    this._maxRatio = _opts.maxRatio;
+    this._ratio = opts.ratio;
+    this._minRatio = opts.minRatio;
+    this._maxRatio = opts.maxRatio;
     this._height = window.innerHeight * this._ratio;
     this._resizeY = 0;
     this._resizeYDelta = 0;
