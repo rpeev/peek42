@@ -1,8 +1,11 @@
 # Release Notes
 
-### 5.0.0
+## 5.0.0
 
-- TODO
+- Significantly restructure source (with API and dist names changes) and use rollup to build node, browser and ES module bundles
+- Show stack trace on error
+- Remove the incomplete ability to disable the library
+- Remove mouse handling code
 
 ## 4.2.0
 
