@@ -95,13 +95,13 @@ The following properties/functions are available through the **peek42** namespac
 
 - `version` - library version
 - `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods:
-      - `p.type(val[, comment[, opts]])`
-      - `p.desc(val, k[, comment[, opts]])`
-      - `p.members(val[, comment[, opts]])`
-      - `p.chain(val[, comment[, opts]])`
-      - `p.api(val[, comment[, opts]])`
+    - `p.type(val[, comment[, opts]])`
+    - `p.desc(val, k[, comment[, opts]])`
+    - `p.members(val[, comment[, opts]])`
+    - `p.chain(val[, comment[, opts]])`
+    - `p.api(val[, comment[, opts]])`
 
-      The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
+    The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
 - `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - same as `p` but uses `JSON.stringify` (handling circular references)
 
     `p` and `pp` are meant to be the primary library interface (do a suitable assignment or import as per the use examples)
@@ -128,8 +128,8 @@ The following properties/functions are available through the **peek42** namespac
 
 ## UI
 
-If no log function has been called, **peek42** is shown minimized. Tap **Show** to show it. By default, whenever a log function is called, **peek42** is shown and the log is scrolled to the top (entries are logged from oldest at the bottom to newest at the top), so that the latest entry is visible. Tap **Minimize** to minimize it. This can be changed by turning on the **Quiet** checkbox (visible only when **peek42** is minimized). In this mode, **peek42** flashes on log write, but stays minimized. Clicking the title alternates the log position between start/end. Use **Resize** to resize **peek42** (**peek42** limits its dimensions and the border briefly flashes upon reaching the limits) and **Clear** to clear the log contents
+If no log function has been called, **peek42** is shown minimized. Tap **Show** to show it. By default, whenever a log function is called, **peek42** is shown and the log is scrolled to the top (entries are logged from oldest at the bottom to newest at the top), so that the latest entry is visible. Tap **Minimize** to minimize it. This can be changed by turning on the **Quiet** checkbox (visible only when **peek42** is minimized). In this mode, **peek42** flashes on log write, but stays minimized. Tapping the title alternates the log position between start/end. Use **Resize** to resize **peek42** (**peek42** limits its dimensions and the border briefly flashes upon reaching the limits) and **Clear** to clear the log contents
 
-Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter). Print functions can be specified by prefixing the expression with one of `v(alue)` (the default), `p(retty)`, `t(ype)`, `d(esc)` (requires two expressions separated by a comma), `m(embers)`, `c(hain)`, `a(pi)`. Only `v(alue)` and `p(retty)` are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis)
+Use the text box **JS to evaluate** to eval JavaScript code (write in the box and simply hit enter). Print functions can be specified by prefixing the expression with one of `v(alue)` (the default), `p(retty)`, `t(ype)`, `d(esc)` (requires two arguments separated by a comma), `m(embers)`, `c(hain)`, `a(pi)`. Only `v(alue)` and `p(retty)` are supported out of the box, the others require [ApiVis](https://github.com/rpeev/apivis)
 
 See the **example** folder for node and browser examples respectively
