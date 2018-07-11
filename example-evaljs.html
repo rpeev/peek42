@@ -6,28 +6,29 @@
 
     <title>Peek42 - eval JS</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/peek42@latest/monofur.css" />
-    <link rel="stylesheet" href="https://unpkg.com/peek42@latest/peek42.css" />
-    <script src="https://unpkg.com/apivis@latest/apivis.js"></script>
-    <script src="https://unpkg.com/peek42@latest/peek42.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/peek42@latest/dist/peek42.css" />
 
-    <script>
-//Peek42.noop();
+    <script src="https://unpkg.com/apivis@latest/dist/apivis.browser.js"></script>
+    <script src="https://unpkg.com/peek42@latest/dist/peek42.browser.js"></script>
 
-document.addEventListener('DOMContentLoaded', function () {
-  let peek42 = Peek42.defInst,
-    p42dom = peek42.dom();
+    <script>(() => { 'use strict';
+const {p, pp} = peek42.use(apivis);
 
-  peek42.show();
-  p42dom.eval.value = 'chain document';
+document.addEventListener('DOMContentLoaded', () => {
+  let console = peek42.console;
+
+  console.jsToEval = 'chain document';
+  console.evalJS();
+
+  console.jsToEval = 'api document';
 });
-    </script>
+    })();</script>
   </head>
 
   <body>
 <h1 id="about">Peek42 - eval JS [<a href="./index.html">Index</a>]</h1>
 
-<p>Click the input box. Press enter to evaluate the pre-filled expression. Prefix with one of v(alue) (the default), p(retty), t(ype), m(embers), c(hain), a(pi) to see different representations. Click Peek42 title to alternate log position between beginning (bottom) and end (top). Click Clear to clear the log. The input box focus is preserved, so hitting enter evaluates the expression again.
+<p>Tap the input box. Press enter to evaluate the pre-filled expression. Prefix with one of v(alue) (the default), p(retty), t(ype), d(esc) (requires two arguments separated by a comma), m(embers), c(hain), a(pi) to see different representations. The input box focus is preserved, so hitting enter after tapping Clear evaluates the expression again
 </p>
   </body>
 </html>
