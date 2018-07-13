@@ -9,7 +9,7 @@ javascript: (() => { 'use strict';
 
   if (window[id]) {
     if (window[id] === 'loaded') {
-      peek42.p(`${id} already loaded`, 'already loaded');
+      peek42.p(`${id} (v${version}) already loaded`, 'already loaded');
     }
 
     return;
