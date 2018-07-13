@@ -8,14 +8,17 @@ javascript: (() => { 'use strict';
     let peek42ScriptPath = 'peek42.browser.js';
 
   if (window[id]) {
-    if (window[id] === 'loaded') {
-      peek42.p(`${id} (v${version}) already loaded`, 'already loaded');
+    if (window[id].readystate === 'loaded') {
+      peek42.p(`${id} (v${window[id].version}) already loaded`, 'already loaded');
     }
 
     return;
   }
 
-  window[id] = 'loading';
+  window[id] = {
+    version,
+    readystate: 'loading'
+  };
 
   let apivisScript = document.createElement('script');
   let peek42Style = document.createElement('style');
@@ -23,7 +26,7 @@ javascript: (() => { 'use strict';
 
   /* 5. peek42 script loaded */
   peek42Script.onload = () => {
-    window[id] = 'loaded';
+    window[id].readystate = 'loaded';
 
     peek42.use(apivis);
 
