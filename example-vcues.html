@@ -11,6 +11,7 @@
 
     <script src="https://unpkg.com/apivis@latest/dist/apivis.browser.js"></script>
     <script src="https://unpkg.com/peek42@latest/dist/peek42.browser.js"></script>
+      <script>peek42.use(apivis);</script>
 
     <style>
 .light {
@@ -33,7 +34,7 @@
     </style>
 
     <script>(() => { 'use strict';
-const {p, pp} = peek42.use(apivis);
+const {p, pp} = peek42;
 
 function rejectedPromise() {
   return new Promise((resolve, reject) => {
