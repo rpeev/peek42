@@ -37,4 +37,8 @@ function _reportError(err, note = 'error') {
   }
 }
 
+export {
+  _formatError,
+  _reportError
+};
 export default _reportError;
