@@ -1,5 +1,5 @@
 import {_string, _outputOptsDefaults} from '../../universal/base';
-import consoleHtml from './views/console.html';
+import consoleHtml from './console.html';
 import './styles/console.scss';
 import Resizer from './resize';
 import {
