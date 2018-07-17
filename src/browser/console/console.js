@@ -1,5 +1,5 @@
 import {_string, _outputOptsDefaults} from '../../universal/base';
-import consoleHtml from './console.html';
+import consoleHTML from './console.html';
 import './styles/console.scss';
 import Resizer from './resize';
 import {
@@ -8,7 +8,7 @@ import {
 } from './flash';
 
 class Console {
-  static _html = consoleHtml;
+  static _html = consoleHTML;
   static _instance = null;
   static _printFnMap = {
     v: ['peek42.p', 'value'],
