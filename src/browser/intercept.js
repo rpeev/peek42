@@ -1,4 +1,5 @@
 import {_string, _comment, p, pp} from '../universal/base';
+import {_formatError} from './error';
 
 window.console = window.console || {};
 
@@ -16,7 +17,7 @@ function _interceptNativeConsoleFn(name) {
     try {
       fnOrig && fnOrig.apply(window.console, arguments);
     } catch (err) {
-      pp(err,
+      p(_formatError(err),
         _comment('', err, `native console.${name}`),
         {level: 'error'});
     }
