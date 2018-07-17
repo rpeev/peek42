@@ -2,9 +2,10 @@ import {_string, _comment, p, pp} from '../universal/base';
 import {_formatError} from './error';
 
 window.console = window.console || {};
+const _fnOrig = {};
 
 function _interceptNativeConsoleFn(name) {
-  const fnOrig = window.console[name];
+  _fnOrig[name] = window.console[name];
   const {map} = Array.prototype;
 
   window.console[name] = function () {
@@ -15,7 +16,7 @@ function _interceptNativeConsoleFn(name) {
       {level: name});
 
     try {
-      fnOrig && fnOrig.apply(window.console, arguments);
+      _fnOrig[name] && _fnOrig[name].apply(window.console, arguments);
     } catch (err) {
       p(_formatError(err),
         _comment('', err, `native console.${name}`),
@@ -24,4 +25,13 @@ function _interceptNativeConsoleFn(name) {
   };
 }
 
-export default _interceptNativeConsoleFn;
+function _restoreNativeConsoleFns() {
+  Object.keys(_fnOrig).forEach(name => {
+    window.console[name] = _fnOrig[name];
+  });
+}
+
+export {
+  _interceptNativeConsoleFn,
+  _restoreNativeConsoleFns
+};

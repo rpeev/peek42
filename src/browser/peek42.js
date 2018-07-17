@@ -1,7 +1,10 @@
 import peek42 from '../universal/base';
 import './styles/base.scss';
 import Console from './console/console';
-import _interceptNativeConsoleFn from './intercept';
+import {
+  _interceptNativeConsoleFn,
+  _restoreNativeConsoleFns
+} from './intercept';
 import _reportError from './error';
 
 function _output(...args) {
