@@ -36,13 +36,16 @@ Object.assign(peek42, {
   Console
 });
 
-window.addEventListener('error', ev => {
+function _onError(ev) {
   _reportError(ev.error);
-});
+}
 
-window.addEventListener('unhandledrejection', ev => {
+function _onUnhandledRejection(ev) {
   _reportError(ev.reason, 'unhandledrejection');
-});
+}
+
+window.addEventListener('error', _onError);
+window.addEventListener('unhandledrejection', _onUnhandledRejection);
 
 if (_config.interceptConsole) {
   _interceptNativeConsoleFn('log');
