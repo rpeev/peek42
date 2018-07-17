@@ -1,11 +1,12 @@
-import peek42 from '../universal/base';
+import peek42, {p, pp, use} from '../universal/base';
 import './styles/base.scss';
 import Console from './console/console';
+import _reportError from './error';
+import _config from './config';
 import {
   _interceptNativeConsoleFn,
   _restoreNativeConsoleFns
 } from './intercept';
-import _reportError from './error';
 
 function _output(...args) {
   // Allow peek42.console.content to be used without
@@ -35,11 +36,6 @@ Object.assign(peek42, {
   Console
 });
 
-_interceptNativeConsoleFn('log');
-_interceptNativeConsoleFn('info');
-_interceptNativeConsoleFn('warn');
-_interceptNativeConsoleFn('error');
-
 window.addEventListener('error', ev => {
   _reportError(ev.error);
 });
@@ -47,5 +43,23 @@ window.addEventListener('error', ev => {
 window.addEventListener('unhandledrejection', ev => {
   _reportError(ev.reason, 'unhandledrejection');
 });
+
+if (_config.interceptConsole) {
+  _interceptNativeConsoleFn('log');
+  _interceptNativeConsoleFn('info');
+  _interceptNativeConsoleFn('warn');
+  _interceptNativeConsoleFn('error');
+}
+
+if (_config.addGlobals) {
+  Object.assign(window, {
+    p,
+    pp
+  });
+}
+
+if (_config.autoUse) {
+  window.apivis && use(apivis);
+}
 
 export default peek42;
