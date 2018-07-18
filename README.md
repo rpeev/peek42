@@ -47,6 +47,16 @@ All distribution files are in `node_modules/peek42/dist/`
 <script src="https://unpkg.com/peek42@latest/dist/peek42.browser.js"></script>
 ```
 
+Configuration options can be specified by adding a script *before* `peek42.browser.js` (values shown are the defaults):
+
+```html
+<script>window.PEEK42_CONFIG = {
+  interceptConsole: true, // Intercept window.console log, info, warn and error calls
+  addGlobals: true, // Assign p and pp to window
+  autoUse: true // Integrate ApiVis automatically (needs to be loaded before Peek42)
+};</script>
+```
+
 ### Bookmarklet
 
 Bookmark a webpage (any will do). Then change the title to your liking and the url **to the contents** of [peek42.bookmarklet.unpkg.js](https://unpkg.com/peek42@latest/dist/peek42.bookmarklet.unpkg.js)
@@ -57,8 +67,8 @@ Bookmark a webpage (any will do). Then change the title to your liking and the u
 
 ```javascript
 const apivis = require('apivis');
-const peek42 = require('peek42');
-  const {p, pp} = peek42.use(apivis);
+const peek42 = require('peek42').use(apivis);
+  const {p, pp} = peek42;
 
 p.api(process);
 ```
@@ -66,8 +76,6 @@ p.api(process);
 ### Browser
 
 ```javascript
-const {p, pp} = peek42.use(apivis);
-
 document.addEventListener('DOMContentLoaded', () => {
   p.api(document);
 });
@@ -104,7 +112,7 @@ The following properties/functions are available through the **peek42** namespac
     The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
 - `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - same as `p` but uses `JSON.stringify` (handling circular references)
 
-    `p` and `pp` are meant to be the primary library interface (do a suitable assignment or import as per the use examples)
+    `p` and `pp` are meant to be the primary library interface (do a suitable assignment or import as per the use examples, by default the browser builds assign them to `window`)
 - `pretty(val)` - prettified value as printed by `pp` as a string
 - `use(lib)` - register **peek42** plugin
 - `Console` (browser only, advanced usage) - the `console` class, use its `instance` static getter (returns `Promise`) to safely obtain reference to initialized `console` outside of `document` `ready` blocks

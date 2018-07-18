@@ -1,5 +1,10 @@
 # Release Notes
 
+## 5.1.0
+
+- Add library config options
+- Add back (opt-out config options) the registration of p and pp globals and the automatic integration of ApiVis (browser builds)
+
 ## 5.0.0
 
 - Significantly restructure source (with API and dist names changes) and use rollup to build node, browser and ES module bundles
