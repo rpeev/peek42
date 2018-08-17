@@ -2,7 +2,7 @@ import {pretty, p, pp} from '../universal/base';
 
 let _errorId = 1;
 
-async function _getErrorSourceAsync(err) {
+async function _getSourceAsync(err) {
   return new Promise(async (resolve, reject) => {
     if (!err.sourceURL) {
       return reject(Error('sourceURL unavailable'));
@@ -24,13 +24,13 @@ async function _getErrorSourceAsync(err) {
   });
 }
 
-async function _genErrorSnipAsync(err, {
+async function _genSourceSnipAsync(err, {
   indent = '',
   peekLines = 2
 } = {}) {
   let [, path = 'n/a', filename = 'n/a'] = ((err.sourceURL || '').
     match(/^(.+)\/([^\/]+)$/) || []);
-  let source = await _getErrorSourceAsync(err);
+  let source = await _getSourceAsync(err);
   let lines = source.split('\n');
   let iLine = (err.line || 1) - 1;
   let iColumn = (err.column || 1) - 1;
@@ -62,7 +62,7 @@ async function _formatError(err) {
   let info;
 
   try {
-    info = await _genErrorSnipAsync(err);
+    info = await _genSourceSnipAsync(err);
   } catch (err1) {
     err.sourceSnipNA = `${err1}`;
 
