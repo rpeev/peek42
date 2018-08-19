@@ -24,47 +24,51 @@ async function _getSourceAsync(err) {
   });
 }
 
-async function _genSourceSnipAsync(err, {
+function _genSourceTrace(source, location, line1, column1, {
   indent = '',
   peekLines = 2
 } = {}) {
-  let [, path = 'n/a', filename = 'n/a'] = ((err.sourceURL || '').
-    match(/^(.+)\/([^\/]+)$/) || []);
-  let source = await _getSourceAsync(err);
-  let lines = source.split('\n');
-  let iLine = (err.line || 1) - 1;
-  let iColumn = (err.column || 1) - 1;
-  let snipLines = [];
-  let snipMax = lines.length - 1;
-  let snipStart = Math.max(0, iLine - peekLines);
-  let snipEnd = Math.min(snipMax, iLine + peekLines);
-  let padMaxLen = `${lines.length}`.length;
-  let div = '|';
-  let rowPtr = '>';
-  let colPtr = `${' '.repeat(iColumn)}^`;
+  let lines = (source || '').split('\n');
+  let [, path = 'path n/a', name = 'code'] = (location || '').
+    match(/^(.+\/)?([^\/]+)$/) || [];
+  let iLine = (line1 || 1) - 1;
+  let iColumn = (column1 || 1) - 1;
+  let traceLines = [];
+  let iTraceLineMax = Math.max(0, lines.length - 1);
+  let iTraceLineBeg = Math.max(0, iLine - peekLines);
+  let iTraceLineEnd = Math.min(iTraceLineMax, iLine + peekLines);
+  let padMax = `${lines.length}`.length;
+  let margin = '|';
+  let linePointer = '>';
+  let columnPointer = `${' '.repeat(iColumn)}^`;
 
-  for (let i = snipStart; i <= snipEnd; i++) {
-    let pad = ' '.repeat(padMaxLen - `${i + 1}`.length);
-    let m1 = (i == iLine) ?
-      rowPtr :
-      ' '.repeat(rowPtr.length);
-    let m2 = (i == iLine) ?
-      `\n${indent}${' '.repeat(m1.length + padMaxLen)}${div}${colPtr}` :
+  for (let i = iTraceLineBeg; i <= iTraceLineEnd; i++) {
+    let pad = ' '.repeat(padMax - `${i + 1}`.length);
+    let lineMarker = (i == iLine) ?
+      linePointer :
+      ' '.repeat(linePointer.length);
+    let columnMarker = (i == iLine) ?
+      `\n${indent}${' '.repeat(lineMarker.length + padMax)}${margin}${columnPointer}` :
       '';
 
-    snipLines.push(`${indent}${m1}${pad}${i + 1}${div}${lines[i]}${m2}`);
+    traceLines.push(`${indent}${lineMarker}${pad}${i + 1}${margin}${lines[i]}${columnMarker}`);
   }
 
-  return `${indent}${filename}:${err.line}:${err.column} (${path})\n${snipLines.join('\n')}`;
+  return `${indent}${name}:${line1}:${column1} (${path})\n${traceLines.join('\n')}`;
 }
 
 async function _formatError(err) {
   let info;
 
   try {
-    info = await _genSourceSnipAsync(err);
+    info = _genSourceTrace(
+      await _getSourceAsync(err),
+      err.sourceURL,
+      err.line,
+      err.column
+    );
   } catch (err1) {
-    err.sourceSnipNA = `${err1}`;
+    err.sourceTraceNA = `${err1}`;
 
     info = pretty(err);
   }
