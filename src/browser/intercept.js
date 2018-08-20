@@ -18,9 +18,11 @@ function _interceptNativeConsoleFn(name) {
     try {
       _fnOrig[name] && _fnOrig[name].apply(window.console, arguments);
     } catch (err) {
-      p(_formatError(err),
-        _comment('', err, `native console.${name}`),
-        {level: 'error'});
+      _formatError(err).then(str => {
+        p(str,
+          _comment('', err, `native console.${name}`),
+          {level: 'error'});
+      });
     }
   };
 }
