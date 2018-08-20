@@ -177,11 +177,13 @@ async function _formatErrorAsync(err) {
   let info;
 
   try {
-    info = (isInlineScriptError(err) && isTranspiledScriptError(err)) ?
-      (await transpiledInlineScriptsSourceTracesAsync(err)).
-        join('\n') :
-      sourceTrace(await errorSourceAsync(err),
+    if (isInlineScriptError(err) && isTranspiledScriptError(err)) {
+      info = (await transpiledInlineScriptsSourceTracesAsync(err)).
+        join('\n');
+    } else {
+      info = sourceTrace(await errorSourceAsync(err),
         err.sourceURL, err.line, err.column);
+    }
   } catch (err1) {
     err.sourceTraceNA = `${err1}`;
 
