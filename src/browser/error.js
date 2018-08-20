@@ -173,7 +173,7 @@ function sourceTrace(source, location, line1, column1, {
   return `${indent}${name}:${line1}:${column1} (${path})\n${traceLines.join('\n')}`;
 }
 
-async function _formatError(err) {
+async function _formatErrorAsync(err) {
   let info;
 
   try {
@@ -202,7 +202,7 @@ async function _reportError(err, note = 'error') {
   ) {
     err._errorId = _errorId++;
 
-    p(`${await _formatError(err)}`,
+    p(`${await _formatErrorAsync(err)}`,
       `(${note} (id: ${err._errorId})) ${err} (retrieving source information...)`,
       {level: 'error'});
 
@@ -213,19 +213,19 @@ async function _reportError(err, note = 'error') {
         `(${note} (id: ${err._errorId})) ${err}`,
         {level: 'error'});
     } catch(err1) {
-      p(`${await _formatError(err1)}`,
+      p(`${await _formatErrorAsync(err1)}`,
         `(${note} (id: ${err._errorId})) ${err1}`,
         {level: 'error'});
     }
   } else {
-    p(`${await _formatError(err)}`,
+    p(`${await _formatErrorAsync(err)}`,
       `(${note}) ${err}`,
       {level: 'error'});
   }
 }
 
 export {
-  _formatError,
+  _formatErrorAsync,
   _reportError
 };
 export default _reportError;
