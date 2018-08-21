@@ -64,6 +64,8 @@ async function transpiledInlineScriptsSourceTracesAsync(err) {
         ...sourceTraceArgs(scriptInfo.originalErrorInfo)
       ));
   } catch (err1) {
+    console.warn(`sourceMap library support missing/incomplete\n${err1}`);
+
     return scripts.
       map((scriptInfo, i) => sourceTrace(
         scriptInfo.source,
