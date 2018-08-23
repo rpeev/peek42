@@ -41,7 +41,9 @@ function _onError(ev) {
 }
 
 function _onUnhandledRejection(ev) {
-  _reportError(ev.reason, 'unhandledrejection');
+  _reportError(ev.reason, {
+    note: 'unhandled rejection'
+  });
 }
 
 window.addEventListener('error', _onError);
