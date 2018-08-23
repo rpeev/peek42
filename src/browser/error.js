@@ -1,5 +1,20 @@
 import {pretty, p, pp} from '../universal/base';
 
+const reTestTranspiledScriptStack =
+  /\nrun\S+babel/m;
+const reCaptureSourceMappingURL =
+  // match[1] - sourceMappingURL
+  /\/\/# sourceMappingURL=(.+)\s*$/m;
+const reCaptureEmbeddedSourceMap =
+  // match[1] - embeddedSourceMap (base64)
+  /^data:application\/json;(?:charset=[^;]+;)?base64,(.+)$/;
+const reTestAbsoluteURL =
+  /^(?:[a-z]+:)?\/\//i;
+const reCapturePathAndName =
+  // match[1] - path (includes trailing slash)
+  // match[2] - name (includes extension)
+  /^(.+\/)?([^\/]+)$/;
+
 function isInlineScriptError(err) {
   return !!(
     err.sourceURL &&
@@ -10,7 +25,7 @@ function isInlineScriptError(err) {
 function isTranspiledScriptError(err) {
   return !!(
     err.stack &&
-    err.stack.match(/\nrun([^\n])+babel/m)
+    reTestTranspiledScriptStack.test(err.stack)
   );
 }
 
@@ -99,18 +114,35 @@ async function errorSourceAsync(err) {
 }
 
 function sourceMappingURL(source) {
-  let reSourceMappingURL =
-    /\/\/# sourceMappingURL=(.+)\s*$/m;
+  return (
+    source.match(reCaptureSourceMappingURL) || []
+  )[1];
+}
 
-  return (source.match(reSourceMappingURL) || [])[1];
+function isEmbeddedSourceMap(_sourceMappingURL) {
+  return reCaptureEmbeddedSourceMap.test(_sourceMappingURL);
 }
 
 function embeddedSourceMap(_sourceMappingURL) {
-  let reEmbeddedSourceMap =
-    /^data:application\/json;(charset=[^;]+;)?base64,(.*)$/;
-  let base64 = ((_sourceMappingURL || '').match(reEmbeddedSourceMap) || [])[2];
+  let base64 = (
+    (_sourceMappingURL || '').match(reCaptureEmbeddedSourceMap) || []
+  )[1];
 
   return (base64) ? JSON.parse(atob(base64)) : null;
+}
+
+function isAbsoluteURL(url) {
+  return reTestAbsoluteURL.test(url);
+}
+
+function pathAndName(url) {
+  let [
+    ,
+    path,
+    name
+  ] = (url || '').match(reCapturePathAndName) || [];
+
+  return [path, name];
 }
 
 function originalErrorInfoAsync(_sourceMap, err) {
@@ -145,13 +177,12 @@ function sourceTraceArgs(_originalErrorInfo) {
   ];
 }
 
-function sourceTrace(source, location, line1, column1, {
+function sourceTrace(source, url, line1, column1, {
   indent = '',
   peekLines = 2
 } = {}) {
   let lines = (source || '').split('\n');
-  let [, path = 'path n/a', name = 'code'] = (location || '').
-    match(/^(.+\/)?([^\/]+)$/) || [];
+  let [path = 'path n/a', name = 'code'] = pathAndName(url);
   let iLine = (line1 || 1) - 1;
   let iColumn = (column1 || 1) - 1;
   let traceLines = [];
