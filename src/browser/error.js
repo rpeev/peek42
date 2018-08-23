@@ -206,7 +206,7 @@ function sourceTrace(source, url, line1, column1, {
     traceLines.push(`${indent}${lineMarker}${pad}${i + 1}${margin}${lines[i]}${columnMarker}`);
   }
 
-  return `${indent}${name}:${line1}:${column1} (${path})\n${traceLines.join('\n')}`;
+  return `${indent}${name}:${line1 || 'n/a'}:${column1 || 'n/a'} (${path})\n${traceLines.join('\n')}`;
 }
 
 async function _formatErrorAsync(err, {
