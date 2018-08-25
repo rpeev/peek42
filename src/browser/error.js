@@ -247,7 +247,7 @@ function sourceTrace(source, url, line1, column1, {
   return `${indent}${name}:${line1 || 'n/a'}:${column1 || 'n/a'} (${path})\n${traceLines.join('\n')}`;
 }
 
-async function _formatErrorAsync(err, {
+async function formatErrorAsync(err, {
   includeStack = true
 } = {}) {
   let info;
@@ -299,11 +299,11 @@ async function _formatErrorAsync(err, {
     `${info}`;
 }
 
-function _reportError(err, {
+function reportError(err, {
   includeStack = true,
   note = 'error'
 } = {}) {
-  _formatErrorAsync(err, {includeStack}).then(str => {
+  formatErrorAsync(err, {includeStack}).then(str => {
     p(str,
       `(${note}) ${err}`,
       {level: 'error'});
@@ -311,7 +311,8 @@ function _reportError(err, {
 }
 
 export {
-  _formatErrorAsync,
-  _reportError
+  sourceTrace,
+  formatErrorAsync,
+  reportError
 };
-export default _reportError;
+export default reportError;

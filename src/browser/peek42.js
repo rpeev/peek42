@@ -1,7 +1,10 @@
 import peek42, {p, pp, use} from '../universal/base';
 import './styles/base.scss';
 import Console from './console/console';
-import _reportError from './error';
+import reportError, {
+  sourceTrace,
+  formatErrorAsync
+} from './error';
 import _config from './config';
 import {
   _interceptNativeConsoleFn,
@@ -33,15 +36,18 @@ Console.instance.then(console => {
 
 Object.assign(peek42, {
   _output,
-  Console
+  Console,
+  sourceTrace,
+  formatErrorAsync,
+  reportError
 });
 
 function _onError(ev) {
-  _reportError(ev.error);
+  reportError(ev.error);
 }
 
 function _onUnhandledRejection(ev) {
-  _reportError(ev.reason, {
+  reportError(ev.reason, {
     note: 'unhandled rejection'
   });
 }

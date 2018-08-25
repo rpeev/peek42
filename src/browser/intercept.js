@@ -1,5 +1,5 @@
 import {_string, _comment, p, pp} from '../universal/base';
-import {_formatErrorAsync} from './error';
+import {formatErrorAsync} from './error';
 
 window.console = window.console || {};
 const _fnOrig = {};
@@ -18,7 +18,7 @@ function _interceptNativeConsoleFn(name) {
     try {
       _fnOrig[name] && _fnOrig[name].apply(window.console, arguments);
     } catch (err) {
-      _formatErrorAsync(err).then(str => {
+      formatErrorAsync(err).then(str => {
         p(str,
           _comment('', err, `native console.${name}`),
           {level: 'error'});
