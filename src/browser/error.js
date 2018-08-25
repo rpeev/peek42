@@ -79,7 +79,7 @@ async function transpiledInlineScriptsSourceTracesAsync(err) {
         ...sourceTraceArgs(scriptInfo.originalErrorInfo)
       ));
   } catch (err1) {
-    console.warn(`sourceMap library support missing/incomplete\n${err1}`);
+    console.warn(`sourceMap library support missing/incomplete or error retrieving original source info\n${err1}`);
 
     return scripts.
       map((scriptInfo, i) => sourceTrace(
@@ -145,7 +145,44 @@ function pathAndName(url) {
   return [path, name];
 }
 
-function originalErrorInfoAsync(_sourceMap, err) {
+async function tryFetchAsync(url, {
+  as = 'text'
+} = {}) {
+  try {
+    let res = await fetch(url);
+
+    return (res.ok) ? res[as]() : null;
+  } catch (err) {
+    return null;
+  }
+}
+
+async function sourceMapAsync(source, sourceURL) {
+  let url = sourceMappingURL(source);
+  let map = null;
+
+  if (!url) {
+    return null;
+  }
+
+  if ( (map = embeddedSourceMap(url)) ) {
+    return map;
+  }
+
+  if (isAbsoluteURL(url)) {
+    return tryFetchAsync(url, {as: 'json'});
+  }
+
+  let [path, name] = pathAndName(sourceURL);
+
+  if ( (map = await tryFetchAsync(`${path}${url}`, {as: 'json'})) ) {
+    return map;
+  }
+
+  return tryFetchAsync(`${path}${name}.map`, {as: 'json'});
+}
+
+async function originalErrorInfoAsync(_sourceMap, err) {
   const {SourceMapConsumer} = sourceMap;
 
   return SourceMapConsumer.with(_sourceMap, null, consumer => {
@@ -191,8 +228,9 @@ function sourceTrace(source, url, line1, column1, {
   let iTraceLineEnd = Math.min(iTraceLineMax, iLine + peekLines);
   let padMax = `${lines.length}`.length;
   let margin = '|';
-  let linePointer = '>';
-  let columnPointer = `${' '.repeat(iColumn)}^`;
+  let linePointer = ' ';
+  let columnFill = '~';
+  let columnPointer = `${columnFill.repeat(iColumn)}^`;
 
   for (let i = iTraceLineBeg; i <= iTraceLineEnd; i++) {
     let pad = ' '.repeat(padMax - `${i + 1}`.length);
@@ -200,7 +238,7 @@ function sourceTrace(source, url, line1, column1, {
       linePointer :
       ' '.repeat(linePointer.length);
     let columnMarker = (i == iLine) ?
-      `\n${indent}${' '.repeat(lineMarker.length + padMax)}${margin}${columnPointer}` :
+      `\n${indent}${' '.repeat(linePointer.length)}${columnFill.repeat(padMax + margin.length)}${columnPointer}` :
       '';
 
     traceLines.push(`${indent}${lineMarker}${pad}${i + 1}${margin}${lines[i]}${columnMarker}`);
@@ -215,12 +253,35 @@ async function _formatErrorAsync(err, {
   let info;
 
   try {
-    if (isInlineScriptError(err) && isTranspiledScriptError(err)) {
-      info = (await transpiledInlineScriptsSourceTracesAsync(err)).
-        join('\n');
+    if (isInlineScriptError(err)) {
+      if (isTranspiledScriptError(err)) {
+        info = (
+          await transpiledInlineScriptsSourceTracesAsync(err)
+        ).join('\n');
+      } else {
+        info = sourceTrace(
+          await errorSourceAsync(err), err.sourceURL, err.line, err.column
+        );
+      }
     } else {
-      info = sourceTrace(await errorSourceAsync(err),
-        err.sourceURL, err.line, err.column);
+      let source = await errorSourceAsync(err);
+      let map = await sourceMapAsync(source, err.sourceURL);
+
+      if (map) {
+        try {
+          info = sourceTrace(
+            ...sourceTraceArgs(await originalErrorInfoAsync(map, err))
+          );
+        } catch (err1) {
+          console.warn(`sourceMap library support missing/incomplete or error retrieving original source info\n${err1}`);
+        }
+      }
+
+      if (!info) {
+        info = sourceTrace(
+          source, err.sourceURL, err.line, err.column
+        );
+      }
     }
   } catch (err1) {
     err.sourceTraceNA = `${err1}`;
