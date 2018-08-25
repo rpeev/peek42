@@ -229,12 +229,16 @@ class Console {
       [fn, note] = this.constructor._printFnMap['v'];
     }
 
-    js = `'use strict'; ${fn}(${expr}, '(${note}) ${expr}');`;
+    js = `'use strict';
+
+${fn}(${expr}, '(${note}) ${expr}');
+`;
 
     try {
       (new Function(js))();
     } catch (err) {
-      err.evalInput = js;
+      err.line = (err.line || 4) - 1;
+      err.sourceText = js;
 
       throw err;
     }

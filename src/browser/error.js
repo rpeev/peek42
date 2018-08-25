@@ -93,6 +93,10 @@ async function transpiledInlineScriptsSourceTracesAsync(err) {
 
 async function errorSourceAsync(err) {
   return new Promise(async (resolve, reject) => {
+    if (err.sourceText) {
+      return resolve(err.sourceText);
+    }
+
     if (!err.sourceURL) {
       return reject(Error('sourceURL unavailable'));
     }
