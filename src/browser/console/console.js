@@ -237,8 +237,10 @@ ${fn}(${expr}, '(${note}) ${expr}');
     try {
       (new Function(js))();
     } catch (err) {
-      err.line = (err.line || 4) - 1;
-      err.sourceText = js;
+      if (!err.sourceURL) {
+        err.sourceText = js;
+        err.line = (err.line || 4) - 1;
+      }
 
       throw err;
     }
