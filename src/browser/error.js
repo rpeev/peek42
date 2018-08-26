@@ -79,7 +79,7 @@ async function transpiledInlineScriptsSourceTracesAsync(err) {
         ...sourceTraceArgs(scriptInfo.originalErrorInfo)
       ));
   } catch (err1) {
-    console.warn(`sourceMap library support missing/incomplete or error retrieving original source info\n${err1}`);
+    console.warn(`sourceMap library support missing/incomplete or error retrieving source information\n${err1}`);
 
     return scripts.
       map((scriptInfo, i) => sourceTrace(
@@ -92,29 +92,28 @@ async function transpiledInlineScriptsSourceTracesAsync(err) {
 }
 
 async function errorSourceAsync(err) {
-  return new Promise(async (resolve, reject) => {
-    if (err.sourceText) {
-      return resolve(err.sourceText);
-    }
+  if (err.sourceText) {
+    return err.sourceText;
+  }
 
-    if (!err.sourceURL) {
-      return reject(Error('sourceURL unavailable'));
-    }
+  if (!err.sourceURL) {
+    throw new Error('sourceURL unavailable');
+  }
 
-    let url = err.sourceURL;
+  let url = err.sourceURL;
+  let res = null;
 
-    try {
-      let res = await fetch(url);
+  try {
+    res = await fetch(url);
+  } catch (err) {
+    throw new Error(`Cannot retrieve ${url}`);
+  }
 
-      if (!res.ok) {
-        return reject(Error(`${res.status} (${res.statusText}) ${url}`));
-      }
+  if (!res.ok) {
+    throw new Error(`${res.status} (${res.statusText}) ${url}`);
+  }
 
-      resolve(await res.text());
-    } catch (err) {
-      reject(Error(`Cannot retrieve ${url}`));
-    }
-  });
+  return res.text();
 }
 
 function sourceMappingURL(source) {
@@ -254,16 +253,16 @@ function sourceTrace(source, url, line1, column1, {
 async function formatErrorAsync(err, {
   includeStack = true
 } = {}) {
-  let info;
+  let trace;
 
   try {
     if (isInlineScriptError(err)) {
       if (isTranspiledScriptError(err)) {
-        info = (
+        trace = (
           await transpiledInlineScriptsSourceTracesAsync(err)
         ).join('\n');
       } else {
-        info = sourceTrace(
+        trace = sourceTrace(
           await errorSourceAsync(err), err.sourceURL, err.line, err.column
         );
       }
@@ -273,16 +272,16 @@ async function formatErrorAsync(err, {
 
       if (map) {
         try {
-          info = sourceTrace(
+          trace = sourceTrace(
             ...sourceTraceArgs(await originalErrorInfoAsync(map, err))
           );
         } catch (err1) {
-          console.warn(`sourceMap library support missing/incomplete or error retrieving original source info\n${err1}`);
+          console.warn(`sourceMap library support missing/incomplete or error retrieving source information\n${err1}`);
         }
       }
 
-      if (!info) {
-        info = sourceTrace(
+      if (!trace) {
+        trace = sourceTrace(
           source, err.sourceURL, err.line, err.column
         );
       }
@@ -290,17 +289,17 @@ async function formatErrorAsync(err, {
   } catch (err1) {
     err.sourceTraceNA = `${err1}`;
 
-    info = pretty(err);
+    trace = pretty(err);
   }
 
   return (includeStack) ?
-    `${info}\nstack:\n  ${
+    `${trace}\nstack:\n  ${
       (err &&
         err.stack &&
         err.stack.replace(/\n/gm, '\n  ')
       ) || 'n/a'
     }` :
-    `${info}`;
+    `${trace}`;
 }
 
 function reportError(err, {
