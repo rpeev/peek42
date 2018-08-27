@@ -37,7 +37,7 @@ All distribution files are in `node_modules/peek42/dist/`
 
 ### Browser
 
-(`monofur.woff` is expected to be next to `peek42.css`, `peek42-dark.css` and `apivis.browser.js` are optional)
+(`monofur.woff` is expected to be next to `peek42.css`, `peek42-dark.css`, `apivis.browser.js` and `source-map.js` are optional)
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/peek42@latest/dist/peek42.css" />
@@ -45,6 +45,10 @@ All distribution files are in `node_modules/peek42/dist/`
 
 <script src="https://unpkg.com/apivis@latest/dist/apivis.browser.js"></script>
 <script src="https://unpkg.com/peek42@latest/dist/peek42.browser.js"></script>
+<script src="https://unpkg.com/source-map@latest/dist/source-map.js"></script>
+  <script>sourceMap.SourceMapConsumer.initialize({
+    'lib/mappings.wasm': 'https://unpkg.com/source-map@latest/lib/mappings.wasm'
+  });</script>
 ```
 
 Configuration options can be specified by adding a script *before* `peek42.browser.js` (values shown are the defaults):

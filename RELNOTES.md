@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.2.0
+
+- Show source traces for errors (using source maps if present and the [Source Map](https://github.com/mozilla/source-map) library loaded)
+
 ## 5.1.0
 
 - Add library config options

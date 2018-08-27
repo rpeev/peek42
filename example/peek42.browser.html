@@ -18,11 +18,15 @@
       autoUse: true
     };</script>-->
     <script src="../dist/peek42.browser.js"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.js"></script>
+    <script src="https://unpkg.com/source-map@latest/dist/source-map.js"></script>
+      <script>sourceMap.SourceMapConsumer.initialize({
+        'lib/mappings.wasm': 'https://unpkg.com/source-map@latest/lib/mappings.wasm'
+      });</script>
 
-    <script>(() => { 'use strict';
-document.addEventListener('DOMContentLoaded', () => {
-  p.api(document);
-});
+    <script type="text/babel">(async () => { 'use strict';
+//p.api(document);
+  boom
     })();</script>
   </head>
 
