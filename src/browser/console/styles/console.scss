@@ -1,5 +1,10 @@
 @import '../../styles/config';
 
+@mixin user-select-none {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .peek42-console {
   position: fixed;
   z-index: 500;
@@ -59,6 +64,8 @@
 }
 
 .peek42-title {
+  @include user-select-none;
+
   margin-right: auto;
   font-weight: bold;
 }
@@ -72,7 +79,7 @@
 }
 
 .peek42-quietl {
-
+  @include user-select-none;
 }
 
 .peek42-quiet {
@@ -80,7 +87,7 @@
 }
 
 .peek42-clear {
-
+  @include user-select-none;
 }
 
 .peek42-resize {
@@ -88,7 +95,7 @@
 }
 
 .peek42-toggle {
-
+  @include user-select-none;
 }
 
 .peek42-log {

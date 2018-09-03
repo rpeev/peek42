@@ -66,7 +66,7 @@ class Console {
     this._resizer = new Resizer(this._container, this._log);
     this._isMinimized = false;
 
-    this._title.addEventListener('touchstart', ev => {
+    this._title.addEventListener('click', ev => {
       this._onTitleClick(ev);
     });
 
@@ -74,7 +74,7 @@ class Console {
       this._onEvalKeyPress(ev);
     });
 
-    this._clear.addEventListener('touchstart', ev => {
+    this._clear.addEventListener('click', ev => {
       this._onClearClick(ev);
     });
 
@@ -91,11 +91,11 @@ class Console {
       this._onWindowResize(ev);
     });
 
-    this._quietl.addEventListener('touchstart', ev => {
+    this._quietl.addEventListener('click', ev => {
       this._onQuietClick(ev);
     });
 
-    this._toggle.addEventListener('touchstart', ev => {
+    this._toggle.addEventListener('click', ev => {
       this._onToggleClick(ev);
     });
 
