@@ -100,7 +100,7 @@
 
 .peek42-log {
   overflow: scroll;
-  margin: 0.1em 0.2em 0.2em 0.2em;
+  margin: 0.1em 0.2em 0.2em 0;
   padding: 0;
   background: map-get($theme-colors, 'background');
   color: map-get($theme-colors, 'secondary');
@@ -136,7 +136,7 @@
 }
 
 .peek42-log-entry-toggle {
-  color: map-get($theme-colors, 'primary');
+  color: map-get($theme-colors, 'secondary');
   font-family: monospace;
 }
 
