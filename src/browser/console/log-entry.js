@@ -1,14 +1,14 @@
 function addLogEntry({
-  str,
-  log
+  textContent,
+  elLog
 } = {}) {
-  let entry = document.createElement('div');
+  let elEntry = document.createElement('div');
 
-  entry.classList.add('peek42-log-entry');
-  entry.textContent = str;
+  elEntry.classList.add('peek42-log-entry');
+  elEntry.textContent = textContent;
 
-  log.insertBefore(entry, log.firstChild);
-  log.scrollTop = 0;
+  elLog.insertBefore(elEntry, elLog.firstChild);
+  elLog.scrollTop = 0;
 }
 
 export {addLogEntry};

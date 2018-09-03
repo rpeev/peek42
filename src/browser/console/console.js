@@ -116,8 +116,8 @@ class Console {
     }
 
     addLogEntry({
-      str,
-      log: this._log
+      textContent: str,
+      elLog: this._log
     });
     flashOutput(this._container, opts.level);
   }
