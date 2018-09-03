@@ -107,18 +107,25 @@ class Console {
   _output(val, comment, opts = {}) {
     opts = {..._outputOptsDefaults, ...opts};
 
-    let str = (comment === null) ?
-      _string(val) :
-      `// ${String(comment)}\n${_string(val)}`;
-
     if (this.isMinimized && !this.isQuiet) {
       this.show();
     }
 
-    addLogEntry({
-      textContent: str,
-      elLog: this._log
-    });
+    if (comment === null) {
+      addLogEntry({
+        elLog: this._log,
+        textContent: _string(val),
+        level: opts.level
+      });
+    } else {
+      addLogEntry({
+        elLog: this._log,
+        comment: String(comment),
+        message: _string(val),
+        level: opts.level
+      });
+    }
+
     flashOutput(this._container, opts.level);
   }
 
