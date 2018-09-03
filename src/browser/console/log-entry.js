@@ -17,7 +17,8 @@ function addLogEntry({
   textContent,
   comment,
   message,
-  level = 'log'
+  level = 'log',
+  collapse = false
 } = {}) {
   let elEntry = document.createElement('div');
 
@@ -33,6 +34,10 @@ function addLogEntry({
 <div class="peek42-log-entry-message">${message}</div>`;
     elEntry.firstElementChild.
       addEventListener('click', _onLogEntryToggleClick);
+
+    if (collapse) {
+      elEntry.firstElementChild.click();
+    }
   }
 
   elLog.insertBefore(elEntry, elLog.firstChild);

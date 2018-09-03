@@ -33,7 +33,8 @@ function _comment(comment, val, note = undefined) {
 }
 
 const _outputOptsDefaults = {
-  level: 'log'
+  level: 'log',
+  collapse: false
 };
 
 function _prettyMakesSense(val) {

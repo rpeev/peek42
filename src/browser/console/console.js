@@ -115,14 +115,14 @@ class Console {
       addLogEntry({
         elLog: this._log,
         textContent: _string(val),
-        level: opts.level
+        ...opts
       });
     } else {
       addLogEntry({
         elLog: this._log,
         comment: String(comment),
         message: _string(val),
-        level: opts.level
+        ...opts
       });
     }
 
