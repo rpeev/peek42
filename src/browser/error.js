@@ -304,7 +304,7 @@ async function formatErrorAsync(err, {
 
 function reportError(err, {
   includeStack = true,
-  note = 'error'
+  note = 'uncaught error'
 } = {}) {
   formatErrorAsync(err, {includeStack}).then(str => {
     p(str,
