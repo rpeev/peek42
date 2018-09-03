@@ -43,7 +43,9 @@ Object.assign(peek42, {
 });
 
 function _onError(ev) {
-  reportError(ev.error);
+  reportError(ev.error, {
+    note: 'uncaught error'
+  });
 }
 
 function _onUnhandledRejection(ev) {
