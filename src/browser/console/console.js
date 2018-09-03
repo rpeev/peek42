@@ -6,6 +6,7 @@ import {
   flashNotice,
   flashOutput
 } from './flash';
+import {addLogEntry} from './log-entry';
 
 class Console {
   static _html = consoleHTML;
@@ -109,14 +110,15 @@ class Console {
     let str = (comment === null) ?
       _string(val) :
       `// ${String(comment)}\n${_string(val)}`;
-    let content = this._log.textContent;
 
     if (this.isMinimized && !this.isQuiet) {
       this.show();
     }
 
-    this._log.textContent = `${str}\n${content}`;
-    this._log.scrollTop = 0;
+    addLogEntry({
+      str,
+      log: this._log
+    });
     flashOutput(this._container, opts.level);
   }
 
