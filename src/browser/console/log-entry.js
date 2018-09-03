@@ -1,4 +1,4 @@
-function onLogEntryToggleClick(ev) {
+function _onLogEntryToggleClick(ev) {
   let elComment = ev.currentTarget;
   let elToggle = elComment.firstElementChild;
   let elMessage = elComment.nextElementSibling;
@@ -32,7 +32,7 @@ function addLogEntry({
 <span class="peek42-log-entry-toggle">&#x25be;</span>${comment}</div>\
 <div class="peek42-log-entry-message">${message}</div>`;
     elEntry.firstElementChild.
-      addEventListener('click', onLogEntryToggleClick);
+      addEventListener('click', _onLogEntryToggleClick);
   }
 
   elLog.insertBefore(elEntry, elLog.firstChild);
