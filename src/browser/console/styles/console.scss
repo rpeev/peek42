@@ -129,6 +129,7 @@
 }
 
 .peek42-log-entry-toggle {
+  color: map-get($theme-colors, 'primary');
   font-family: monospace;
 }
 
