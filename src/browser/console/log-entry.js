@@ -30,13 +30,22 @@ function addLogEntry({
   } else {
     elEntry.classList.add('peek42-log-entry-complex');
     elEntry.innerHTML = `<div class="peek42-log-entry-comment">\
-<span class="peek42-log-entry-toggle">&#x25be;</span>${comment}</div>\
-<div class="peek42-log-entry-message">${message}</div>`;
-    elEntry.firstElementChild.
-      addEventListener('click', _onLogEntryToggleClick);
+<span class="peek42-log-entry-toggle">&#x25be;</span>\
+<span></span>\
+</div>\
+<div class="peek42-log-entry-message"></div>`;
 
+    let elCommentContainer = elEntry.firstElementChild;
+    let elToggle = elCommentContainer.firstElementChild;
+    let elComment = elToggle.nextElementSibling;
+    let elMessage = elCommentContainer.nextElementSibling;
+
+    elComment.textContent = comment;
+    elMessage.textContent = message;
+
+    elCommentContainer.addEventListener('click', _onLogEntryToggleClick);
     if (collapse) {
-      elEntry.firstElementChild.click();
+      elCommentContainer.click();
     }
   }
 
