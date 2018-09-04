@@ -1,51 +1,51 @@
-function _onLogEntryToggleClick(ev) {
-  let elComment = ev.currentTarget;
-  let elToggle = elComment.firstElementChild;
-  let elMessage = elComment.nextElementSibling;
+function _onLogEntryHeadClick(ev) {
+  let elHead = ev.currentTarget;
+  let elToggle = elHead.firstElementChild;
+  let elBody = elHead.nextElementSibling;
 
-  if (elMessage.style.display === 'none') {
+  if (elBody.style.display === 'none') {
     elToggle.innerHTML = '&#x25be;';
-    elMessage.style.display = '';
+    elBody.style.display = '';
   } else {
     elToggle.innerHTML = '&#x25b8;';
-    elMessage.style.display = 'none';
+    elBody.style.display = 'none';
   }
 }
 
 function addLogEntry({
   elLog,
-  textContent,
-  comment,
-  message,
+  entrySimpleText,
+  entryDesc,
+  entryText,
   level = 'log',
-  collapse = false
+  collapsed = false
 } = {}) {
   let elEntry = document.createElement('div');
 
-  elEntry.classList.add(`peek42-log-${level}`);
+  elEntry.classList.add(`peek42-log-entry-${level}`);
 
-  if (textContent) {
+  if (entrySimpleText) {
     elEntry.classList.add('peek42-log-entry-simple');
-    elEntry.textContent = textContent;
+    elEntry.textContent = entrySimpleText;
   } else {
-    elEntry.classList.add('peek42-log-entry-complex');
-    elEntry.innerHTML = `<div class="peek42-log-entry-comment">\
+    elEntry.classList.add('peek42-log-entry');
+    elEntry.innerHTML = `<div class="peek42-log-entry-head">\
 <span class="peek42-log-entry-toggle">&#x25be;</span>\
-<span></span>\
+<span class="peek42-log-entry-desc"></span>\
 </div>\
-<div class="peek42-log-entry-message"></div>`;
+<div class="peek42-log-entry-body"></div>`;
 
-    let elCommentContainer = elEntry.firstElementChild;
-    let elToggle = elCommentContainer.firstElementChild;
-    let elComment = elToggle.nextElementSibling;
-    let elMessage = elCommentContainer.nextElementSibling;
+    let elHead = elEntry.firstElementChild;
+    let elToggle = elHead.firstElementChild;
+    let elDesc = elToggle.nextElementSibling;
+    let elBody = elHead.nextElementSibling;
 
-    elComment.textContent = comment;
-    elMessage.textContent = message;
+    elDesc.textContent = entryDesc;
+    elBody.textContent = entryText;
 
-    elCommentContainer.addEventListener('click', _onLogEntryToggleClick);
-    if (collapse) {
-      elCommentContainer.click();
+    elHead.addEventListener('click', _onLogEntryHeadClick);
+    if (collapsed) {
+      elHead.click();
     }
   }
 

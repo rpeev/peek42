@@ -21,7 +21,7 @@ function _interceptNativeConsoleFn(name) {
       formatErrorAsync(err).then(str => {
         p(str,
           _comment('', err, `native console.${name} error`),
-          {level: 'error', collapse: true});
+          {level: 'error', collapsed: true});
       });
     }
   };

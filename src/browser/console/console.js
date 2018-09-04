@@ -114,14 +114,14 @@ class Console {
     if (comment === null) {
       addLogEntry({
         elLog: this._log,
-        textContent: _string(val),
+        entrySimpleText: _string(val),
         ...opts
       });
     } else {
       addLogEntry({
         elLog: this._log,
-        comment: String(comment),
-        message: _string(val),
+        entryDesc: String(comment),
+        entryText: _string(val),
         ...opts
       });
     }
