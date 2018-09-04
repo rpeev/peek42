@@ -17,5 +17,9 @@
 }
 
 .peek42-log-entry-toggle {
-  color: #bdb76b;
+  color: #cccccc;
+}
+
+.peek42-log-entry-desc {
+  color: #ede79b;
 }

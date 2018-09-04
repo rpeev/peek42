@@ -109,19 +109,19 @@
   line-height: 1em;
 }
 
-.peek42-log-info {
+.peek42-log-entry-info {
   border-left: 3px solid map-get($theme-colors, 'notice') !important;
 }
 
-.peek42-log-log {
+.peek42-log-entry-log {
   border-left: 3px solid map-get($theme-colors, 'success') !important;
 }
 
-.peek42-log-warn {
+.peek42-log-entry-warn {
   border-left: 3px solid map-get($theme-colors, 'warning') !important;
 }
 
-.peek42-log-error {
+.peek42-log-entry-error {
   border-left: 3px solid map-get($theme-colors, 'error') !important;
 }
 
@@ -130,20 +130,20 @@
   padding-left: 0.5ex !important;
 }
 
-.peek42-log-entry-complex {
+.peek42-log-entry {
   margin-bottom: 1ex !important;
   padding-left: 0.5ex !important;
 }
 
 .peek42-log-entry-toggle {
-  color: map-get($theme-colors, 'secondary');
+  color: black;
   font-family: monospace;
 }
 
-.peek42-log-entry-comment {
-
+.peek42-log-entry-desc {
+  color: darken(map-get($theme-colors, 'secondary'), 10%);
 }
 
-.peek42-log-entry-message {
+.peek42-log-entry-body {
 
 }
