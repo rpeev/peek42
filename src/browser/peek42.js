@@ -44,7 +44,7 @@ Object.assign(peek42, {
 
 function _onError(ev) {
   reportError(ev.error, {
-    note: 'uncaught error'
+    note: 'uncaught exception'
   });
 }
 
