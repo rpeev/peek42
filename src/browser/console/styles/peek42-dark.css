@@ -13,7 +13,7 @@
 
 .peek42-log {
   background: black;
-  color: #bdb76b;
+  color: #ddd78b;
 }
 
 .peek42-log-entry-toggle {
@@ -21,5 +21,5 @@
 }
 
 .peek42-log-entry-desc {
-  color: #ede79b;
+  color: #fff9ad;
 }
