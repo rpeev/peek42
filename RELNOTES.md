@@ -1,5 +1,10 @@
 # Release Notes
 
+## 5.3.0
+
+- Add color strip to indicate the log level of each entry
+- Add the ability to collapse/expand log entry (tap the comment row) and to display log entry initially collapsed (`{collapsed: true}` in the `opts` of the print calls)
+
 ## 5.2.0
 
 - Show source traces for errors (using source maps if present and the [Source Map](https://github.com/mozilla/source-map) library loaded)

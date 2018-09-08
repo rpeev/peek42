@@ -106,7 +106,7 @@ import peek42, {p, pp} from 'peek42';
 The following properties/functions are available through the **peek42** namespace object returned from `require('peek42')` on node or available as `window.peek42` in the browser (the ES module has the namespace object as default export and `p`, `pp` and `pretty` as named exports):
 
 - `version` - library version
-- `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods:
+- `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. Setting `{collapsed: true}` causes the log entry to be initially collapsed (only the comment is visible, tap it to expand/collapse using the UI). If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods:
     - `p.type(val[, comment[, opts]])`
     - `p.desc(val, k[, comment[, opts]])`
     - `p.members(val[, comment[, opts]])`
@@ -136,7 +136,7 @@ The following properties/functions are available through the **peek42** namespac
 
 **peek42** intercepts the native console logging function calls, so `console.log` calls (for example) will show up
 
-**peek42** listens for JavaScript errors (including `unhandledrejection` of promises) and shows them with the error message as a comment and the stack trace if present
+**peek42** listens for JavaScript errors (including `unhandledrejection` of promises) and shows them with the error message as a comment and source snippet and stack trace if possible
 
 ## UI
 
