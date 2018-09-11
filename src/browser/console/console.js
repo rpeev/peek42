@@ -53,17 +53,21 @@ class Console {
     this._container.setAttribute('class', 'peek42-console');
     this._container.innerHTML = new.target._html;
     document.body.appendChild(this._container);
+    //this._container.classList.add('peek42-dev');
 
     [
       'title',
       'eval',
       'clear', 'resize', 'quietl', 'quiet', 'toggle',
-      'log'
+      'view', 'log', 'bar1'
     ].forEach(ctrl => {
       this[`_${ctrl}`] = this._container.querySelector(`.peek42-${ctrl}`);
     });
 
-    this._resizer = new Resizer(this._container, this._log);
+    this._resizer = new Resizer(this._log, {
+      elFlashSizeLimit: this._container,
+      elsMakeSameHeight: [this._bar1]
+    });
     this._isMinimized = false;
 
     this._title.addEventListener('click', ev => {
@@ -290,7 +294,7 @@ ${fn}(${expr}, '(${note}) ${expr}');
     this._quietl.style.display = 'none';
     this._quiet.style.display = 'none';
     this._toggle.innerHTML = 'Minimize';
-    this._log.style.display = '';
+    this._view.style.display = '';
 
     this._isMinimized = false;
   }
@@ -301,7 +305,7 @@ ${fn}(${expr}, '(${note}) ${expr}');
     this._quietl.style.display = '';
     this._quiet.style.display = '';
     this._toggle.innerHTML = 'Restore';
-    this._log.style.display = 'none';
+    this._view.style.display = 'none';
 
     this._isMinimized = true;
   }

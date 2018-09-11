@@ -5,6 +5,12 @@
   user-select: none;
 }
 
+.peek42-dev, .peek42-dev * {
+  margin: 0.3em !important;
+  padding: 0.3em !important;
+  border: 1px dashed maroon !important;
+}
+
 .peek42-console {
   position: fixed;
   z-index: 500;
@@ -98,15 +104,43 @@
   @include user-select-none;
 }
 
+.peek42-view {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: top;
+  margin: 0;
+  padding: 0;
+}
+
 .peek42-log {
+  flex: 1;
   overflow: scroll;
-  margin: 0.1em 0.2em 0.2em 0;
+  margin: 0;
   padding: 0;
   background: map-get($theme-colors, 'background');
   color: map-get($theme-colors, 'secondary');
   font-family: map-get($theme-fonts, 'secondary'), monospace;
   font-size: 20px;
   line-height: 1em;
+}
+
+.peek42-bar1 {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  min-width: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+.peek42-bar1-control {
+  min-width: 2em;
+  margin: 0.2ex 0;
+  padding: 0.4ex 0;
+  text-align: center;
 }
 
 .peek42-log-entry-info {

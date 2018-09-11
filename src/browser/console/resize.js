@@ -1,20 +1,19 @@
 import {flashSizeLimit} from './flash';
 
 class Resizer {
-  static _constructorOptsDefaults = {
-    ratio: 0.42,
-    minRatio: 0.05,
-    maxRatio: 0.85
-  };
-
-  constructor(container, log, opts = {}) {
-    opts = {...new.target._constructorOptsDefaults, ...opts};
-
-    this._container = container;
-    this._log = log;
-    this._ratio = opts.ratio;
-    this._minRatio = opts.minRatio;
-    this._maxRatio = opts.maxRatio;
+  constructor(elResizee, {
+    elFlashSizeLimit = elResizee,
+    elsMakeSameHeight = [],
+    ratio = 0.42,
+    minRatio = 0.05,
+    maxRatio = 0.85
+  } = {}) {
+    this._elResizee = elResizee;
+    this._elFlashSizeLimit = elFlashSizeLimit;
+    this._elsMakeSameHeight = elsMakeSameHeight;
+    this._ratio = ratio;
+    this._minRatio = minRatio;
+    this._maxRatio = maxRatio;
     this._height = window.innerHeight * this._ratio;
     this._resizeY = 0;
     this._resizeYDelta = 0;
@@ -52,12 +51,18 @@ class Resizer {
 
     if (this._height > minHeight && this._height < maxHeight) {
       this._resizeY = clientY;
-      this._log.style.height = `${this._height}px`;
+      this._elResizee.style.height = `${this._height}px`;
+      this._elsMakeSameHeight.forEach(el => {
+        el.style.height = `${this._height}px`;
+      });
     } else {
       this._height = Math.min(Math.max(this._height, minHeight), maxHeight);
-      this._log.style.height = `${this._height}px`;
+      this._elResizee.style.height = `${this._height}px`;
+      this._elsMakeSameHeight.forEach(el => {
+        el.style.height = `${this._height}px`;
+      });
 
-      flashSizeLimit(this._container);
+      flashSizeLimit(this._elFlashSizeLimit);
 
       this.resizeEnd();
     }
