@@ -56,10 +56,15 @@ class Console {
     //this._container.classList.add('peek42-dev');
 
     [
-      'title',
-      'eval',
-      'clear', 'resize', 'quietl', 'quiet', 'toggle',
-      'view', 'log', 'bar1'
+      'bar',
+        'title',
+        'eval',
+        'clear', 'resize', 'quietl', 'quiet', 'toggle',
+      'view',
+        'log',
+        'bar1',
+          'entries-collapse', 'entries-expand',
+          'entries-info', 'entries-log', 'entries-warn', 'entries-error'
     ].forEach(ctrl => {
       this[`_${ctrl}`] = this._container.querySelector(`.peek42-${ctrl}`);
     });
@@ -103,7 +108,27 @@ class Console {
       this._onToggleClick(ev);
     });
 
-    this._log.style.height = `${this._resizer.height}px`;
+    [
+      'entries-collapse',
+      'entries-expand'
+    ].forEach(name => {
+      this[`_${name}`].addEventListener('click', ev => {
+        p(`TODO: ${name}`);
+      });
+    });
+
+    [
+      'entries-info',
+      'entries-log',
+      'entries-warn',
+      'entries-error'
+    ].forEach(name => {
+      this[`_${name}`].addEventListener('click', ev => {
+        this[`_${name}`].classList.toggle(`peek42-${name}-active`);
+
+        p(`TODO: toggle ${name} display`);
+      });
+    });
 
     this.minimize();
   }
@@ -180,7 +205,6 @@ class Console {
 
   _onWindowResize(ev) {
     this._resizer.height = window.innerHeight * this._resizer.ratio;
-    this._log.style.height = `${this._resizer.height}px`;
   }
 
   _onQuietClick(ev) {

@@ -116,6 +116,8 @@
 .peek42-log {
   flex: 1;
   overflow: scroll;
+  // IMPORTANT: NOT setting initial height causes the font to be bigger!
+  height: 42px;
   margin: 0;
   padding: 0;
   background: map-get($theme-colors, 'background');
@@ -137,10 +139,45 @@
 }
 
 .peek42-bar1-control {
+  box-sizing: border-box;
   min-width: 2em;
   margin: 0.2ex 0;
-  padding: 0.4ex 0;
+  padding: 0.3ex 0;
+  border: 1px solid;
+  border-radius: 0.5ex;
   text-align: center;
+}
+
+.peek42-entries-info {
+  border: 3px solid map-get($theme-colors, 'notice');
+}
+
+.peek42-entries-info-active {
+  background: map-get($theme-colors, 'notice');
+}
+
+.peek42-entries-log {
+  border: 3px solid map-get($theme-colors, 'success');
+}
+
+.peek42-entries-log-active {
+  background: map-get($theme-colors, 'success');
+}
+
+.peek42-entries-warn {
+  border: 3px solid map-get($theme-colors, 'warning');
+}
+
+.peek42-entries-warn-active {
+  background: map-get($theme-colors, 'warning');
+}
+
+.peek42-entries-error {
+  border: 3px solid map-get($theme-colors, 'error');
+}
+
+.peek42-entries-error-active {
+  background: map-get($theme-colors, 'error');
 }
 
 .peek42-log-entry-info {

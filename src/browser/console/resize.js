@@ -29,7 +29,20 @@ class Resizer {
   }
 
   set height(v) {
+    if (typeof v !== 'number') {
+      throw new TypeError(`Expected number, got ${typeof v}`);
+    }
+
     this._height = v;
+
+    this._syncHeights();
+  }
+
+  _syncHeights() {
+    let styleHeight = `${this._height}px`;
+
+    this._elResizee.style.height = styleHeight;
+    this._elsMakeSameHeight.forEach(el => el.style.height = styleHeight);
   }
 
   get isResizing() {
@@ -51,16 +64,10 @@ class Resizer {
 
     if (this._height > minHeight && this._height < maxHeight) {
       this._resizeY = clientY;
-      this._elResizee.style.height = `${this._height}px`;
-      this._elsMakeSameHeight.forEach(el => {
-        el.style.height = `${this._height}px`;
-      });
+      this._syncHeights();
     } else {
       this._height = Math.min(Math.max(this._height, minHeight), maxHeight);
-      this._elResizee.style.height = `${this._height}px`;
-      this._elsMakeSameHeight.forEach(el => {
-        el.style.height = `${this._height}px`;
-      });
+      this._syncHeights();
 
       flashSizeLimit(this._elFlashSizeLimit);
 
