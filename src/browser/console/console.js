@@ -68,7 +68,7 @@ class Console {
       'view',
         'log',
         'bar1',
-          'entries-collapse', 'entries-expand',
+          'entries-expand', 'entries-collapse',
           'entries-info', 'entries-log', 'entries-warn', 'entries-error'
     ].forEach(ctrl => {
       this[`_${ctrl}`] = this._container.querySelector(`.peek42-${ctrl}`);
@@ -114,8 +114,8 @@ class Console {
     });
 
     [
-      'entries-collapse',
-      'entries-expand'
+      'entries-expand',
+      'entries-collapse'
     ].forEach(name => {
       this[`_${name}`].addEventListener('click', ev => {
         this[`_on-${name}`](ev);
@@ -226,16 +226,16 @@ class Console {
     this.toggleDisplay();
   }
 
-  ['_on-entries-collapse'](ev) {
-    this._log.
-      querySelectorAll('.peek42-log-entry-head').
-        forEach(elHead => _logEntryCollapse(..._logEntryToggleAndBody(elHead)));
-  }
-
   ['_on-entries-expand'](ev) {
     this._log.
       querySelectorAll('.peek42-log-entry-head').
         forEach(elHead => _logEntryExpand(..._logEntryToggleAndBody(elHead)));
+  }
+
+  ['_on-entries-collapse'](ev) {
+    this._log.
+      querySelectorAll('.peek42-log-entry-head').
+        forEach(elHead => _logEntryCollapse(..._logEntryToggleAndBody(elHead)));
   }
 
   get logIsAtTop() {
