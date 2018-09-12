@@ -1,5 +1,7 @@
 @import '../../styles/config';
 
+$color-log-entry-desc: darken(map-get($theme-colors, 'secondary'), 10%);
+
 @mixin user-select-none {
   -webkit-user-select: none;
   user-select: none;
@@ -8,7 +10,7 @@
 .peek42-dev, .peek42-dev * {
   margin: 0.3em !important;
   padding: 0.3em !important;
-  border: 1px dashed maroon !important;
+  border: 1px dashed fuchsia !important;
 }
 
 .peek42-console {
@@ -145,6 +147,7 @@
   padding: 0.3ex 0;
   border: 1px solid;
   border-radius: 0.5ex;
+  color: $color-log-entry-desc;
   text-align: center;
 }
 
@@ -213,7 +216,7 @@
 
 .peek42-log-entry-desc {
   margin-left: 0.2ex;
-  color: darken(map-get($theme-colors, 'secondary'), 10%);
+  color: $color-log-entry-desc;
 }
 
 .peek42-log-entry-body {
