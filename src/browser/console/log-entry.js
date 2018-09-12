@@ -59,7 +59,7 @@ function addLogEntry({
 
     elHead.addEventListener('click', _onLogEntryHeadClick);
     if (collapsed) {
-      elHead.click();
+      _logEntryCollapse(elToggle, elBody);
     }
   }
 
