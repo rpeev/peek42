@@ -131,7 +131,7 @@ class Console {
       this[`_${name}`].addEventListener('click', ev => {
         this[`_${name}`].classList.toggle(`peek42-${name}-active`);
 
-        p(`TODO: toggle ${name} display`);
+        this[`_on-toggle-${name}`](ev);
       });
     });
 
@@ -236,6 +236,32 @@ class Console {
     this._log.
       querySelectorAll('.peek42-log-entry-head').
         forEach(elHead => _logEntryCollapse(..._logEntryToggleAndBody(elHead)));
+  }
+
+  _toggleEntriesDisplay(elCtrl, level) {
+    let activeClass = `peek42-entries-${level}-active`;
+    let entriesClass = `.peek42-log-entry-${level}`;
+    let display = (elCtrl.classList.contains(activeClass)) ? '' : 'none';
+
+    this._log.
+      querySelectorAll(entriesClass).
+        forEach(elEntry => elEntry.style.display = display);
+  }
+
+  ['_on-toggle-entries-info'](ev) {
+    this._toggleEntriesDisplay(ev.currentTarget, 'info');
+  }
+
+  ['_on-toggle-entries-log'](ev) {
+    this._toggleEntriesDisplay(ev.currentTarget, 'log');
+  }
+
+  ['_on-toggle-entries-warn'](ev) {
+    this._toggleEntriesDisplay(ev.currentTarget, 'warn');
+  }
+
+  ['_on-toggle-entries-error'](ev) {
+    this._toggleEntriesDisplay(ev.currentTarget, 'error');
   }
 
   get logIsAtTop() {
