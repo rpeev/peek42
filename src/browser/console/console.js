@@ -6,7 +6,12 @@ import {
   flashNotice,
   flashOutput
 } from './flash';
-import {addLogEntry} from './log-entry';
+import {
+  _logEntryToggleAndBody,
+  _logEntryExpand,
+  _logEntryCollapse,
+  addLogEntry
+} from './log-entry';
 
 class Console {
   static _html = consoleHTML;
@@ -113,7 +118,7 @@ class Console {
       'entries-expand'
     ].forEach(name => {
       this[`_${name}`].addEventListener('click', ev => {
-        p(`TODO: ${name}`);
+        this[`_on-${name}`](ev);
       });
     });
 
@@ -219,6 +224,18 @@ class Console {
     ev.stopPropagation();
 
     this.toggleDisplay();
+  }
+
+  ['_on-entries-collapse'](ev) {
+    this._log.
+      querySelectorAll('.peek42-log-entry-head').
+        forEach(elHead => _logEntryCollapse(..._logEntryToggleAndBody(elHead)));
+  }
+
+  ['_on-entries-expand'](ev) {
+    this._log.
+      querySelectorAll('.peek42-log-entry-head').
+        forEach(elHead => _logEntryExpand(..._logEntryToggleAndBody(elHead)));
   }
 
   get logIsAtTop() {

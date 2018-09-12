@@ -1,15 +1,30 @@
-function _onLogEntryHeadClick(ev) {
-  let elHead = ev.currentTarget;
-  let elToggle = elHead.firstElementChild;
-  let elBody = elHead.nextElementSibling;
+function _logEntryToggleAndBody(elHead) {
+  return [
+    elHead.firstElementChild,
+    elHead.nextElementSibling
+  ];
+}
 
+function _logEntryExpand(elToggle, elBody) {
+  elToggle.innerHTML = '&#x25be;';
+  elBody.style.display = '';
+}
+
+function _logEntryCollapse(elToggle, elBody) {
+  elToggle.innerHTML = '&#x25b8;';
+  elBody.style.display = 'none';
+}
+
+function _logEntryToggle(elToggle, elBody) {
   if (elBody.style.display === 'none') {
-    elToggle.innerHTML = '&#x25be;';
-    elBody.style.display = '';
+    _logEntryExpand(elToggle, elBody);
   } else {
-    elToggle.innerHTML = '&#x25b8;';
-    elBody.style.display = 'none';
+    _logEntryCollapse(elToggle, elBody);
   }
+}
+
+function _onLogEntryHeadClick(ev) {
+  _logEntryToggle(..._logEntryToggleAndBody(ev.currentTarget));
 }
 
 function addLogEntry({
@@ -36,9 +51,8 @@ function addLogEntry({
 <div class="peek42-log-entry-body"></div>`;
 
     let elHead = elEntry.firstElementChild;
-    let elToggle = elHead.firstElementChild;
+    let [elToggle, elBody] = _logEntryToggleAndBody(elHead);
     let elDesc = elToggle.nextElementSibling;
-    let elBody = elHead.nextElementSibling;
 
     elDesc.textContent = entryDesc;
     elBody.textContent = entryText;
@@ -53,4 +67,10 @@ function addLogEntry({
   elLog.scrollTop = 0;
 }
 
-export {addLogEntry};
+export {
+  _logEntryToggleAndBody,
+  _logEntryExpand,
+  _logEntryCollapse,
+  _logEntryToggle,
+  addLogEntry
+};
