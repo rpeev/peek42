@@ -70,8 +70,8 @@ class Console {
         'bar1',
           'entries-expand', 'entries-collapse',
           'entries-info', 'entries-log', 'entries-warn', 'entries-error'
-    ].forEach(ctrl => {
-      this[`_${ctrl}`] = this._container.querySelector(`.peek42-${ctrl}`);
+    ].forEach(name => {
+      this[`_${name}`] = this._container.querySelector(`.peek42-${name}`);
     });
 
     this._resizer = new Resizer(this._log, {
@@ -138,10 +138,16 @@ class Console {
     this.minimize();
   }
 
+  _isLevelActive(level) {
+    return this[`_entries-${level}`].classList.
+      contains(`peek42-entries-${level}-active`);
+  }
+
   _output(val, comment, opts = {}) {
     opts = {..._outputOptsDefaults, ...opts};
+    let active = this._isLevelActive(opts.level);
 
-    if (this.isMinimized && !this.isQuiet) {
+    if (this.isMinimized && active && !this.isQuiet) {
       this.show();
     }
 
@@ -149,6 +155,7 @@ class Console {
       addLogEntry({
         elLog: this._log,
         entrySimpleText: _string(val),
+        hidden: !active,
         ...opts
       });
     } else {
@@ -156,6 +163,7 @@ class Console {
         elLog: this._log,
         entryDesc: String(comment),
         entryText: _string(val),
+        hidden: !active,
         ...opts
       });
     }

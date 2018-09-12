@@ -33,11 +33,16 @@ function addLogEntry({
   entryDesc,
   entryText,
   level = 'log',
+  hidden = false,
   collapsed = false
 } = {}) {
   let elEntry = document.createElement('div');
 
   elEntry.classList.add(`peek42-log-entry-${level}`);
+
+  if (hidden) {
+    elEntry.style.display = 'none';
+  }
 
   if (entrySimpleText) {
     elEntry.classList.add('peek42-log-entry-simple');
@@ -71,6 +76,5 @@ export {
   _logEntryToggleAndBody,
   _logEntryExpand,
   _logEntryCollapse,
-  _logEntryToggle,
   addLogEntry
 };
