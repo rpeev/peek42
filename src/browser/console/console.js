@@ -80,6 +80,13 @@ class Console {
     });
     this._isMinimized = false;
 
+    this._countsByLevel = {
+      info: 0,
+      log: 0,
+      warn: 0,
+      error: 0
+    };
+
     this._title.addEventListener('click', ev => {
       this._onTitleClick(ev);
     });
@@ -167,6 +174,10 @@ class Console {
         ...opts
       });
     }
+
+    this._countsByLevel[opts.level] += 1;
+    this[`_entries-${opts.level}`].
+      textContent = this._countsByLevel[opts.level];
 
     flashOutput(this._container, opts.level);
   }

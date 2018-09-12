@@ -32,8 +32,8 @@ function addLogEntry({
   entrySimpleText,
   entryDesc,
   entryText,
-  level = 'log',
   hidden = false,
+  level = 'log',
   collapsed = false
 } = {}) {
   let elEntry = document.createElement('div');

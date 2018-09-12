@@ -157,6 +157,7 @@ $color-log-entry-desc: darken(map-get($theme-colors, 'secondary'), 10%);
 
 .peek42-entries-info-active {
   background: map-get($theme-colors, 'notice');
+  color: white;
 }
 
 .peek42-entries-log {
@@ -165,6 +166,7 @@ $color-log-entry-desc: darken(map-get($theme-colors, 'secondary'), 10%);
 
 .peek42-entries-log-active {
   background: map-get($theme-colors, 'success');
+  color: white;
 }
 
 .peek42-entries-warn {
@@ -173,6 +175,7 @@ $color-log-entry-desc: darken(map-get($theme-colors, 'secondary'), 10%);
 
 .peek42-entries-warn-active {
   background: map-get($theme-colors, 'warning');
+  color: white;
 }
 
 .peek42-entries-error {
@@ -181,6 +184,7 @@ $color-log-entry-desc: darken(map-get($theme-colors, 'secondary'), 10%);
 
 .peek42-entries-error-active {
   background: map-get($theme-colors, 'error');
+  color: white;
 }
 
 .peek42-log-entry-info {
