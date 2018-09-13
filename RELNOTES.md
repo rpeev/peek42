@@ -1,10 +1,14 @@
 # Release Notes
 
+## 5.4.1
+
+- Reset log entries level counters on log clear
+
 ## 5.4.0
 
 - Add right side toolbar
 - Add the ability to collapse/expand all log entries (&#x25b8; and &#x25be; toolbar buttons)
-- Add the ability to filter log entries by level (colorful toolbar buttons with numbers). They work like a set of checkboxes (each controls the visibility of the particular log entries level) and show the corresponding log entries count
+- Add the ability to filter log entries by level (the colorful toolbar buttons with numbers). They work like a set of checkboxes (each controls the visibility of the corresponding log entries level) and show the corresponding log entries count
 
 ## 5.3.0
 
