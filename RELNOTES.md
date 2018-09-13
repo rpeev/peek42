@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.4.2
+
+- Fix console sizing bug (missing initialization in sizing related code)
+
 ## 5.4.1
 
 - Reset log entries level counters on log clear
