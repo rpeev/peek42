@@ -347,6 +347,12 @@ ${fn}(${expr}, '(${note}) ${expr}');
 
   clear() {
     this._log.textContent = '';
+
+    ['info', 'log', 'warn', 'error'].forEach(level => {
+      this._countsByLevel[level] = 0;
+      this[`_entries-${level}`].textContent = 0;
+    });
+
     flashNotice(this._container);
   }
 
