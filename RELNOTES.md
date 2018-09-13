@@ -1,5 +1,11 @@
 # Release Notes
 
+## 5.4.0
+
+- Add right side toolbar
+- Add the ability to collapse/expand all log entries (&#x25b8; and &#x25be; toolbar buttons)
+- Add the ability to filter log entries by level (colorful toolbar buttons with numbers). They work like a set of checkboxes (each controls the visibility of the particular log entries level) and show the corresponding log entries count
+
 ## 5.3.0
 
 - Add color strip to indicate the log level of each entry
