@@ -18,6 +18,8 @@ class Resizer {
     this._resizeY = 0;
     this._resizeYDelta = 0;
     this._isResizing = false;
+
+    this._syncHeights();
   }
 
   get ratio() {
@@ -70,7 +72,6 @@ class Resizer {
       this._syncHeights();
 
       flashSizeLimit(this._elFlashSizeLimit);
-
       this.resizeEnd();
     }
   }

@@ -78,6 +78,7 @@ class Console {
       elFlashSizeLimit: this._container,
       elsMakeSameHeight: [this._bar1]
     });
+
     this._isMinimized = false;
 
     this._countsByLevel = {
