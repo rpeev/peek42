@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.5.0
+
+- Add the ability to push log messages from server to browser via websocket
+
 ## 5.4.2
 
 - Fix console sizing bug (missing initialization in sizing related code)
