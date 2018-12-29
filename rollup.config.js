@@ -29,6 +29,7 @@ const pluginBabel = babel({
 });
 
 const config = [{
+  external: ['events'],
   input: './src/index.node.js',
   output: {
     format: 'cjs',
@@ -61,6 +62,7 @@ const config = [{
     include: 'src/**'
   }
 }, {
+  external: ['events'],
   input: './src/index.node.mjs',
   output: {
     format: 'es',

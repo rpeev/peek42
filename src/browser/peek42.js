@@ -10,6 +10,7 @@ import {
   _interceptNativeConsoleFn,
   _restoreNativeConsoleFns
 } from './intercept';
+import {cable} from './cable';
 
 function _output(...args) {
   // Allow peek42.console.content to be used without
@@ -39,7 +40,8 @@ Object.assign(peek42, {
   Console,
   sourceTrace,
   formatErrorAsync,
-  reportError
+  reportError,
+  cable
 });
 
 function _onError(ev) {

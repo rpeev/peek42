@@ -1,4 +1,5 @@
 import peek42, {_string, _outputOptsDefaults} from '../universal/base';
+import {cable, cp} from './cable';
 
 function _output(val, comment, opts = {}) {
   opts = {..._outputOptsDefaults, ...opts};
@@ -11,7 +12,9 @@ function _output(val, comment, opts = {}) {
 }
 
 Object.assign(peek42, {
-  _output
+  _output,
+  cable,
+  cp
 });
 
 export default peek42;
