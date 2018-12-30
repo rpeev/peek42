@@ -4,7 +4,11 @@ const cable = {
   __proto__: EventEmitter.prototype,
 
   init(websocket) {
-    this.emit('ready', websocket);
+    if (this._websocket) {
+      this._websocket.terminate();
+    }
+    this._websocket = websocket;
+    this.emit('ready');
   },
 
   get websocket() {
@@ -12,9 +16,7 @@ const cable = {
       if (this._websocket) {
         resolve(this._websocket);
       } else {
-        this.on('ready', websocket => {
-          resolve(this._websocket = this._websocket || websocket);
-        });
+        this.on('ready', () => resolve(this._websocket));
       }
     });
   }
