@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.5.1
+
+- Store the last connected peek42 websocket reference (and terminate the previous)
+
 ## 5.5.0
 
 - Add the ability to push log messages from server to browser via websocket
