@@ -26,9 +26,15 @@ class WS {
   }
 
   onmessage(serverData) {
-    let {msg, comment, opts} = serverData;
+    let {val, comment, opts} = serverData;
 
-    p(msg, comment, opts);
+    if (comment === null) {
+      val = `(server) ${val}`;
+    } else {
+      comment = `(server) ${comment}`;
+    }
+
+    p(val, comment, opts);
   }
 }
 

@@ -99,5 +99,14 @@ const peek42 = {
   use
 };
 
-export {_string, _comment, _outputOptsDefaults, pretty, p, pp, use};
+export {
+  _string,
+  _comment,
+  _outputOptsDefaults,
+  _prettyMakesSense,
+  pretty,
+  p,
+  pp,
+  use
+};
 export default peek42;

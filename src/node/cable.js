@@ -52,10 +52,10 @@ const cable = {
   }
 };
 
-const cp = async (msg, comment, opts) => (await cable.websocket).
-  send(JSON.stringify({msg, comment, opts}));
+const _send = async (val, comment, opts) => (await cable.websocket).
+  send(JSON.stringify({val, comment, opts}));
 
 export {
   cable,
-  cp
+  _send
 };
