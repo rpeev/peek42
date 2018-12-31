@@ -134,7 +134,7 @@ The following properties/functions are available through the **peek42** namespac
     ```
 - `console` (browser only, advanced usage) - the `console` instance, use its methods (after making sure it is initialized either via `Console.instance` wait or in `document` `ready` block) to drive it through code (use `p.api(peek42.console)` to find out the API)
 - `cable` - TODO: Document server/client websocket init and usage
-- `cp` - node only, print to client using websocket
+- `cp` (plus apivis extensions via `use`), `cpp` - node side of a web app, **c**lient **p**rint using websocket
 
 **peek42** intercepts the native console logging function calls, so `console.log` calls (for example) will show up
 

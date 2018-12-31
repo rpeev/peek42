@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.6.0
+
+- Add `cpp` (client pretty print) function and **apivis** extensibility via `use` to `cp` (client print) function
+
 ## 5.5.2
 
 - Tweak node websocket init code to allow dealing with the `cp` dead zone between new client connecting and its websocket becoming available
