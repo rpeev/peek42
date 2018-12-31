@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.5.2
+
+- Tweak node websocket init code to allow dealing with the `cp` dead zone between new client connecting and its websocket becoming available
+
 ## 5.5.1
 
 - Store the last connected peek42 websocket reference (and terminate the previous)
