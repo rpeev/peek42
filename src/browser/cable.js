@@ -1,7 +1,7 @@
 import {p, pp} from '../universal/base';
 
 class WS {
-  constructor(url) {
+  constructor(url = `${location.origin.replace(/^http/, 'ws')}/peek42`) {
     this._url = url;
     this._ws = new WebSocket(this._url);
 
@@ -33,7 +33,7 @@ class WS {
 }
 
 const cable = {
-  init(url = `${location.origin.replace(/^http/, 'ws')}/peek42`) {
+  init(url) {
     this._websocket = new WS(url);
   }
 };
