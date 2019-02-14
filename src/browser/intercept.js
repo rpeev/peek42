@@ -18,9 +18,7 @@ function _interceptNativeConsoleFn(name) {
       {level: name});
 
     try {
-      _fnOrig[name] && _fnOrig[name].call(window.console,
-        loc, '\n', ...arguments
-      );
+      _fnOrig[name] && _fnOrig[name].apply(window.console, arguments);
     } catch (err) {
       formatErrorAsync(err).then(str => {
         p(str,
