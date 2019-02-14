@@ -10,17 +10,21 @@ function _interceptNativeConsoleFn(name) {
 
   window.console[name] = function () {
     let str = map.call(arguments, arg => _string(arg)).join(' ');
+    let stack = ((new Error).stack || '\n').split('\n');
+    let loc = (stack.shift(), stack.shift() || '[source location n/a]');
 
     p(str,
-      _comment('', '', `intercepted console.${name}`),
+      _comment('', '', `console.${name}@${loc}`),
       {level: name});
 
     try {
-      _fnOrig[name] && _fnOrig[name].apply(window.console, arguments);
+      _fnOrig[name] && _fnOrig[name].call(window.console,
+        loc, '\n', ...arguments
+      );
     } catch (err) {
       formatErrorAsync(err).then(str => {
         p(str,
-          _comment('', err, `native console.${name} error`),
+          _comment('', err, `console.${name}@${loc}`),
           {level: 'error', collapsed: true});
       });
     }
