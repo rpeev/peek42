@@ -1,4 +1,4 @@
-import peek42, {p, pp, use} from '../universal/base';
+import peek42, {_comment, p, pp, use} from '../universal/base';
 import './styles/base.scss';
 import Console from './console/console';
 import reportError, {
@@ -34,6 +34,18 @@ Console.instance.then(console => {
     console
   });
 });
+
+p.trace = (comment = undefined, opts = undefined) => {
+  let stack = ((new Error).stack || '\n').split('\n');
+  let trace = (stack.shift(), stack);
+  let loc = trace[0];
+
+  _output(
+    trace.join('\n'),
+    _comment(comment, loc, `trace`),
+    opts
+  );
+};
 
 Object.assign(peek42, {
   _output,

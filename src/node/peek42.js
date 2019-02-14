@@ -35,6 +35,32 @@ function cpp(val, comment = undefined, opts = undefined) {
   );
 }
 
+p.trace = (comment = undefined, opts = undefined) => {
+  let stack = ((new Error).stack || '\n').split('\n').
+    map(entry => entry.trim());
+  let trace = (stack.shift(), stack.shift(), stack);
+  let loc = trace[0];
+
+  _output(
+    trace.join('\n'),
+    _comment(comment, loc, `trace`),
+    opts
+  );
+};
+
+cp.trace = (comment = undefined, opts = undefined) => {
+  let stack = ((new Error).stack || '\n').split('\n').
+    map(entry => entry.trim());
+  let trace = (stack.shift(), stack.shift(), stack);
+  let loc = trace[0];
+
+  _send(
+    trace.join('\n'),
+    _comment(comment, loc, `trace`),
+    opts
+  );
+};
+
 function use(lib) {
   Object.assign(p,
     lib.peek42(p, _comment)
