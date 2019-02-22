@@ -148,7 +148,7 @@ function domStr(elemOrSel = document, {
 
 p.dom = (elemOrSel, comment = undefined, opts = undefined) => {
   _output(
-    domStr(elemOrSel),
+    domStr(elemOrSel, (opts || {}).dom),
     _comment(comment, elemOrSel || document, `dom`),
     opts
   );
