@@ -30,7 +30,9 @@ class Console {
     c: ['peek42.p.chain', 'chain'],
     chain: ['peek42.p.chain', 'chain'],
     a: ['peek42.p.api', 'api'],
-    api: ['peek42.p.api', 'api']
+    api: ['peek42.p.api', 'api'],
+    x: ['peek42.p.dom', 'dom'],
+    dom: ['peek42.p.dom', 'dom']
   };
 
   static get instance() {

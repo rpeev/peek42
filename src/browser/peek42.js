@@ -47,6 +47,113 @@ p.trace = (comment = undefined, opts = undefined) => {
   );
 };
 
+function walk(elem, fnVisit, {
+  level = 0
+} = {}) {
+  fnVisit(elem, level);
+
+  for (let node = elem.firstChild;
+    node;
+    node = node.nextSibling
+  ) {
+    walk(node, fnVisit, {level: level + 1});
+  }
+
+  return elem;
+}
+
+const nodeTypeNames = Object.keys(Node).
+  filter(k => k.match(/_NODE$/)).
+  reduce((obj, k) =>
+    (obj[Node[k]] = k.slice(0, -5).toLowerCase(), obj),
+    {__proto__: null}
+  );
+
+function formatAttrs(attrs) {
+  return Array.from(attrs,
+    attr => `${attr.name}='${attr.value}'`
+  );
+}
+
+function formatNode(types, node, level) {
+  let tag = (node.tagName && node.tagName.toLowerCase()) ||
+    nodeTypeNames[node.nodeType];
+
+  switch (node.nodeType) {
+  case Node.ELEMENT_NODE: {
+    let attrs = (types.has(Node.ATTRIBUTE_NODE)) ?
+      formatAttrs(node.attributes) :
+      [];
+
+    return (attrs.length > 0) ?
+      `${tag}(${attrs.join(', ')})` :
+      tag;
+  } case Node.COMMENT_NODE: {
+    let pad = '  '.repeat(level + 1);
+    let text = node.textContent.trim();
+    let lines = (text) ? text.split('\n') : [];
+    let text1 = lines.map(line => `${pad}|${line}`).join('\n');
+
+    return (text1) ? `${tag}\n${text1}` : tag;
+  } case Node.TEXT_NODE: {
+    let pad = '  '.repeat(level);
+    let text = node.textContent.trim();
+    let lines = (text) ? text.split('\n') : [];
+    let text1 = lines.map((line, i) => (i === 0) ?
+      `|${line}` :
+      `${pad}|${line}`
+    ).join('\n');
+
+    return text1;
+  } default:
+    return tag;
+  }
+}
+
+function domStr(elemOrSel = document, {
+  nodeTypes = [
+    Node.DOCUMENT_NODE,
+    Node.DOCUMENT_FRAGMENT_NODE,
+    Node.ELEMENT_NODE,
+    Node.ATTRIBUTE_NODE,
+    Node.COMMENT_NODE,
+    Node.TEXT_NODE,
+  ],
+  include = [],
+  exclude = [],
+  level = 0
+} = {}) {
+  elemOrSel = (typeof elemOrSel === 'string') ?
+      document.querySelector(elemOrSel) :
+      elemOrSel;
+  let types = new Set(
+    nodeTypes.concat(include).
+      filter(k => !exclude.includes(k))
+  );
+  let str = '';
+
+  walk(elemOrSel, (node, level) => {
+    if (types.has(node.nodeType)) {
+      let pad = '  '.repeat(level);
+      let s = formatNode(types, node, level);
+
+      if (s) {
+        str += `${pad}${s}\n`;
+      }
+    }
+  }, {level});
+
+  return str;
+}
+
+p.dom = (elemOrSel, comment = undefined, opts = undefined) => {
+  _output(
+    domStr(elemOrSel),
+    _comment(comment, elemOrSel || document, `dom`),
+    opts
+  );
+};
+
 Object.assign(peek42, {
   _output,
   Console,
