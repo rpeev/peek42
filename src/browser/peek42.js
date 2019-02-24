@@ -71,7 +71,8 @@ const nodeTypeNames = Object.keys(Node).
 
 function formatAttrs(attrs) {
   return Array.from(attrs,
-    attr => `${attr.name}='${attr.value}'`
+    // TODO: Handle quotes within attribute value
+    attr => `${attr.name}="${attr.value}"`
   );
 }
 
@@ -89,14 +90,19 @@ function formatNode(types, node, level) {
       `${tag}(${attrs.join(', ')})` :
       tag;
   } case Node.COMMENT_NODE: {
-    let pad = '  '.repeat(level + 1);
+    /*let pad = '  '.repeat(level + 1);
     let text = node.textContent.trim();
     let lines = (text) ? text.split('\n') : [];
     let text1 = lines.map(line => `${pad}|${line}`).join('\n');
 
-    return (text1) ? `${tag}\n${text1}` : tag;
+    return (text1) ? `${tag}\n${text1}` : tag;*/
+
+    let pad = '  '.repeat(level + 1);
+    let text = node.textContent.trim();
+
+    return (text) ? `${tag}\n${pad}${JSON.stringify(text)}` : tag;
   } case Node.TEXT_NODE: {
-    let pad = '  '.repeat(level);
+    /*let pad = '  '.repeat(level);
     let text = node.textContent.trim();
     let lines = (text) ? text.split('\n') : [];
     let text1 = lines.map((line, i) => (i === 0) ?
@@ -104,7 +110,11 @@ function formatNode(types, node, level) {
       `${pad}|${line}`
     ).join('\n');
 
-    return text1;
+    return text1;*/
+
+    let text = node.textContent.trim();
+
+    return (text) ? JSON.stringify(text) : '';
   } default:
     return tag;
   }
