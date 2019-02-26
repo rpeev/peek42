@@ -47,7 +47,7 @@ function pretty(val) {
   let keys = [];
 
   return JSON.stringify(val, (k, v) => {
-    if (v instanceof Object) {
+    if (v instanceof Object || _isBasicObject(v)) {
       let seen = objs.indexOf(v);
 
       if (seen === -1) {
@@ -57,7 +57,7 @@ function pretty(val) {
         return v;
       }
 
-      return `${v} (ref to ${keys[seen]})`;
+      return `${_string(v)} (ref to ${keys[seen]})`;
     }
 
     return v;
