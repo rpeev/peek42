@@ -109,11 +109,13 @@ The following properties/functions are available through the **peek42** namespac
 - `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. Setting `{collapsed: true}` causes the log entry to be initially collapsed (only the comment is visible, tap it to expand/collapse using the UI). If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods:
     - `p.type(val[, comment[, opts]])`
     - `p.desc(val, k[, comment[, opts]])`
+    - `p.member(val, k[, comment[, opts]])`
     - `p.members(val[, comment[, opts]])`
+    - `p.inspect(val[, comment[, opts]])` (custom `pp` on steroids)
     - `p.chain(val[, comment[, opts]])`
     - `p.api(val[, comment[, opts]])`
 
-    The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
+    The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.inspect`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
 - `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - same as `p` but uses `JSON.stringify` (handling circular references)
 
     `p` and `pp` are meant to be the primary library interface (do a suitable assignment or import as per the use examples, by default the browser builds assign them to `window`)

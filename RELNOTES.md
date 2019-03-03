@@ -1,5 +1,13 @@
 # Release Notes
 
+## 5.7.0
+
+- Add `p.dom` function to show dom structure ([pug](https://pugjs.org/)-like format)
+- Add `p.trace` function to show stack traces
+- Add JS eval box commands: `x` and `dom` for `p.dom` and `i(nspect)` for `p.inspect` (requires [ApiVis](https://github.com/rpeev/apivis))
+- Show intercepted console methods invocation source location
+- Handle circular refs in bare (`__proto__`: `null`) objects when prettifying
+
 ## 5.6.0
 
 - Add `cpp` (client pretty print) function and **apivis** extensibility via `use` to `cp` (client print) function
