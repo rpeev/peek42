@@ -27,6 +27,8 @@ class Console {
     desc: ['peek42.p.desc', 'desc'],
     m: ['peek42.p.members', 'members'],
     members: ['peek42.p.members', 'members'],
+    i: ['peek42.p.inspect', 'inspect'],
+    inspect: ['peek42.p.inspect', 'inspect'],
     c: ['peek42.p.chain', 'chain'],
     chain: ['peek42.p.chain', 'chain'],
     a: ['peek42.p.api', 'api'],
