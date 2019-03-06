@@ -19,8 +19,8 @@ class Console {
   static _printFnMap = {
     v: ['peek42.p', 'value'],
     value: ['peek42.p', 'value'],
-    p: ['peek42.pp', 'pretty'],
-    pretty: ['peek42.pp', 'pretty'],
+    p: ['peek42.p.pretty', 'pretty'],
+    pretty: ['peek42.p.pretty', 'pretty'],
     t: ['peek42.p.type', 'type'],
     type: ['peek42.p.type', 'type'],
     d: ['peek42.p.desc', 'desc'],

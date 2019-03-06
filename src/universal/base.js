@@ -72,12 +72,16 @@ function p(val, comment = undefined, opts = undefined) {
   );
 }
 
-function pp(val, comment = undefined, opts = undefined) {
+p.pretty = function (val, comment = undefined, opts = undefined) {
   peek42._output(
     (_prettyMakesSense(val)) ? pretty(val) : val,
     _comment(comment, val, 'pretty'),
     opts
   );
+}
+
+function pp(...args) {
+  ((p.inspect) ? p.inspect : p.pretty)(...args);
 }
 
 function use(lib) {
