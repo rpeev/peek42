@@ -78,7 +78,7 @@ p.pretty = function (val, comment = undefined, opts = undefined) {
     _comment(comment, val, 'pretty'),
     opts
   );
-}
+};
 
 function pp(...args) {
   ((p.inspect) ? p.inspect : p.pretty)(...args);
