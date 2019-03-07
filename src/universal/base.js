@@ -3,15 +3,15 @@ import {
   version as LIB_VERSION
 } from '../../package.json';
 
-function _isBasicObject(val) {
+function _isNullProtoObject(val) {
   return typeof val === 'object' &&
     val !== null &&
     val.__proto__ === undefined;
 }
 
 function _string(val) {
-  return (_isBasicObject(val)) ?
-    '[object BasicObject]' :
+  return (_isNullProtoObject(val)) ?
+    '[object Object(proto:Null)]' :
     String(val);
 }
 
@@ -39,7 +39,7 @@ const _outputOptsDefaults = {
 
 function _prettyMakesSense(val) {
   return (val instanceof Object && !(val instanceof Function)) ||
-    _isBasicObject(val);
+    _isNullProtoObject(val);
 }
 
 function pretty(val) {
@@ -47,7 +47,7 @@ function pretty(val) {
   let keys = [];
 
   return JSON.stringify(val, (k, v) => {
-    if (v instanceof Object || _isBasicObject(v)) {
+    if (v instanceof Object || _isNullProtoObject(v)) {
       let seen = objs.indexOf(v);
 
       if (seen === -1) {
