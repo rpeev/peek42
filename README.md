@@ -111,12 +111,13 @@ The following properties/functions are available through the **peek42** namespac
     - `p.desc(val, k[, comment[, opts]])`
     - `p.member(val, k[, comment[, opts]])`
     - `p.members(val[, comment[, opts]])`
-    - `p.inspect(val[, comment[, opts]])` (custom `pp` on steroids)
+    - `p.pretty(val[, comment[, opts]])` (`peek42` built-in)
+    - `p.inspect(val[, comment[, opts]])` (better `pp`)
     - `p.chain(val[, comment[, opts]])`
     - `p.api(val[, comment[, opts]])`
 
     The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.inspect`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
-- `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - same as `p` but uses `JSON.stringify` (handling circular references)
+- `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - Uses `JSON.stringify` (handling circular references) (Since v5.8.0 `pp` uses `p.inspect` if available (falls back to `p.pretty` backed by `JSON.stringify` if not))
 
     `p` and `pp` are meant to be the primary library interface (do a suitable assignment or import as per the use examples, by default the browser builds assign them to `window`)
 - `pretty(val)` - prettified value as printed by `pp` as a string

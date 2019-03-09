@@ -1,5 +1,10 @@
 # Release Notes
 
+## 5.8.0
+
+- Make `pp` call `p.inspect` if available (falls back to `p.pretty` backed by `JSON.stringify`)
+- Tweak null proto objects display
+
 ## 5.7.0
 
 - Add `p.dom` function to show dom structure ([pug](https://pugjs.org/)-like format)
