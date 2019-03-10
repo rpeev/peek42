@@ -32,6 +32,7 @@ function addLogEntry({
   entrySimpleText,
   entryDesc,
   entryText,
+  entryHtml,
   hidden = false,
   level = 'log',
   collapsed = false
@@ -60,7 +61,12 @@ function addLogEntry({
     let elDesc = elToggle.nextElementSibling;
 
     elDesc.textContent = entryDesc;
-    elBody.textContent = entryText;
+
+    if (entryHtml) {
+      elBody.appendChild(entryHtml);
+    } else {
+      elBody.textContent = entryText;
+    }
 
     elHead.addEventListener('click', _onLogEntryHeadClick);
     if (collapsed) {

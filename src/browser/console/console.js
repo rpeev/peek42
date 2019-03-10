@@ -163,21 +163,31 @@ class Console {
       this.show();
     }
 
-    if (comment === null) {
+    if (val instanceof HTMLElement && val.dataset.peek42HtmlEntry) {
       addLogEntry({
         elLog: this._log,
-        entrySimpleText: _string(val),
+        entryDesc: String(comment),
+        entryHtml: val,
         hidden: !active,
         ...opts
       });
     } else {
-      addLogEntry({
-        elLog: this._log,
-        entryDesc: String(comment),
-        entryText: _string(val),
-        hidden: !active,
-        ...opts
-      });
+      if (comment === null) {
+        addLogEntry({
+          elLog: this._log,
+          entrySimpleText: _string(val),
+          hidden: !active,
+          ...opts
+        });
+      } else {
+        addLogEntry({
+          elLog: this._log,
+          entryDesc: String(comment),
+          entryText: _string(val),
+          hidden: !active,
+          ...opts
+        });
+      }
     }
 
     this._countsByLevel[opts.level] += 1;
