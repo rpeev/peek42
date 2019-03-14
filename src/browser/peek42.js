@@ -156,13 +156,15 @@ function domStr(elemOrSel = document, {
   return str;
 }
 
-p.dom = (elemOrSel, comment = undefined, opts = undefined) => {
+p.domStr = (elemOrSel, comment = undefined, opts = undefined) => {
   _output(
     domStr(elemOrSel, (opts || {}).dom),
     _comment(comment, elemOrSel || document, `dom`),
     opts
   );
 };
+
+p.dom = p.domStr;
 
 Object.assign(peek42, {
   _output,
