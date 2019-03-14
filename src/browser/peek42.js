@@ -134,8 +134,8 @@ function domStr(elemOrSel = document, {
   level = 0
 } = {}) {
   elemOrSel = (typeof elemOrSel === 'string') ?
-      document.querySelector(elemOrSel) :
-      elemOrSel;
+    document.querySelector(elemOrSel) :
+    elemOrSel;
   let types = new Set(
     nodeTypes.concat(include).
       filter(k => !exclude.includes(k))
