@@ -90,28 +90,10 @@ function formatNode(types, node, level) {
       `${tag}(${attrs.join(', ')})` :
       tag;
   } case Node.COMMENT_NODE: {
-    /*let pad = '  '.repeat(level + 1);
-    let text = node.textContent.trim();
-    let lines = (text) ? text.split('\n') : [];
-    let text1 = lines.map(line => `${pad}|${line}`).join('\n');
-
-    return (text1) ? `${tag}\n${text1}` : tag;*/
-
-    let pad = '  '.repeat(level + 1);
     let text = node.textContent.trim();
 
-    return (text) ? `${tag}\n${pad}${JSON.stringify(text)}` : tag;
+    return `//${JSON.stringify(text)}`;
   } case Node.TEXT_NODE: {
-    /*let pad = '  '.repeat(level);
-    let text = node.textContent.trim();
-    let lines = (text) ? text.split('\n') : [];
-    let text1 = lines.map((line, i) => (i === 0) ?
-      `|${line}` :
-      `${pad}|${line}`
-    ).join('\n');
-
-    return text1;*/
-
     let text = node.textContent.trim();
 
     return (text) ? JSON.stringify(text) : '';
