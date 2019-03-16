@@ -40,6 +40,6 @@
     "rollup-plugin-sass": "^1.1.0"
   },
   "dependencies": {
-    "apivis": "^6.3.0"
+    "apivis": "^6.4.0"
   }
 }
