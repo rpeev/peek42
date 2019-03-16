@@ -127,10 +127,10 @@ function domStr(elemOrSel = document, {
   walk(elemOrSel, (node, level) => {
     if (types.has(node.nodeType)) {
       let pad = '  '.repeat(level);
-      let s = formatNode(types, node, level);
+      let sn = formatNode(types, node, level);
 
-      if (s) {
-        str += `${pad}${s}\n`;
+      if (sn) {
+        str += `${pad}${sn}\n`;
       }
     }
   }, {level});
