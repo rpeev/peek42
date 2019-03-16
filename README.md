@@ -106,15 +106,23 @@ import peek42, {p, pp} from 'peek42';
 The following properties/functions are available through the **peek42** namespace object returned from `require('peek42')` on node or available as `window.peek42` in the browser (the ES module has the namespace object as default export and `p`, `pp` and `pretty` as named exports):
 
 - `version` - library version
-- `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. Setting `{collapsed: true}` causes the log entry to be initially collapsed (only the comment is visible, tap it to expand/collapse using the UI). If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods:
+- `p(val[, comment[, opts]])` - **p**rint `val`ue with optional `comment` (`undefined` and `''` cause default comment to be generated, `null` means no comment), `opts` can be used to specify the log level - `{level: 'info'}` for example, the default is `{level: 'log'}`, the other possibilities are `'info'`, `'warn'` and `'error'`. Setting `{collapsed: true}` causes the log entry to be initially collapsed (only the comment is visible, tap it to expand/collapse using the UI). If [ApiVis](https://github.com/rpeev/apivis) is installed and `peek42.use(apivis)` executed, `p` itself gains the following methods (some are built-in):
     - `p.type(val[, comment[, opts]])`
     - `p.desc(val, k[, comment[, opts]])`
     - `p.member(val, k[, comment[, opts]])`
     - `p.members(val[, comment[, opts]])`
     - `p.pretty(val[, comment[, opts]])` (`peek42` built-in)
-    - `p.inspect(val[, comment[, opts]])` (better `pp`)
+    - `p.inspectStr(val[, comment[, opts]])` (better `pp`)
+    - `p.inspectHtml(val[, comment[, opts]])` (`p.inspectStr` featuring collapse/expand)
+    - `p.inspect(val[, comment[, opts]])` (uses `p.inspectHtml` if available, falls back to `p.inspectStr`)
     - `p.chain(val[, comment[, opts]])`
-    - `p.api(val[, comment[, opts]])`
+    - `p.apiStr(val[, comment[, opts]])`
+    - `p.apiHtml(val[, comment[, opts]])` (`p.apiStr` featuring collapse/expand)
+    - `p.api(val[, comment[, opts]])` (uses `p.apiHtml` if available, falls back to `p.apiStr`)
+    - `p.domStr(val[, comment[, opts]])` (`peek42` built-in, browser only)
+    - `p.domHtml(val[, comment[, opts]])` (`p.domStr` featuring collapse/expand)
+    - `p.dom(val[, comment[, opts]])` (uses `p.domHtml` if available, falls back to `p.domStr` (browser only))
+    - `p.trace` (`peek42` built-in)
 
     The mandatory parameters mirror those of the corresponding `apivis.xxxStr` functions. `comment` and `opts` are the same as with `p`. `p.members`, `p.inspect`, `p.chain` and `p.api` accept `{indent: 'string'}` as additional option and `p.members` accepts `{indentLevel: 'number'}` as another aditional option
 - `pp(val[, comment[, opts]])` - **p**retty **p**rint `val`ue - Uses `JSON.stringify` (handling circular references) (Since v5.8.0 `pp` uses `p.inspect` if available (falls back to `p.pretty` backed by `JSON.stringify` if not))

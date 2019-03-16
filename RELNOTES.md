@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.9.0
+
+- Add support for displaying precooked DOM log entries (used for displaying `ApiVis` collapsible/expandable inspect functions)
+
 ## 5.8.0
 
 - Make `pp` call `p.inspect` if available (falls back to `p.pretty` backed by `JSON.stringify`)
