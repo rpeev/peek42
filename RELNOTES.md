@@ -1,5 +1,9 @@
 # Release Notes
 
+## 5.9.1
+
+- Update `ApiVis` dependency with bug fixes
+
 ## 5.9.0
 
 - Add support for displaying precooked DOM log entries (used for displaying `ApiVis` collapsible/expandable inspect functions)
