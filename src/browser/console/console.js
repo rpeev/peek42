@@ -25,6 +25,8 @@ class Console {
     type: ['peek42.p.type', 'type'],
     d: ['peek42.p.desc', 'desc'],
     desc: ['peek42.p.desc', 'desc'],
+    M: ['peek42.p.member', 'member'],
+    member: ['peek42.p.member', 'member'],
     m: ['peek42.p.members', 'members'],
     members: ['peek42.p.members', 'members'],
     i: ['peek42.p.inspect', 'inspect'],
